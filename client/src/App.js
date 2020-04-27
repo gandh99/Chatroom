@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from '@material-ui/core/styles'
+import theme from './config/theme'
+import { Provider } from 'react-redux'
+import store from './redux/store'
+import { Switch, Route, Redirect, Router } from 'react-router-dom'
+import { PrivateRoute } from './reusableComponents/PrivateRoute'
+import { history } from './config/history'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Router history={history}>
+          <div className="App">
+            <Switch>
+              {/* <Route path='/login' component={Login} />
+              <Route path='/register' component={Register} />
+              <PrivateRoute exact path='/' component={HomePage} />
+              <Redirect from='*' to='/' /> */}
+            </Switch>
+          </div>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
