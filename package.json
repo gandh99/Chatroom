@@ -26,7 +26,9 @@
   "scripts": {
     "test": "npm run lint && npm run jest",
     "lint": "eslint src/. test/. --config .eslintrc.json",
-    "dev": "nodemon src/",
+    "client": "npm start --prefix client",
+    "server": "nodemon app.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node src/",
     "jest": "jest  --forceExit"
   },
@@ -47,6 +49,7 @@
     "@feathersjs/socketio": "^4.5.3",
     "@feathersjs/transport-commons": "^4.5.3",
     "compression": "^1.7.4",
+    "concurrently": "^5.2.0",
     "cors": "^2.8.5",
     "feathers-mongoose": "^8.3.0",
     "helmet": "^3.22.0",
