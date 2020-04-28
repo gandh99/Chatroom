@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import authenticationReducer from './authenticationReducer'
-import errorReducer from './errorReducer'
+import authentication from './authenticationReducer'
+import error from './errorReducer'
+import globalNotification from './globalNotificationReducer'
 
 export default combineReducers({
-    authentication: authenticationReducer,
-    error: errorReducer,
+    authentication,
+    error,
+    globalNotification
 })

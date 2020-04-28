@@ -5,24 +5,20 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useDispatch } from 'react-redux'
 import { registerUserAction } from '../redux/actions/authenticationActions'
-// import CustomSnackbar from '../reusableComponents/CustomSnackbar'
+import { showSnackbar } from '../redux/actions/globalNotificationActions'
+import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import Header from './Header';
 import Banner from './Banner';
 
 export default function Register() {
     const classes = useStyles()
-
-    // Variables to handle Snackbar for displaying registration success/failure
-    const [showSnackbar, setShowSnackbar] = useState(false)
-    const [snackbarMessage, setSnackbarMessage] = useState('')
-    const [snackbarSeverity, setSnackbarSeverity] = useState('')
+    const dispatch = useDispatch()
 
     // Variables to handle input
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [usernameError, setUsernameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
-    const dispatch = useDispatch()
 
     const onSubmit = event => {
         event.preventDefault()
@@ -31,21 +27,15 @@ export default function Register() {
             return
         }
 
-        dispatch(registerUserAction(username, password))        
-        // registerUser({ username, password },
-        //     // successCallback
-        //     message => {
-        //         setSnackbarMessage(message)
-        //         setSnackbarSeverity('success')
-        //         setShowSnackbar(true)
-        //     },
-        //     // errorCallback
-        //     message => {
-        //         setSnackbarMessage(message)
-        //         setSnackbarSeverity('error')
-        //         setShowSnackbar(true)
-        //     }
-        // )
+        dispatch(
+            registerUserAction(
+                username,
+                password,
+                () => dispatch(showSnackbar('Registration successful.', 'success')),
+                () => dispatch(showSnackbar('Registration unsuccessful.', 'error')),
+            )
+        )
+
         clearFormData()
     }
 
@@ -74,12 +64,6 @@ export default function Register() {
             <Header />
             <Banner />
             <div className='login-container'>
-                {/* <CustomSnackbar
-                    message={snackbarMessage}
-                    show={showSnackbar}
-                    setShowSnackbar={setShowSnackbar}
-                    severity={snackbarSeverity}
-                /> */}
                 <form onSubmit={onSubmit}>
                     <div className='input-container'>
                         <TextField
@@ -110,6 +94,7 @@ export default function Register() {
                     </Button>
                     </div>
                 </form>
+                <CustomSnackbar />
             </div>
         </>
     )
