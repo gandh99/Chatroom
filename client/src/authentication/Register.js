@@ -72,7 +72,7 @@ export default function Register() {
                             required
                             value={username}
                             error={usernameError}
-                            id="standard-basic"
+                            id="username"
                             label="Username" />
                         <TextField
                             onChange={(e) => setPassword(e.target.value)}
@@ -80,7 +80,7 @@ export default function Register() {
                             required
                             value={password}
                             error={passwordError}
-                            id="standard-basic"
+                            id="password"
                             label="Password"
                             type='password' />
                         <Button
