@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles'
 import theme from './config/theme'
 import './app.css'
+import './styles.css'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import { Switch, Route, Redirect, Router } from 'react-router-dom'
