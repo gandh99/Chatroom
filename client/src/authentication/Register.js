@@ -18,7 +18,7 @@ export default function Register() {
     const [snackbarSeverity, setSnackbarSeverity] = useState('')
 
     // Variables to handle input
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [usernameError, setUsernameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
@@ -31,7 +31,7 @@ export default function Register() {
             return
         }
 
-        dispatch(registerUserAction(email, password))        
+        dispatch(registerUserAction(username, password))        
         // registerUser({ username, password },
         //     // successCallback
         //     message => {
@@ -52,7 +52,7 @@ export default function Register() {
     const hasErrors = () => {
         let hasErrors = false
 
-        if (email === '') {
+        if (username === '') {
             setUsernameError(true)
             hasErrors = true
         }
@@ -65,7 +65,7 @@ export default function Register() {
     }
 
     const clearFormData = () => {
-        setEmail('')
+        setUsername('')
         setPassword('')
     }
 
@@ -83,10 +83,10 @@ export default function Register() {
                 <form onSubmit={onSubmit}>
                     <div className='input-container'>
                         <TextField
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => setUsername(e.target.value)}
                             className={classes.textField}
                             required
-                            value={email}
+                            value={username}
                             error={usernameError}
                             id="standard-basic"
                             label="Username" />
