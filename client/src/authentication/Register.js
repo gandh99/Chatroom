@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import './authentication.css'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useDispatch } from 'react-redux'
 import { registerUserAction } from '../redux/actions/authenticationActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
-import Header from './Header';
-import Banner from './Banner';
+import Header from './Header'
+import Banner from './Banner'
 
 export default function Register() {
     const classes = useStyles()

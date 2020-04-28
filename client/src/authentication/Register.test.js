@@ -4,6 +4,9 @@ import Register from './Register'
 import { useDispatch } from 'react-redux'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import CustomSnackbar from '../reusableComponents/CustomSnackbar'
+import Header from './Header'
+import Banner from './Banner'
 
 jest.mock(`react-redux`, () => ({
     useDispatch: jest.fn()
@@ -17,12 +20,17 @@ describe('Register Component', () => {
     })
 
     it('Should render header', () => {
-        const component = wrapper.find('Header')
+        const component = wrapper.find(Header)
         expect(component.length).toBe(1)
     })
 
     it('Should render banner', () => {
-        const component = wrapper.find('Banner')
+        const component = wrapper.find(Banner)
+        expect(component.length).toBe(1)
+    })
+
+    it('Should render custom snackbar', () => {
+        const component = wrapper.find(CustomSnackbar)
         expect(component.length).toBe(1)
     })
 

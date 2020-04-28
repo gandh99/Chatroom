@@ -2,6 +2,8 @@ import App from './App'
 import { shallow } from 'enzyme'
 import { testStore } from './utils/utils'
 import React from 'react'
+import { PrivateRoute } from './reusableComponents/PrivateRoute'
+import { Route } from 'react-router-dom'
 
 // To test a connected component like App, we have to mock the store and dive into the App component itself
 const setup = (initialState={}) => {
@@ -24,12 +26,12 @@ describe('App Component', () => {
     })
 
     it('Should render regular routes', () => {
-        const component = wrapper.find('Route')
+        const component = wrapper.find(Route)
         expect(component.length).toBe(2)
     })
 
     it('Should render private route', () => {
-        const component = wrapper.find('PrivateRoute')
+        const component = wrapper.find(PrivateRoute)
         expect(component.length).toBe(1)
     })
 })
