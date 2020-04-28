@@ -1,36 +1,21 @@
 import App from './App'
 import { shallow } from 'enzyme'
-// import { findByTestAttribute, testStore } from '../utils/index'
+import { testStore } from './utils/utils'
 import React from 'react'
 
 // To test a connected component like App, we have to mock the store and dive into the App component itself
-// const setup = (initialState={}) => {
-//     const store = testStore(initialState)
-//     const wrapper = shallow(<App store={store} />).childAt(0).dive()   // Important!!
-//     return wrapper
-// }
+const setup = (initialState={}) => {
+    const store = testStore(initialState)
+    const wrapper = shallow(<App store={store} />).childAt(0).dive()   // Important!!
+    return wrapper
+}
 
 describe('App Component', () => {
     let wrapper
     beforeEach(() => {
       wrapper = shallow(<App />).childAt(0).dive()
-        // const initialState = {
-        //     posts: [
-        //         {
-        //             title: 'Example Title 1',
-        //             body: 'Some text'
-        //         },
-        //         {
-        //             title: 'Example Title 2',
-        //             body: 'Some text'
-        //         },
-        //         {
-        //             title: 'Example Title 3',
-        //             body: 'Some text'
-        //         },
-        //     ]
-        // }
-        // wrapper = setup(initialState)
+        const initialState = {}
+        wrapper = setup(initialState)
     })
 
     it('Should render without errors', () => {
