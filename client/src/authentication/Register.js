@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useDispatch } from 'react-redux'
 import { registerUserAction } from '../redux/actions/authenticationActions'
-import { showSnackbar } from '../redux/actions/globalNotificationActions'
+import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import Header from './Header';
 import Banner from './Banner';
@@ -31,8 +31,8 @@ export default function Register() {
             registerUserAction(
                 username,
                 password,
-                () => dispatch(showSnackbar('Registration successful.', 'success')),
-                () => dispatch(showSnackbar('Registration unsuccessful.', 'error')),
+                () => dispatch(showSnackbarAction('Registration successful.', 'success')),
+                () => dispatch(showSnackbarAction('Registration unsuccessful.', 'error')),
             )
         )
 

@@ -2,7 +2,7 @@ import React from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { hideSnackbar } from '../redux/actions/globalNotificationActions'
+import { hideSnackbarAction } from '../redux/actions/globalNotificationActions'
 
 export default function CustomSnackbar() {
     const dispatch = useDispatch()
@@ -14,7 +14,7 @@ export default function CustomSnackbar() {
         <Snackbar
             open={show}
             autoHideDuration={5000}
-            onClose={() => dispatch(hideSnackbar())}>
+            onClose={() => dispatch(hideSnackbarAction())}>
             <Alert severity={severity}>
                 {message}
             </Alert>

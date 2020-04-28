@@ -1,6 +1,6 @@
 import { globalNotification } from '../actionTypes'
 
-export const showSnackbar = (message, severity) => dispatch => {
+export const showSnackbarAction = (message, severity) => dispatch => {
     dispatch({
         type: globalNotification.SHOW_SNACKBAR,
         payload: {
@@ -10,7 +10,7 @@ export const showSnackbar = (message, severity) => dispatch => {
     })
 }
 
-export const hideSnackbar = () => dispatch => {
+export const hideSnackbarAction = () => dispatch => {
     dispatch({
         type: globalNotification.HIDE_SNACKBAR,
     })

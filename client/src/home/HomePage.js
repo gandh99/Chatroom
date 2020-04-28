@@ -39,26 +39,27 @@ export default function HomePage() {
     // }, [])
 
     return (
-        <Router>
-            {/* <div className={classes.root}>
-                <DrawerMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-                <div className={clsx(classes.contentArea, {
-                    [classes.contentShift]: drawerOpen,
-                })}>
-                    <Header
-                        drawerOpen={drawerOpen}
-                        setDrawerOpen={setDrawerOpen}
-                    />
-                    <div className={classes.pageArea}>
-                        <Switch>
-                            <PrivateRoute path='/diary' component={DiaryPage} />
-                            <PrivateRoute path='/friends' component={FriendsPage} />
-                            <Redirect from='/' to='/diary' />
-                        </Switch>
-                    </div>
-                </div>
-            </div> */}
-        </Router>
+        <>{'Hello world!'}</>
+        // <Router>
+        //     <div className={classes.root}>
+        //         <DrawerMenu drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+        //         <div className={clsx(classes.contentArea, {
+        //             [classes.contentShift]: drawerOpen,
+        //         })}>
+        //             <Header
+        //                 drawerOpen={drawerOpen}
+        //                 setDrawerOpen={setDrawerOpen}
+        //             />
+        //             <div className={classes.pageArea}>
+        //                 <Switch>
+        //                     <PrivateRoute path='/diary' component={DiaryPage} />
+        //                     <PrivateRoute path='/friends' component={FriendsPage} />
+        //                     <Redirect from='/' to='/diary' />
+        //                 </Switch>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </Router>
     )
 }
 

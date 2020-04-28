@@ -11,7 +11,7 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case authentication.LOGIN_SUCCESS:
-            const { accessToken, userData } = action.payload.data
+            const { accessToken, userData } = action.payload
             localStorage.setItem('accessToken', accessToken)
             localStorage.setItem('userData', JSON.stringify(userData))
 
@@ -20,7 +20,6 @@ export default function (state = initialState, action) {
                 accessToken,
                 userData: userData,
                 isAuthenticated: true,
-                isLoading: false
             }
         case authentication.REGISTER_SUCCESS:
             return {
@@ -35,10 +34,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 accessToken: null,
-                refreshToken: null,
                 userData: null,
                 isAuthenticated: false,
-                isLoading: false
             }
         default:
             return state

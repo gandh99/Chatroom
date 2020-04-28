@@ -4,26 +4,21 @@ import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useDispatch } from 'react-redux'
-// import { loginUserAction } from '../redux/actions/authenticationActions'
-// import CustomSnackbar from '../reusableComponents/CustomSnackbar'
+import { loginUserAction } from '../redux/actions/authenticationActions'
+import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import Header from './Header'
 import Banner from './Banner'
+import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
 export default function Login() {
     const classes = useStyles()
-
-    // Variables to handle Snackbar for displaying login success/failure
-    const [showSnackbar, setShowSnackbar] = useState(false)
-    const [snackbarMessage, setSnackbarMessage] = useState('')
-    const [snackbarSeverity, setSnackbarSeverity] = useState('')
+    const dispatch = useDispatch()
 
     // Variables to handle input
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [usernameError, setUsernameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
-    const dispatch = useDispatch()
-    // const loginUser = (userData, successCallback, errorCallback) => dispatch(loginUserAction(userData, successCallback, errorCallback))
 
     const onSubmit = event => {
         event.preventDefault()
@@ -32,20 +27,13 @@ export default function Login() {
             return
         }
 
-        // loginUser({ username, password },
-        //     // successCallback
-        //     message => {
-        //         setSnackbarMessage(message)
-        //         setSnackbarSeverity('success')
-        //         setShowSnackbar(true)
-        //     },
-        //     // errorCallback
-        //     message => {
-        //         setSnackbarMessage(message)
-        //         setSnackbarSeverity('error')
-        //         setShowSnackbar(true)
-        //     }
-        // )
+        dispatch(
+            loginUserAction(
+                username,
+                password,
+                () => dispatch(showSnackbarAction('Invalid username/password.', 'error')),
+            )
+        )
 
         clearFormData()
     }
@@ -75,12 +63,6 @@ export default function Login() {
             <Header />
             <Banner />
             <div className='login-container'>
-                {/* <CustomSnackbar
-                    message={snackbarMessage}
-                    show={showSnackbar}
-                    setShowSnackbar={setShowSnackbar}
-                    severity={snackbarSeverity}
-                /> */}
                 <form onSubmit={onSubmit}>
                     <div className='input-container'>
                         <TextField
@@ -111,6 +93,7 @@ export default function Login() {
                     </Button>
                     </div>
                 </form>
+                <CustomSnackbar />
             </div>
         </>
     )
