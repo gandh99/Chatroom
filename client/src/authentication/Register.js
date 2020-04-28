@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { useDispatch } from 'react-redux'
-// import { registerUserAction } from '../redux/actions/authenticationActions'
+import { registerUserAction } from '../redux/actions/authenticationActions'
 // import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import Header from './Header';
 import Banner from './Banner';
@@ -18,12 +18,11 @@ export default function Register() {
     const [snackbarSeverity, setSnackbarSeverity] = useState('')
 
     // Variables to handle input
-    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [usernameError, setUsernameError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const dispatch = useDispatch()
-    // const registerUser = (userData, successCallback, errorCallback) => dispatch(registerUserAction(userData, successCallback, errorCallback))
 
     const onSubmit = event => {
         event.preventDefault()
@@ -31,6 +30,8 @@ export default function Register() {
         if (hasErrors()) {
             return
         }
+
+        dispatch(registerUserAction(email, password))        
         // registerUser({ username, password },
         //     // successCallback
         //     message => {
@@ -51,7 +52,7 @@ export default function Register() {
     const hasErrors = () => {
         let hasErrors = false
 
-        if (username === '') {
+        if (email === '') {
             setUsernameError(true)
             hasErrors = true
         }
@@ -64,7 +65,7 @@ export default function Register() {
     }
 
     const clearFormData = () => {
-        setUsername('')
+        setEmail('')
         setPassword('')
     }
 
@@ -82,10 +83,10 @@ export default function Register() {
                 <form onSubmit={onSubmit}>
                     <div className='input-container'>
                         <TextField
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)}
                             className={classes.textField}
                             required
-                            value={username}
+                            value={email}
                             error={usernameError}
                             id="standard-basic"
                             label="Username" />
