@@ -1,44 +1,47 @@
 import React, { useState, useEffect } from 'react'
 import './homepage.css'
-import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Header from './Header'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Redirect,
-} from "react-router-dom"
-import { PrivateRoute } from '../reusableComponents/PrivateRoute'
 import { useDispatch } from 'react-redux'
 import TabBar from './TabBar'
+import ChatsPage from '../chats/ChatsPage'
+import FriendsPage from '../friends/FriendsPage'
+import AccountPage from '../account/AccountPage'
 
 export default function HomePage() {
     const classes = useStyles()
     const dispatch = useDispatch()
 
+    // For tab bar
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0)
+    const handleTabChange = (newValue) => {
+        setSelectedTabIndex(newValue)
+    }
+
+    // Tab content
+    const tabContent = [
+        <ChatsPage />,
+        <FriendsPage />,
+        <AccountPage />
+    ]
+
     return (
-        <Router>
-            <div className={classes.root}>
-                <Header />
-                <div className={classes.pageArea}>
-                    <Switch>
-                        {/* <PrivateRoute path='/diary' component={DiaryPage} />
-                        <PrivateRoute path='/friends' component={FriendsPage} />
-                        <Redirect from='/' to='/diary' /> */}
-                    </Switch>
-                </div>
-                <div className={classes.footer}>
-                    <TabBar />
-                </div>
+        <div className={classes.root}>
+            <Header />
+            <div className={classes.pageArea}>
+                {tabContent[selectedTabIndex]}
             </div>
-        </Router>
+            <div className={classes.footer}>
+                <TabBar handleTabChange={handleTabChange} />
+            </div>
+        </div>
     )
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
     },
-    footer :{
+    footer: {
         position: 'fixed',
         bottom: 0,
         left: 0,

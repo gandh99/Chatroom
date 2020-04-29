@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -8,12 +8,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PeopleIcon from '@material-ui/icons/People';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 
-export default function TabBar() {
+export default function TabBar(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        props.handleTabChange(newValue)
     };
 
     return (
@@ -38,7 +39,6 @@ export default function TabBar() {
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        maxWidth: 500,
     },
     tabs: {
         backgroundColor: theme.palette.grey[100]
