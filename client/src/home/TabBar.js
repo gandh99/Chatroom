@@ -10,19 +10,13 @@ import PersonPinIcon from '@material-ui/icons/PersonPin';
 
 export default function TabBar(props) {
     const classes = useStyles();
-    const [value, setValue] = useState(0);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-        props.handleTabChange(newValue)
-    };
 
     return (
         <Paper square className={classes.root}>
             <Tabs
                 className={classes.tabs}
-                value={value}
-                onChange={handleChange}
+                value={props.selectedTabIndex}
+                onChange={(e, newValue) => props.setSelectedTabIndex(newValue)}
                 variant="fullWidth"
                 indicatorColor="none"
                 textColor="primary"

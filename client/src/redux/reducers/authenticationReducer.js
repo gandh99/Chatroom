@@ -1,6 +1,4 @@
-import {
-    authentication
-} from '../actionTypes'
+import { authentication } from '../actionTypes'
 
 const initialState = {
     accessToken: localStorage.getItem('accessToken'),

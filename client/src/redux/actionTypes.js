@@ -6,6 +6,13 @@ export const authentication = {
     LOGOUT_SUCCESS: 'LOGOUT_SUCCESS'
 }
 
+export const friends = {
+    GET_FRIENDS_SUCCESS: 'GET_FRIENDS_SUCCESS',
+    GET_FRIENDS_FAIL: 'GET_FRIENDS_FAIL',
+    ADD_FRIENDS_SUCCESS: 'ADD_FRIENDS_SUCCESS',
+    ADD_FRIENDS_FAIL: 'ADD_FRIENDS_FAIL',
+}
+
 export const error = {
     GET_ERRORS: 'GET_ERRORS',
     CLEAR_ERRORS: 'CLEAR_ERRORS',

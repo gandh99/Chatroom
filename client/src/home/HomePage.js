@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import './homepage.css'
-import { makeStyles } from '@material-ui/core/styles'
-import Header from './Header'
 import { useDispatch } from 'react-redux'
+import { makeStyles } from '@material-ui/core/styles'
+import './homepage.css'
+import Header from './Header'
 import TabBar from './TabBar'
 import ChatsPage from '../chats/ChatsPage'
 import FriendsPage from '../friends/FriendsPage'
 import AccountPage from '../account/AccountPage'
+import { getFriendsAction } from '../redux/actions/friendsActions'
 
 export default function HomePage() {
     const classes = useStyles()
     const dispatch = useDispatch()
 
     // For tab bar
-    const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-    const handleTabChange = (newValue) => {
-        setSelectedTabIndex(newValue)
-    }
+    const [selectedTabIndex, setSelectedTabIndex] = useState(1)
 
     // Tab content
     const tabContent = [
@@ -25,6 +23,10 @@ export default function HomePage() {
         <AccountPage />
     ]
 
+    useEffect(() => {
+        dispatch(getFriendsAction())
+    }, [])
+
     return (
         <div className={classes.root}>
             <Header />
@@ -32,7 +34,7 @@ export default function HomePage() {
                 {tabContent[selectedTabIndex]}
             </div>
             <div className={classes.footer}>
-                <TabBar handleTabChange={handleTabChange} />
+                <TabBar selectedTabIndex={selectedTabIndex} setSelectedTabIndex={setSelectedTabIndex} />
             </div>
         </div>
     )
