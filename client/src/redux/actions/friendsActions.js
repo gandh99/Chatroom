@@ -2,16 +2,14 @@ import { friends } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
 
-// TODO
 export const getFriendsAction = () => dispatch => {
     client
-        .service('users')
-        .find({ query: { test: 'test' } })
+        .service('friends')
+        .find()
         .then(res => {
-            console.log(res)
             dispatch({
                 type: friends.GET_FRIENDS_SUCCESS,
-                payload: res.data
+                payload: res
             })
         })
         .catch(err => {
