@@ -15,7 +15,7 @@ exports.Friends = class Friends extends Service {
             if (requester.username === username) throw new BadRequest('You cannot add yourself as a friend.')
 
             // Extract the user of the friend
-            recipient = await this.app.service('users').find({
+            const recipientDoc = await this.app.service('users').find({
                 query: {
                     username, 
                     $limit: 1,
@@ -24,11 +24,18 @@ exports.Friends = class Friends extends Service {
             })
 
             // Error: User does not exist
-            if (recipient.total <= 0) throw new NotFound('User does not exist.')
+            if (recipientDoc.total <= 0) throw new NotFound('User does not exist.')
 
             // Error: User is already added as a friend
+            const existingFriendDoc = await this.app.service('friends').find({
+                query: {
+                    recipient: recipientDoc.data[0]
+                }
+            })
+            if (existingFriendDoc.length > 0) throw new BadRequest('User is already a friend.')
 
-            recipient = recipient.data[0]
+            // If no errors, extract the recipient from the doc
+            recipient = recipientDoc.data[0]
         } catch (error) {
             return Promise.reject(error)
         }
@@ -45,11 +52,11 @@ exports.Friends = class Friends extends Service {
         const requester = params.user
 
         // Get the friends in the form of the friends schema
-        const friends = await super.find({ requester })
+        const friendsDoc = await super.find({ requester })
 
         // Get the users schema from the friends schema
-        let friendsUsers = await Promise.all(
-            friends.data.map(friend => (
+        let friendsUsersDoc = await Promise.all(
+            friendsDoc.data.map(friend => (
                 usersService.find({
                     query: {
                         _id: friend.recipient,
@@ -59,7 +66,7 @@ exports.Friends = class Friends extends Service {
                 })
             ))
         )
-        friendsUsers = friendsUsers.map(friendUser => friendUser.data[0])
+        let friendsUsers = friendsUsersDoc.map(friendUser => friendUser.data[0])
 
         return friendsUsers
     }
