@@ -8,6 +8,7 @@ import ChatsPage from '../chats/ChatsPage'
 import FriendsPage from '../friends/FriendsPage'
 import AccountPage from '../account/AccountPage'
 import { getFriendsAction } from '../redux/actions/friendsActions'
+import { reauthenticateAction } from '../redux/actions/authenticationActions'
 
 export default function HomePage() {
     const classes = useStyles()
@@ -24,6 +25,7 @@ export default function HomePage() {
     ]
 
     useEffect(() => {
+        dispatch(reauthenticateAction())
         dispatch(getFriendsAction())
     }, [])
 

@@ -52,3 +52,20 @@ export const loginUserAction = (username, password, error) => dispatch => {
             error()
         })
 }
+
+export const reauthenticateAction = () => dispatch => {
+    client
+        .reAuthenticate()
+        .then(res => {
+            dispatch({
+                type: authentication.REAUTHENTICATE_SUCCESS
+            })
+        })
+        .catch(err => {
+            dispatch(returnErrors(err))
+            dispatch({
+                type: authentication.REAUTHENTICATE_FAIL,
+                payload: err.data
+            })
+        })
+}

@@ -19,6 +19,7 @@ export default function (state = initialState, action) {
                 userData: userData,
                 isAuthenticated: true,
             }
+        case authentication.REAUTHENTICATE_SUCCESS:
         case authentication.REGISTER_SUCCESS:
             return {
                 ...state,
@@ -26,6 +27,7 @@ export default function (state = initialState, action) {
         case authentication.LOGIN_FAIL:
         case authentication.LOGOUT_SUCCESS:
         case authentication.REGISTER_FAIL:
+        case authentication.REAUTHENTICATE_FAIL:
             localStorage.removeItem('accessToken')
             localStorage.removeItem('userData')
 
