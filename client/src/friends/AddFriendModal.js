@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Modal, Button, Form } from 'react-bootstrap'
-import { Tooltip } from '@material-ui/core'
+import { hideAddFriendModalAction } from '../redux/actions/modalActions'
 
 export default function AddDiaryPostModal(props) {
     const classes = useStyles()
@@ -21,7 +21,7 @@ export default function AddDiaryPostModal(props) {
     }
 
     const onHide = () => {
-        props.onHide()
+        dispatch(hideAddFriendModalAction())
     }
 
     const inputIsValid = () => {

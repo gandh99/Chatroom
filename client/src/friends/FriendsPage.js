@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import AddFriendModal from './AddFriendModal'
-import { showAddFriendModalAction, hideAddFriendModalAction } from '../redux/actions/modalActions'
+import { showAddFriendModalAction } from '../redux/actions/modalActions'
 
 export default function Friends() {
     const classes = useStyles()
@@ -15,7 +15,6 @@ export default function Friends() {
             Friends
             <AddFriendModal
                 show={useSelector(state => state.modal.displayAddFriendModal)}
-                onHide={() => dispatch(hideAddFriendModalAction())}
             />
             <Fab
                 className={classes.fab}
