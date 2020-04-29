@@ -21,7 +21,7 @@ export const getFriendsAction = () => dispatch => {
         })
 }
 
-export const addFriendAction = (username) => dispatch => {
+export const addFriendAction = (username, success, error) => dispatch => {
     client
         .service('friends')
         .create({ username }, null)
@@ -30,11 +30,13 @@ export const addFriendAction = (username) => dispatch => {
                 type: friends.ADD_FRIEND_SUCCESS,
                 payload: res
             })
+            success()
         })
         .catch(err => {
             dispatch(returnErrors(err.message))
             dispatch({
                 type: friends.ADD_FRIEND_FAIL
             })
+            error(err.message)
         })
 }

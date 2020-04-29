@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { hideAddFriendModalAction } from '../redux/actions/modalActions'
 import { addFriendAction } from '../redux/actions/friendsActions'
+import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
 export default function AddDiaryPostModal(props) {
     const classes = useStyles()
@@ -18,7 +19,11 @@ export default function AddDiaryPostModal(props) {
             return
         }
 
-        dispatch(addFriendAction(username))
+        dispatch(addFriendAction(
+            username,
+            () => dispatch(showSnackbarAction('Successfully added friend.', 'success')),
+            (errorMessage) => dispatch(showSnackbarAction(errorMessage, 'error')),
+        ))
         onHide()
     }
 

@@ -7,6 +7,7 @@ import TabBar from './TabBar'
 import ChatsPage from '../chats/ChatsPage'
 import FriendsPage from '../friends/FriendsPage'
 import AccountPage from '../account/AccountPage'
+import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
 
@@ -38,6 +39,7 @@ export default function HomePage() {
             <div className={classes.footer}>
                 <TabBar selectedTabIndex={selectedTabIndex} setSelectedTabIndex={setSelectedTabIndex} />
             </div>
+            <CustomSnackbar />
         </div>
     )
 }
