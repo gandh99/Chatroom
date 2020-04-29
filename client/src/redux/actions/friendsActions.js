@@ -24,12 +24,18 @@ export const getFriendsAction = () => dispatch => {
 
 export const addFriendAction = (username) => dispatch => {
     client
-        .service('users')
-        .patch(null, { username })
+        .service('friends')
+        .create({ username }, null)
         .then(res => {
-            console.log(res)
+            dispatch({
+                type: friends.ADD_FRIENDS_SUCCESS,
+                payload: res.data
+            })
         })
         .catch(err => {
-            console.log(err)
+            dispatch(returnErrors(err.message))
+            dispatch({
+                type: friends.ADD_FRIENDS_FAIL
+            })
         })
 }

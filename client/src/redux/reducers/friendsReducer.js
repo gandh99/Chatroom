@@ -2,7 +2,7 @@ import { friends } from '../actionTypes'
 
 const initialState = {
     friends: [],
-    addedFriend: null
+    addedFriend: {}
 }
 
 export default function (state = initialState, action) {
@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
         case friends.ADD_FRIENDS_FAIL:
             return {
                 ...state,
-                addedFriend: null
+                addedFriend: {}
             }
         case friends.GET_FRIENDS_FAIL:
             return {
