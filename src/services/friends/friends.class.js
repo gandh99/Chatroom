@@ -15,7 +15,13 @@ exports.Friends = class Friends extends Service {
             if (requester.username === username) throw new BadRequest('You cannot add yourself as a friend.')
 
             // Extract the user of the friend
-            recipient = await this.app.service('users').find({ query: { username, $limit: 1 } })
+            recipient = await this.app.service('users').find({
+                query: {
+                    username, 
+                    $limit: 1,
+                    $select: ['_id', 'username']
+                }
+            })
 
             // Error: User does not exist
             if (recipient.total <= 0) throw new NotFound('User does not exist.')
@@ -27,10 +33,11 @@ exports.Friends = class Friends extends Service {
             return Promise.reject(error)
         }
 
-        return super.create({
-            requester,
-            recipient
-        })
+        // Create the friend
+        await super.create({ requester, recipient })
+
+        // Return the user schema of the friend
+        return Promise.resolve(recipient)
     }
 
     async find(params) {
@@ -40,7 +47,7 @@ exports.Friends = class Friends extends Service {
         // Get the friends in the form of the friends schema
         const friends = await super.find({ requester })
 
-        // Get the users from the friends schema
+        // Get the users schema from the friends schema
         let friendsUsers = await Promise.all(
             friends.data.map(friend => (
                 usersService.find({
