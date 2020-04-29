@@ -11,8 +11,8 @@ export const authentication = {
 export const friends = {
     GET_FRIENDS_SUCCESS: 'GET_FRIENDS_SUCCESS',
     GET_FRIENDS_FAIL: 'GET_FRIENDS_FAIL',
-    ADD_FRIENDS_SUCCESS: 'ADD_FRIENDS_SUCCESS',
-    ADD_FRIENDS_FAIL: 'ADD_FRIENDS_FAIL',
+    ADD_FRIEND_SUCCESS: 'ADD_FRIEND_SUCCESS',
+    ADD_FRIEND_FAIL: 'ADD_FRIEND_FAIL',
 }
 
 export const error = {

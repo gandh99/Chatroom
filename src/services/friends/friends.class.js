@@ -11,6 +11,7 @@ exports.Friends = class Friends extends Service {
         let recipient
 
         try {
+            // Extract the user of the friend
             recipient = await this.app.service('users').find({ query: { username, $limit: 1 } })
             if (recipient.total <= 0) throw new NotFound('User does not exist.')
             recipient = recipient.data[0]

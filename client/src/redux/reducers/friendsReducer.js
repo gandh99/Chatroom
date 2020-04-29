@@ -12,12 +12,12 @@ export default function (state = initialState, action) {
                 ...state,
                 friends: action.payload
             }
-        case friends.ADD_FRIENDS_SUCCESS:
+        case friends.ADD_FRIEND_SUCCESS:
             return {
                 ...state,
                 addedFriend: action.payload
             }
-        case friends.ADD_FRIENDS_FAIL:
+        case friends.ADD_FRIEND_FAIL:
             return {
                 ...state,
                 addedFriend: {}

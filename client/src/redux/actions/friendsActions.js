@@ -2,6 +2,7 @@ import { friends } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
 
+// TODO
 export const getFriendsAction = () => dispatch => {
     client
         .service('users')
@@ -28,14 +29,14 @@ export const addFriendAction = (username) => dispatch => {
         .create({ username }, null)
         .then(res => {
             dispatch({
-                type: friends.ADD_FRIENDS_SUCCESS,
-                payload: res.data
+                type: friends.ADD_FRIEND_SUCCESS,
+                payload: res
             })
         })
         .catch(err => {
             dispatch(returnErrors(err.message))
             dispatch({
-                type: friends.ADD_FRIENDS_FAIL
+                type: friends.ADD_FRIEND_FAIL
             })
         })
 }
