@@ -87,6 +87,7 @@ export default function Register() {
                             type='submit'
                             style={{ marginTop: '2rem' }}
                             className={classes.button}
+                            id='submit-button'
                             variant="contained"
                             color="primary"
                             disableElevation >

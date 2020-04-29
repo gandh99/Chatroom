@@ -63,19 +63,9 @@ describe('Register Component', () => {
             wrapper = shallow(<Register />)
         })
 
-        // it('Should show error when nothing entered', () => {
-        //     wrapper.find(TextField).at(0).simulate('change', {
-        //         target: { value: 'username' }
-        //     })
-        //     wrapper.update()
-        //     const submitButton = wrapper.find(Button)
-        //     submitButton.simulate('click')
-        //     expect(wrapper.find(TextField).at(0).props().error).toBe(true)
-        // })
-
         it('Should set the username value on change event', () => {
-            const passwordTextField = wrapper.find(TextField).at(0)
-            passwordTextField.simulate('change', {
+            const usernameTextField = wrapper.find(TextField).at(0)
+            usernameTextField.simulate('change', {
                 target: {
                     value: 'username',
                 },
@@ -91,6 +81,9 @@ describe('Register Component', () => {
                 },
             })
             expect(wrapper.find(TextField).at(1).props().value).toBe('password')
+        })
+
+        it('Should respond to button click event', () => {
         })
     })
 })
