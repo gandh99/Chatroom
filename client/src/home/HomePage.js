@@ -44,9 +44,13 @@ export default function HomePage() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        position: 'relative',
+        height: '100vh'
+    },
+    pageArea: {
     },
     footer: {
-        position: 'fixed',
+        position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0
