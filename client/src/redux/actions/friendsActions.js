@@ -21,3 +21,15 @@ export const getFriendsAction = () => dispatch => {
             })
         })
 }
+
+export const addFriendAction = (username) => dispatch => {
+    client
+        .service('users')
+        .patch(null, { username })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}

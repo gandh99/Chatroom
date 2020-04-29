@@ -3,12 +3,13 @@ import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { hideAddFriendModalAction } from '../redux/actions/modalActions'
+import { addFriendAction } from '../redux/actions/friendsActions'
 
 export default function AddDiaryPostModal(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
     const [username, setUsername] = useState('')
-   
+
     const onSubmit = (event) => {
         event.preventDefault()
 
@@ -16,7 +17,8 @@ export default function AddDiaryPostModal(props) {
         if (!inputIsValid()) {
             return
         }
-       
+
+        dispatch(addFriendAction(username))
         onHide()
     }
 
