@@ -24,3 +24,8 @@ export const globalNotification = {
     SHOW_SNACKBAR: 'SHOW_SNACKBAR',
     HIDE_SNACKBAR: 'HIDE_SNACKBAR',
 }
+
+export const modal = {
+    SHOW_ADD_FRIEND_MODAL: 'SHOW_ADD_FRIEND_MODAL',
+    HIDE_ADD_FRIEND_MODAL: 'HIDE_ADD_FRIEND_MODAL',
+}
