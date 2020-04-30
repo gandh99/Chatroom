@@ -6,7 +6,7 @@ import { hideAddFriendModalAction } from '../redux/actions/modalActions'
 import { addFriendAction } from '../redux/actions/friendsActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
-export default function AddDiaryPostModal(props) {
+export default function AddFriendModal(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
     const [username, setUsername] = useState('')
