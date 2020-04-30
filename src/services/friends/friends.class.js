@@ -12,27 +12,28 @@ exports.Friends = class Friends extends Service {
 
         try {
             // Error: Recipient is the same as the requester
-            if (requester.username === username) throw new BadRequest('You cannot add yourself as a friend.')
+            if (this.requesterAndRecipientAreEqual(requester.username, username)) {
+                throw new BadRequest('You cannot add yourself as a friend.')
+            }
 
             // Extract the user of the friend
             const recipientDoc = await this.app.service('users').find({
                 query: {
-                    username, 
+                    username,
                     $limit: 1,
                     $select: ['_id', 'username']
                 }
             })
 
             // Error: User does not exist
-            if (recipientDoc.total <= 0) throw new NotFound('User does not exist.')
+            if (this.resultIsEmpty(recipientDoc)) {
+                throw new NotFound('User does not exist.')
+            }
 
             // Error: User is already added as a friend
-            const existingFriendDoc = await this.app.service('friends').find({
-                query: {
-                    recipient: recipientDoc.data[0]
-                }
-            })
-            if (existingFriendDoc.length > 0) throw new BadRequest('User is already a friend.')
+            if (await this.friendAlreadyExists(requester, recipientDoc.data[0])) {
+                throw new BadRequest('User is already a friend.')
+            }
 
             // If no errors, extract the recipient from the doc
             recipient = recipientDoc.data[0]
@@ -69,6 +70,21 @@ exports.Friends = class Friends extends Service {
         let friendsUsers = friendsUsersDoc.map(friendUser => friendUser.data[0])
 
         return friendsUsers
+    }
+
+    requesterAndRecipientAreEqual(requesterUsername, recipientUsername) {
+        return requesterUsername === recipientUsername
+    }
+
+    resultIsEmpty(document) {
+        return document.total <= 0
+    }
+
+    async friendAlreadyExists(requester, recipient) {
+        const existingFriendDoc = await this.app.service('friends').find({
+            query: { requester, recipient }
+        })
+        return existingFriendDoc.length > 0
     }
 
     setup(app) {
