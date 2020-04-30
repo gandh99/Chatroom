@@ -25,7 +25,23 @@ module.exports = {
     ],
     find: [],
     get: [],
-    create: [],
+    create: [
+      async context => {
+        const { recipient } = context.result
+        const recipientUserDoc =
+          await context.app.service('users').find({
+            query: {
+              _id: recipient,
+              $limit: 1,
+              $select: ['_id', 'username']
+            }
+          })
+
+        context.dispatch = recipientUserDoc.data[0]
+
+        return context
+      }
+    ],
     update: [],
     patch: [],
     remove: []

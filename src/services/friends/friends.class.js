@@ -9,11 +9,7 @@ exports.Friends = class Friends extends Service {
         // Set the recipient. Refers to the friend.
         const { recipient } = data
 
-        // Create the friend
-        await super.create({ requester, recipient })
-
-        // Return the user schema of the friend
-        return Promise.resolve(recipient)
+        return super.create({ requester, recipient })
     }
 
     async find(params) {
