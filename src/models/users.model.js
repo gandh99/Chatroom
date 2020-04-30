@@ -9,7 +9,7 @@ module.exports = function (app) {
   
     username: { type: String, unique: true },
     password: { type: String },
-  
+    personalMessage: { type: String, maxlength: 40, default: 'Hi, I\'m using ChatRoom!'}
   
   }, {
     timestamps: true

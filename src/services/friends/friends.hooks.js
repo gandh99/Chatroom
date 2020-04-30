@@ -68,7 +68,7 @@ async function getUserFromFriend(context, friend) {
     query: {
       _id: friend,
       $limit: 1,
-      $select: ['_id', 'username']
+      $select: ['_id', 'username', 'personalMessage']
     }
   })
   return userDoc.data[0]

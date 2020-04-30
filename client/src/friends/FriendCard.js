@@ -3,9 +3,6 @@ import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardContent, Typography, Button } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
-import MenuBookIcon from '@material-ui/icons/MenuBook'
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline'
 
 export default function FriendCard(props) {
     const classes = useStyles()
@@ -23,7 +20,7 @@ export default function FriendCard(props) {
 
     return (
         <Grid item xs={12} sm={12} md={4} lg={4}>
-            <Card className={classes.card} style={cardStyle}>
+            <Card elevation={0} className={classes.card}>
                 <CardContent className={classes.cardContent}>
                     <div className={classes.displayPictureArea}>
                         <img src={AccountCircle} className={classes.displayPicture} alt='Account Icon' />
@@ -33,22 +30,21 @@ export default function FriendCard(props) {
                             {props.friend.username}
                         </Typography>
                         <Typography className={classes.personalMessage} variant="h6" component="h6">
-                            {/* {props.friend.personalMessage} */}
+                            {props.friend.personalMessage}
                         </Typography>
                     </div>
                 </CardContent>
+                <div className={classes.borderBottom} />
             </Card>
         </Grid>
     )
 }
 
-const cardStyle = {
-    textAlign: 'start',
-    position: 'relative'
-}
 
 const useStyles = makeStyles((theme) => ({
     card: {
+        textAlign: 'start',
+        position: 'relative',
     },
     cardContent: {
         display: 'flex',
@@ -72,19 +68,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0',
         color: theme.palette.text.hint
     },
-    footer: {
-        padding: 0,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-    },
-    footerButton: {
-        textTransform: 'none',
-        verticalAlign: 'middle',
-        padding: '0.5rem 1.5rem',
-        color: theme.palette.grey[600]
-    },
-    footerIcon: {
-        fill: theme.palette.grey[600]
+    borderBottom: {
+        width: '90%',
+        margin: '0 auto',
+        borderBottom: 'solid 1px lightgray'
     }
 }))

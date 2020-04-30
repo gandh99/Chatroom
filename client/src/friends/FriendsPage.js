@@ -20,7 +20,7 @@ export default function Friends() {
             />
             <Grid
                 container
-                spacing={2}
+                spacing={0}
                 direction="row"
                 justify="flex-start"
                 alignItems="center" >
@@ -29,9 +29,8 @@ export default function Friends() {
                         key={friend._id}
                         friend={friend}
                     />
-                ))
-                }
-                ></Grid>
+                ))}
+            </Grid>
             <Fab
                 className={classes.fab}
                 color="secondary"
