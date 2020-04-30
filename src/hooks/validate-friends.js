@@ -20,12 +20,7 @@ module.exports = (options = {}) => {
       throw new BadRequest('You cannot add yourself as a friend.')
     }
 
-    // Error: User does not exist
-    if (await userDoesNotExist(username)) {
-      throw new NotFound('User does not exist.')
-    }
-
-    // TODO: Set the recipient
+    // Set the recipient
     const recipient = await getUserFromUsername(username)
     context.data.recipient = recipient
 
@@ -42,16 +37,6 @@ function requesterAndRecipientAreEqual(requesterUsername, recipientUsername) {
   return requesterUsername === recipientUsername
 }
 
-async function userDoesNotExist(username) {
-  const userDocument = await application.service('users').find({
-    query: {
-      username,
-      $limit: 1
-    }
-  })
-  return userDocument.total <= 0
-}
-
 async function friendAlreadyExists(requester, recipient) {
   const existingFriendDoc = await application.service('friends').find({
     requester, recipient
@@ -66,5 +51,11 @@ async function getUserFromUsername(username) {
       $limit: 1,
     }
   })
+
+  // Error: User does not exist
+  if (recipientDocument.total <= 0) {
+    throw new NotFound('User does not exist.')
+  }
+
   return recipientDocument.data[0]
 }
