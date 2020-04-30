@@ -24,22 +24,14 @@ module.exports = {
       protect('password')
     ],
     find: [
-      // TODO
       async context => {
         const friendsArray = context.result.data
 
-        const usersDoc = await Promise.all(
+        const users = await Promise.all(
           friendsArray.map(friend => (
-            context.app.service('users').find({
-              query: {
-                _id: friend.recipient,
-                $limit: 1,
-                $select: ['_id', 'username']
-              }
-            })
+            getUserFromFriend(context, friend.recipient)
           ))
         )
-        const users = usersDoc.map(user => user.data[0])
         context.dispatch = users
 
         return context
@@ -47,19 +39,10 @@ module.exports = {
     ],
     get: [],
     create: [
-      // TODO
       async context => {
         const { recipient } = context.result
-        const recipientUserDoc =
-          await context.app.service('users').find({
-            query: {
-              _id: recipient,
-              $limit: 1,
-              $select: ['_id', 'username']
-            }
-          })
-
-        context.dispatch = recipientUserDoc.data[0]
+        const user = await getUserFromFriend(context, recipient)
+        context.dispatch = user
 
         return context
       }
@@ -79,3 +62,14 @@ module.exports = {
     remove: []
   }
 };
+
+async function getUserFromFriend(context, friend) {
+  const userDoc = await context.app.service('users').find({
+    query: {
+      _id: friend,
+      $limit: 1,
+      $select: ['_id', 'username']
+    }
+  })
+  return userDoc.data[0]
+}
