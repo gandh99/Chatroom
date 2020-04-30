@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardContent, Typography, Button } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 export default function FriendCard(props) {
     const classes = useStyles()
@@ -33,6 +34,9 @@ export default function FriendCard(props) {
                             {props.friend.personalMessage}
                         </Typography>
                     </div>
+                    <div className={classes.menuArea}>
+                        <MoreVertIcon className={classes.moreVertIcon} />
+                    </div>
                 </CardContent>
                 <div className={classes.borderBottom} />
             </Card>
@@ -49,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
     cardContent: {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'center',
     },
     displayPictureArea: {
         minWidth: '50px',
@@ -67,6 +70,14 @@ const useStyles = makeStyles((theme) => ({
         fontSize: 12,
         margin: '0 0',
         color: theme.palette.text.hint
+    },
+    menuArea: {
+        marginLeft: 'auto',
+        cursor: 'pointer'
+    },
+    moreVertIcon: {
+        color: theme.palette.text.hint,
+        fontSize: 20
     },
     borderBottom: {
         width: '90%',
