@@ -1,5 +1,4 @@
 const { Service } = require('feathers-mongoose');
-const { NotFound, BadRequest } = require('@feathersjs/errors');
 
 exports.Friends = class Friends extends Service {
     async create(data, params) {
@@ -12,28 +11,15 @@ exports.Friends = class Friends extends Service {
         return super.create({ requester, recipient })
     }
 
+    // TODO
     async find(params) {
-        const usersService = this.app.service('users')
         const requester = params.user
+        return super.find({ requester })
+    }
 
-        // Get the friends in the form of the friends schema
-        const friendsDoc = await super.find({ requester })
-
-        // Get the users schema from the friends schema
-        let friendsUsersDoc = await Promise.all(
-            friendsDoc.data.map(friend => (
-                usersService.find({
-                    query: {
-                        _id: friend.recipient,
-                        $limit: 1,
-                        $select: ['_id', 'username']
-                    }
-                })
-            ))
-        )
-        let friendsUsers = friendsUsersDoc.map(friendUser => friendUser.data[0])
-
-        return friendsUsers
+    // TODO
+    async findByParams(params) {
+        return super.find({ query: { ...params }})
     }
 
     setup(app) {

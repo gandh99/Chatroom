@@ -25,7 +25,7 @@ module.exports = (options = {}) => {
       throw new NotFound('User does not exist.')
     }
 
-    // Set the recipient
+    // TODO: Set the recipient
     const recipient = await getUserFromUsername(username)
     context.data.recipient = recipient
 
@@ -53,10 +53,10 @@ async function userDoesNotExist(username) {
 }
 
 async function friendAlreadyExists(requester, recipient) {
-  const existingFriendDoc = await application.service('friends').find({
-    query: { requester, recipient }
+  const existingFriendDoc = await application.service('friends').findByParams({
+    requester, recipient
   })
-  return existingFriendDoc.length > 0
+  return existingFriendDoc.total > 0
 }
 
 async function getUserFromUsername(username) {

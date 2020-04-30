@@ -23,9 +23,31 @@ module.exports = {
       // Always must be the last hook
       protect('password')
     ],
-    find: [],
+    find: [
+      // TODO
+      async context => {
+        const friendsArray = context.result.data
+
+        const usersDoc = await Promise.all(
+          friendsArray.map(friend => (
+            context.app.service('users').find({
+              query: {
+                _id: friend.recipient,
+                $limit: 1,
+                $select: ['_id', 'username']
+              }
+            })
+          ))
+        )
+        const users = usersDoc.map(user => user.data[0])
+        context.dispatch = users
+
+        return context
+      }
+    ],
     get: [],
     create: [
+      // TODO
       async context => {
         const { recipient } = context.result
         const recipientUserDoc =
