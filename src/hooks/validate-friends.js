@@ -53,7 +53,7 @@ async function userDoesNotExist(username) {
 }
 
 async function friendAlreadyExists(requester, recipient) {
-  const existingFriendDoc = await application.service('friends').findByParams({
+  const existingFriendDoc = await application.service('friends').find({
     requester, recipient
   })
   return existingFriendDoc.total > 0

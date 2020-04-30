@@ -11,15 +11,14 @@ exports.Friends = class Friends extends Service {
         return super.create({ requester, recipient })
     }
 
-    // TODO
     async find(params) {
+        if (!params.user) {
+            return super.find({ query: { ...params } })
+        }
+
+        // Control reaches here iff method was called directly by client
         const requester = params.user
         return super.find({ requester })
-    }
-
-    // TODO
-    async findByParams(params) {
-        return super.find({ query: { ...params }})
     }
 
     setup(app) {
