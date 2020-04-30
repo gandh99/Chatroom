@@ -4,12 +4,14 @@ const {
   protect
 } = require('@feathersjs/authentication-local').hooks;
 
+const validateFriends = require('../../hooks/validate-friends');
+
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [],
+    create: [validateFriends()],
     update: [],
     patch: [],
     remove: []
