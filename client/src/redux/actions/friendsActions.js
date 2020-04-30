@@ -40,3 +40,23 @@ export const addFriendAction = (username, success, error) => dispatch => {
             error(err.message)
         })
 }
+
+export const deleteFriendAction = (friendId, success, error) => dispatch => {
+    client
+        .service('friends')
+        .remove(friendId, null)
+        .then(res => {
+            dispatch({
+                type: friends.DELETE_FRIEND_SUCCESS,
+                payload: friendId
+            })
+            success()
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.message))
+            dispatch({
+                type: friends.DELETE_FRIEND_FAIL
+            })
+            error(err.message)
+        })
+}

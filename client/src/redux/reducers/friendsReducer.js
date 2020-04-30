@@ -2,7 +2,8 @@ import { friends } from '../actionTypes'
 
 const initialState = {
     allFriends: [],
-    addedFriend: {}
+    addedFriend: {},
+    deletedFriend: {}
 }
 
 export default function (state = initialState, action) {
@@ -27,6 +28,17 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 addedFriend: {}
+            }
+        case friends.DELETE_FRIEND_SUCCESS:
+            return {
+                ...state,
+                allFriends: state.allFriends.filter(friend => friend._id !== action.payload),
+                deletedFriend: action.payload
+            }
+        case friends.DELETE_FRIEND_FAIL:
+            return {
+                ...state,
+                deletedFriend: {}
             }
         default:
             return state

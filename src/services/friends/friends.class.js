@@ -21,6 +21,18 @@ exports.Friends = class Friends extends Service {
         return super.find({ requester })
     }
 
+    async remove(id, params) {
+        const requester = params.user
+        const recipientId = id
+
+        return await super.remove(null, {
+            query: {
+                requester,
+                recipient: recipientId
+            }
+        })
+    }
+
     setup(app) {
         this.app = app
     }

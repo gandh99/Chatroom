@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardContent, Typography, Menu, MenuItem } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { deleteFriendAction } from '../redux/actions/friendsActions'
+import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
 export default function FriendCard(props) {
     const classes = useStyles()
@@ -19,13 +21,11 @@ export default function FriendCard(props) {
     };
 
     const deleteFriend = () => {
-        // dispatch(unfriendAction(
-        //     props.friend,
-        //     // successCallback
-        //     () => {
-        //         props.displaySnackbar('Unfriended user', 'success')
-        //     }
-        // ))
+        dispatch(deleteFriendAction(
+            props.friend._id,
+            () => dispatch(showSnackbarAction('Deleted friend.', 'success')),
+            () => dispatch(showSnackbarAction('Unable to delete friend.', 'error')),
+        ))
         handleClose()
     }
 
