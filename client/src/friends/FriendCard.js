@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Card, CardContent, Typography, Button } from '@material-ui/core'
+import { Grid, Card, CardContent, Typography, Menu, MenuItem } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
@@ -9,7 +9,16 @@ export default function FriendCard(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
 
-    const unfriendUser = () => {
+    // Menu
+    const [anchorEl, setAnchorEl] = useState(null)
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget)
+    };
+    const handleClose = () => {
+        setAnchorEl(null)
+    };
+
+    const deleteFriend = () => {
         // dispatch(unfriendAction(
         //     props.friend,
         //     // successCallback
@@ -17,6 +26,7 @@ export default function FriendCard(props) {
         //         props.displaySnackbar('Unfriended user', 'success')
         //     }
         // ))
+        handleClose()
     }
 
     return (
@@ -35,7 +45,18 @@ export default function FriendCard(props) {
                         </Typography>
                     </div>
                     <div className={classes.menuArea}>
-                        <MoreVertIcon className={classes.moreVertIcon} />
+                        <MoreVertIcon onClick={handleClick} className={classes.moreVertIcon} />
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem dense className={classes.menuItem} onClick={deleteFriend}>
+                                Delete Friend
+                            </MenuItem>
+                        </Menu>
                     </div>
                 </CardContent>
                 <div className={classes.borderBottom} />
@@ -46,6 +67,7 @@ export default function FriendCard(props) {
 
 
 const useStyles = makeStyles((theme) => ({
+    // Card
     card: {
         textAlign: 'start',
         position: 'relative',
@@ -54,6 +76,8 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'row',
     },
+
+    // Display picture
     displayPictureArea: {
         minWidth: '50px',
         maxWidth: '50px',
@@ -62,6 +86,8 @@ const useStyles = makeStyles((theme) => ({
     displayPicture: {
         width: '100%',
     },
+
+    // User data
     username: {
         fontSize: 16,
         margin: '0.2rem 0'
@@ -71,14 +97,21 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 0',
         color: theme.palette.text.hint
     },
+
+    // Menu
     menuArea: {
         marginLeft: 'auto',
         cursor: 'pointer'
+    },
+    menuItem: {
+        fontSize: 12,
     },
     moreVertIcon: {
         color: theme.palette.text.hint,
         fontSize: 20
     },
+
+    // Misc.
     borderBottom: {
         width: '90%',
         margin: '0 auto',
