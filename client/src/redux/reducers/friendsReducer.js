@@ -1,7 +1,7 @@
 import { friends } from '../actionTypes'
 
 const initialState = {
-    friends: [],
+    allFriends: [],
     addedFriend: {}
 }
 
@@ -10,18 +10,18 @@ export default function (state = initialState, action) {
         case friends.GET_FRIENDS_SUCCESS:
             return {
                 ...state,
-                friends: action.payload
+                allFriends: action.payload
             }
         case friends.GET_FRIENDS_FAIL:
             return {
                 ...state,
-                friends: []
+                allFriends: []
             }
         case friends.ADD_FRIEND_SUCCESS:
             return {
                 ...state,
                 addedFriend: action.payload,
-                friends: [...state.friends, action.payload]
+                allFriends: [...state.allFriends, action.payload]
             }
         case friends.ADD_FRIEND_FAIL:
             return {

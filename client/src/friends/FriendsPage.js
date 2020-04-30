@@ -5,17 +5,33 @@ import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 import AddFriendModal from './AddFriendModal'
 import { showAddFriendModalAction } from '../redux/actions/modalActions'
+import { Grid } from '@material-ui/core'
+import FriendCard from './FriendCard'
 
 export default function Friends() {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const allFriends = useSelector(state => state.friend.allFriends)
 
     return (
         <div className='root'>
-            Friends
             <AddFriendModal
                 show={useSelector(state => state.modal.displayAddFriendModal)}
             />
+            <Grid
+                container
+                spacing={2}
+                direction="row"
+                justify="flex-start"
+                alignItems="center" >
+                {allFriends.map(friend => (
+                    <FriendCard
+                        key={friend._id}
+                        friend={friend}
+                    />
+                ))
+                }
+                ></Grid>
             <Fab
                 className={classes.fab}
                 color="secondary"
