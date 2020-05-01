@@ -29,7 +29,7 @@ describe('CustomSnackbar Component', () => {
         })
     })
 
-    describe('Show modal functionality', () => {
+    describe('Snackbar functionality', () => {
         let wrapper
         let spy = jest.spyOn(redux, 'useSelector')
 
@@ -37,18 +37,42 @@ describe('CustomSnackbar Component', () => {
             redux.useDispatch.mockClear()
         })
 
-        it('Should show the modal', () => {
+        it('Should show the snackbar', () => {
             spy.mockReturnValue(true)
             wrapper = shallow(<CustomSnackbar />)
             const component = wrapper.find(Snackbar)
             expect(component.props().open).toBe(true)
         })
 
-        it('Should not show the modal', () => {
+        it('Should not show the snackbar', () => {
             spy.mockReturnValue(false)
             wrapper = shallow(<CustomSnackbar />)
             const component = wrapper.find(Snackbar)
             expect(component.props().open).toBe(false)
+        })
+    })
+
+    describe('Alert functionality', () => {
+        let wrapper
+        let spy = jest.spyOn(redux, 'useSelector')
+
+        beforeEach(() => {
+            spy.mockClear()
+            redux.useDispatch.mockClear()
+        })
+
+        it('Should describe the alert severity', () => {
+            spy.mockReturnValue('success')
+            wrapper = shallow(<CustomSnackbar />)
+            const component = wrapper.find('Alert')
+            expect(component.props().severity).toBe('success')
+        })
+
+        it('Should describe the alert message', () => {
+            spy.mockReturnValue('message')
+            wrapper = shallow(<CustomSnackbar />)
+            const component = wrapper.find('Alert')
+            expect(component.props().severity).toBe('message')
         })
     })
 })
