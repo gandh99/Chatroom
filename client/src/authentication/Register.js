@@ -9,7 +9,7 @@ import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import Header from './Header'
 import Banner from './Banner'
-import { usernameIsValid } from '../utils/inputValidator'
+import { usernameIsValid } from '../utils/usernameValidator'
 
 export default function Register() {
     const classes = useStyles()

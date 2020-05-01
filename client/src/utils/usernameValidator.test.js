@@ -1,10 +1,8 @@
-import { shallow } from 'enzyme'
-import React from 'react'
 import {
     usernameLengthIsValid,
     usernameCharactersAreValid,
-    stringHasNoTrailingWhitespaces
-} from './inputValidator'
+    usernameHasNoTrailingWhitespaces
+} from './usernameValidator'
 
 describe('InputValidator', () => {
     describe('Username testing', () => {
@@ -58,13 +56,13 @@ describe('InputValidator', () => {
 
         it('Returns false for username with trailing whitespaces', () => {
             let username = ' user'
-            expect(stringHasNoTrailingWhitespaces(username)).toBeFalsy()
+            expect(usernameHasNoTrailingWhitespaces(username)).toBeFalsy()
 
             username = 'user '
-            expect(stringHasNoTrailingWhitespaces(username)).toBeFalsy()
+            expect(usernameHasNoTrailingWhitespaces(username)).toBeFalsy()
 
             username = ' '
-            expect(stringHasNoTrailingWhitespaces(username)).toBeFalsy()
+            expect(usernameHasNoTrailingWhitespaces(username)).toBeFalsy()
         })
     })
 })
