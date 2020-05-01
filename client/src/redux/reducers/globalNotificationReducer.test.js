@@ -1,7 +1,7 @@
 import { globalNotification } from '../actionTypes'
 import globalNotificationReducer from './globalNotificationReducer'
 
-describe('errorReducer', () => {
+describe('globalNotificationReducer', () => {
     const initialState = {
         snackbar: {
             show: false,
