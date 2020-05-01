@@ -7,7 +7,8 @@
     "client": "cd client && npm start",
     "server": "cd server && nodemon app.js",
     "test-client": "CI=true npm test --all --prefix client",
-    "test": "npm run test-client",
+    "test-server": "CI=true npm run test-no-lint --all --prefix server",
+    "test": "concurrently \"npm run test-client\" \"npm run test-server\"",
     "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "husky": {

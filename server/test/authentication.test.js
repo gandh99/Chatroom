@@ -7,8 +7,8 @@ describe('authentication', () => {
   
   describe('local strategy', () => {
     const userInfo = {
-      email: 'someone@example.com',
-      password: 'supersecret'
+      username: 'm',
+      password: 'm'
     };
 
     beforeAll(async () => {
