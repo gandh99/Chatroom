@@ -30,6 +30,9 @@
     "start": "node src/",
     "jest": "jest  --forceExit"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "standard": {
     "env": [
       "jest"
