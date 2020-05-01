@@ -51,6 +51,7 @@ export default function AddFriendModal(props) {
                 <Modal.Body className='modal-body'>
                     <Form.Group controlId={'username'}>
                         <Form.Control
+                            value={username}
                             className='form-text-input'
                             type="text"
                             placeholder='Enter username'
