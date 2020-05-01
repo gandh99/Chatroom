@@ -68,18 +68,18 @@ export default function Login() {
                         <TextField
                             onChange={(e) => setUsername(e.target.value)}
                             className={classes.textField}
+                            id='username'
                             required
                             value={username}
                             error={usernameError}
-                            id="standard-basic"
                             label="Username" />
                         <TextField
                             onChange={(e) => setPassword(e.target.value)}
                             className={classes.textField}
+                            id='password'
                             required
                             value={password}
                             error={passwordError}
-                            id="standard-basic"
                             label="Password"
                             type='password' />
                         <Button
