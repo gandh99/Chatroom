@@ -9,6 +9,7 @@ import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import Header from './Header'
 import Banner from './Banner'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
+import { usernameIsValid } from '../utils/inputValidator'
 
 export default function Login() {
     const classes = useStyles()
@@ -41,7 +42,7 @@ export default function Login() {
     const hasErrors = () => {
         let hasErrors = false
 
-        if (username === '') {
+        if (!usernameIsValid(username)) {
             setUsernameError(true)
             hasErrors = true
         }

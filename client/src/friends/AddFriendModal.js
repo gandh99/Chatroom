@@ -5,6 +5,7 @@ import { Modal, Button, Form } from 'react-bootstrap'
 import { hideAddFriendModalAction } from '../redux/actions/modalActions'
 import { addFriendAction } from '../redux/actions/friendsActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
+import { usernameIsValid } from '../utils/inputValidator'
 
 export default function AddFriendModal(props) {
     const classes = useStyles()
@@ -15,7 +16,7 @@ export default function AddFriendModal(props) {
         event.preventDefault()
 
         // Validate input
-        if (!inputIsValid()) {
+        if (!usernameIsValid(username)) {
             return
         }
 
@@ -29,10 +30,6 @@ export default function AddFriendModal(props) {
 
     const onHide = () => {
         dispatch(hideAddFriendModalAction())
-    }
-
-    const inputIsValid = () => {
-        return username.length > 0 && username.length <= 10
     }
 
     return (
