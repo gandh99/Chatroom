@@ -8,7 +8,7 @@ module.exports = function (app) {
   const schema = new mongooseClient.Schema({
   
     username: { type: String, maxlength: 15, unique: true },
-    password: { type: String, select: false },
+    password: { type: String },
     personalMessage: { type: String, maxlength: 40, default: 'Hi, I\'m using ChatRoom!'}
   
   }, {
