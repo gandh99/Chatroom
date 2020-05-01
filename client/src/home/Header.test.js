@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme'
 import React from 'react'
 import Header from './Header'
-import { AppBar, Toolbar } from '@material-ui/core'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 
 describe('Header Component', () => {
     describe('Renders', () => {
@@ -18,6 +18,11 @@ describe('Header Component', () => {
 
         it('Should render toolbar', () => {
             const component = wrapper.find(Toolbar)
+            expect(component.length).toBe(1)
+        })
+
+        it('Should render typography', () => {
+            const component = wrapper.find(Typography)
             expect(component.length).toBe(1)
         })
     })
