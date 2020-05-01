@@ -10,6 +10,7 @@ import Header from './Header'
 import Banner from './Banner'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 import { usernameIsValid } from '../utils/usernameValidator'
+import { passwordIsValid } from '../utils/passwordValidator'
 
 export default function Login() {
     const classes = useStyles()
@@ -46,7 +47,7 @@ export default function Login() {
             setUsernameError(true)
             hasErrors = true
         }
-        if (password === '') {
+        if (!passwordIsValid(password)) {
             setPasswordError(true)
             hasErrors = true
         }

@@ -4,7 +4,7 @@ import {
     usernameHasNoTrailingWhitespaces
 } from './usernameValidator'
 
-describe('InputValidator', () => {
+describe('UsernameValidator', () => {
     describe('Username testing', () => {
         it('Returns false for empty username', () => {
             const username = ''

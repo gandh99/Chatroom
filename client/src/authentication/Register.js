@@ -10,6 +10,7 @@ import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import Header from './Header'
 import Banner from './Banner'
 import { usernameIsValid } from '../utils/usernameValidator'
+import { passwordIsValid } from '../utils/passwordValidator'
 
 export default function Register() {
     const classes = useStyles()
@@ -47,7 +48,7 @@ export default function Register() {
             setUsernameError(true)
             hasErrors = true
         }
-        if (password === '') {
+        if (!passwordIsValid(password)) {
             setPasswordError(true)
             hasErrors = true
         }
