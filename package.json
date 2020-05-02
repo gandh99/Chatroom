@@ -9,7 +9,7 @@
     "server": "cd server && nodemon app.js",
     "test-client": "CI=true npm test --all --prefix client",
     "test-server": "CI=true npm run test-no-lint --all --prefix server",
-    "test": "concurrently \"npm run test-client\" \"npm run test-server\"",
+    "test": "concurrently \"npm run test-client\"",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
