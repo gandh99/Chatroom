@@ -4,7 +4,10 @@ const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('./logger');
+
+// Not from original code
 require('dotenv').config({ path: '../config/config.env' })
+process.env['NODE_CONFIG_DIR'] = path.join(__dirname, 'config/')
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
