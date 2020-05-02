@@ -1,6 +1,6 @@
-# chatroom
+# Chatroom
 
-> Chatroom
+A messenger app that allows you to add friends and chat with them. Built with the MERN stack using FeathersJS.
 
 ## Deployment
 
@@ -27,10 +27,11 @@ Therefore, in order to correctly deploy this project, the following steps had to
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../../client/build/index.html'))
 })
-``` at the end of the app.js file.
-    - This tells Heroku where to look for the entry point in the React app, which is located in the client/ folder (at the same level as server/).
+``` 
+at the end of the app.js file. This tells Heroku where to look for the entry point in the React app, which is located in the client/ folder (at the same level as server/).
+
 5. Either move `app.use(express.notFound())` all the way to very end of app.js, or remove it entirely.
-    - This is because leaving it in its original position would cause the Heroku app to always server the default Feathers' 404 Not Found page.
+    - This is because leaving it in its original place would cause the Heroku app to always server the default Feathers' 404 Not Found page.
 6. Ensure that the contents of the config/ folder are pushed to Git and Heroku.
     - Be extra careful not to include any sensitive information like passwords and keys.
     - All sensitive information should be set in Heroku's settings, under the config variables.
@@ -39,8 +40,8 @@ app.get('*', (req, res) => {
 8. In MongoDB Atlas, make sure to whitelist `0.0.0.0/0` so that the Heroku app can connect to it.
 
 References:
-    - [How to setup Heroku when your server entry point is in a sub-folder.](https://stackoverflow.com/a/61354113)
-    - [Configuring the production.json file, and teaching app.js how to find it.](https://docs.feathersjs.com/api/configuration.html#usage)
+- [How to setup Heroku when your server entry point is in a sub-folder.](https://stackoverflow.com/a/61354113)
+- [Configuring the production.json file, and teaching app.js how to find it.](https://docs.feathersjs.com/api/configuration.html#usage)
 
 ## About
 
