@@ -4,7 +4,7 @@
   "description": "> Chatroom",
   "main": "index.js",
   "scripts": {
-    "start": "cd server && node src/",
+    "start": "cd server && npm install && node src/",
     "client": "cd client && npm start",
     "server": "cd server && nodemon app.js",
     "test-client": "CI=true npm test --all --prefix client",
