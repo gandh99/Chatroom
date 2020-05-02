@@ -5,8 +5,11 @@ const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('./logger');
 
-// Not from original code
-process.env['NODE_CONFIG_DIR'] = path.join(__dirname, '../config-dummy/')
+// Setup dotenv and point it to the correct location
+require('dotenv').config({ path: path.resolve(__dirname, '../config/.env') })
+
+// Point Heroku to the location of the config/ folder
+process.env['NODE_CONFIG_DIR'] = path.join(__dirname, '../config/')
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
