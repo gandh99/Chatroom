@@ -1,6 +1,6 @@
 {
-  "host": "localhost",
-  "port": 5000,
+  "host": "feathers-chatroom.herokuapp.com",
+  "port": "PORT",
   "public": "../public/",
   "paginate": {
     "default": 10,
@@ -28,5 +28,6 @@
       "usernameField": "\\username",
       "passwordField": "password"
     }
-  }
+  },
+  "mongodb": "MONGO_URI"
 }
