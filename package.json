@@ -11,7 +11,7 @@
     "test-server": "CI=true npm run test-no-lint --all --prefix server",
     "test": "concurrently \"npm run test-client\" \"npm run test-server\"",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "husky": {
     "hooks": {
