@@ -1,11 +1,10 @@
 import io from 'socket.io-client';
 import feathers from '@feathersjs/client';
 
-let socket
+// Default URL, used only in development
+let socket = io('http://localhost:5000')
 
-if (process.env.NODE_ENV === 'development') {
-  socket = io('http://localhost:5000');
-} else if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   socket = io('https://feathers-chatroom.herokuapp.com')
 }
 
