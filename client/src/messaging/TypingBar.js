@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { stringLengthIsValid } from '../utils/utils'
 import TextareaAutosize from 'react-autosize-textarea'
 import SendIcon from '@material-ui/icons/Send'
+import { useDispatch } from 'react-redux'
+
+const minMessageLength = 1
+const maxMessageLength = 200
+
+function inputIsValid(message) {
+    return stringLengthIsValid(message, minMessageLength, maxMessageLength)
+}
 
 export default function TypingBar() {
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const [message, setMessage] = useState('')
+
+    const onSubmit = (event, message) => {
+        event.preventDefault()
+
+        if (!inputIsValid(message)) {
+            return
+        }
+    }
 
     return (
         <div className={classes.root}>
             <TextareaAutosize
                 className={classes.messageArea}
                 placeholder='Type a Message'
-                rows='1'
-                maxLength='200'
+                rows={1}
+                maxLength={maxMessageLength}
+                onChange={(e) => { setMessage(e.target.value) }}
             />
             <SendIcon
                 className={classes.sendIcon}
@@ -39,5 +59,6 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '1rem',
         marginRight: '0.5rem',
         color: 'white',
+        cursor: 'pointer'
     }
 }))

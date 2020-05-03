@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         bottom: 0,
         left: 0,
-        width: '100vw'
+        width: '100vw',
+        padding: '0.8rem 0'
     }
 }))

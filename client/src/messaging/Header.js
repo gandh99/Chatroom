@@ -23,7 +23,7 @@ export default function Header(props) {
                             <img src={AccountCircle} className={classes.displayPicture} alt='Account Icon' />
                         </div>
                         <div className={classes.groupInfoArea}>
-                            <Typography className={classes.groupName} variant="h7" color="inherit">
+                            <Typography className={classes.groupName} color="inherit">
                                 Group Name
                             </Typography>
                         </div>
