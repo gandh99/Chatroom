@@ -5,6 +5,7 @@ import { Grid, Button } from '@material-ui/core'
 import Header from './Header'
 import { history } from '../config/history'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
+import TypingBar from './TypingBar'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
@@ -33,12 +34,9 @@ export default function CreateChatGroup() {
                     />
                 ))}
             </Grid> */}
-            <Button
-                className={classes.button} 
-                variant="contained" 
-                color="primary">
-                Start Chat
-            </Button>
+            <div className={classes.typingBar}>
+                <TypingBar />
+            </div>
         </div>
     )
 }
@@ -49,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     grid: {
         paddingBottom: '3rem'
     },
-    button: {
+    typingBar: {
         position: 'fixed',
         bottom: 0,
         left: 0,
