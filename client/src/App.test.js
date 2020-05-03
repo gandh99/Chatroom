@@ -30,8 +30,8 @@ describe('App Component', () => {
         expect(component.length).toBe(2)
     })
 
-    it('Should render private route', () => {
+    it('Should render private routes', () => {
         const component = wrapper.find(PrivateRoute)
-        expect(component.length).toBe(1)
+        expect(component.length).toBe(2)
     })
 })

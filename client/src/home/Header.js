@@ -11,7 +11,7 @@ export default function Header() {
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar} elevation={0}>
                 <Toolbar>
-                    <Typography className='logo' variant="h6" color="inherit">
+                    <Typography className={classes.logo} variant="h6" color="inherit">
                         ChatRoom
                     </Typography>
                 </Toolbar>
