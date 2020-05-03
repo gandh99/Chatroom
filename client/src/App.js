@@ -10,7 +10,8 @@ import Register from './authentication/Register'
 import HomePage from './home/HomePage'
 import { PrivateRoute } from './reusableComponents/PrivateRoute'
 import { history } from './config/history'
-import CreateChatGroup from './createChatGroup/CreateChatGroup';
+import CreateChatGroup from './createChatGroup/CreateChatGroup'
+import MessagingPage from './messaging/MessagingPage'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register} />
               <PrivateRoute exact path='/create-chat-group' component={CreateChatGroup} />
+              <PrivateRoute exact path='/messaging' component={MessagingPage} />
               <PrivateRoute exact path='/' component={HomePage} />
               <Redirect from='*' to='/' />
             </Switch>
