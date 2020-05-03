@@ -21,7 +21,7 @@ export default function Header(props) {
                     <div className={classes.center}>
                         <Typography className={classes.logo} variant="h6" color="inherit">
                             {props.title}
-                    </Typography>
+                        </Typography>
                     </div>
                     <div className={classes.right} />
                 </Toolbar>
