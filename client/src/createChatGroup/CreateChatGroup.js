@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Button } from '@material-ui/core'
-import FriendCard from '../friends/FriendCard'
+import FriendCard from './FriendCard'
 import Header from './Header'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
@@ -10,12 +10,21 @@ import { reauthenticateAction } from '../redux/actions/authenticationActions'
 export default function CreateChatGroup() {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const [selectedFriends, setSelectedFriends] = useState([])
     const allFriends = useSelector(state => state.friend.allFriends)
 
     useEffect(() => {
         dispatch(reauthenticateAction())
         dispatch(getFriendsAction())
     }, [])
+
+    const selectFriend = (friend) => {
+        setSelectedFriends([...selectedFriends, friend])
+    }
+
+    const unselectFriend = (friend) => {
+        setSelectedFriends(selectedFriends.filter(selectedFriend => selectedFriend._id !== friend._id))
+    }
 
     return (
         <div className='root'>
@@ -31,6 +40,8 @@ export default function CreateChatGroup() {
                     <FriendCard
                         key={friend._id}
                         friend={friend}
+                        selectFriend={() => selectFriend(friend)}
+                        unselectFriend={() => unselectFriend(friend)}
                     />
                 ))}
             </Grid>

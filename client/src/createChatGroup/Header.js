@@ -16,14 +16,11 @@ export default function Header() {
                     <div className={classes.left}>
                         <div onClick={() => history.push('/')} className={classes.back}>
                             <KeyboardBackspaceIcon />
-                            <Typography className={classes.homeText} variant="h7" color="inherit">
-                                Home
-                            </Typography>
                         </div>
                     </div>
                     <div className={classes.center}>
                         <Typography className={classes.logo} variant="h6" color="inherit">
-                            Start a New Chat
+                            New Chat
                     </Typography>
                     </div>
                     <div className={classes.right} />
@@ -49,9 +46,6 @@ const useStyles = makeStyles((theme) => ({
     back: {
         cursor: 'pointer',
         float: 'left'
-    },
-    homeText: {
-        padding: '0 1rem'
     },
     logo: {
     },
