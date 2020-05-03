@@ -82,20 +82,4 @@ describe('CreateChatGroup Component', () => {
             expect(component.props().children).toBe('Start Chat')
         })
     })
-
-    describe('Button renders correctly (disabled/enabled)', () => {
-        let wrapper
-        const allFriends = []
-
-        beforeEach(() => {
-            spy.mockReturnValue(allFriends)
-            redux.useDispatch.mockClear()
-            wrapper = shallow(<CreateChatGroup />)
-        })
-
-        it('Button should be disabled if no ', () => {
-            // const component = wrapper.find(Button)
-            // expect(component.props().children).toBe('Start Chat')
-        })
-    })
 })
