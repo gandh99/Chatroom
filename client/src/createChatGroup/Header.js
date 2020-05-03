@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import { Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 
-export default function Header() {
+export default function Header(props) {
     const classes = useStyles()
 
     return (
@@ -20,7 +20,7 @@ export default function Header() {
                     </div>
                     <div className={classes.center}>
                         <Typography className={classes.logo} variant="h6" color="inherit">
-                            New Chat
+                            {props.title}
                     </Typography>
                     </div>
                     <div className={classes.right} />
@@ -45,7 +45,8 @@ const useStyles = makeStyles((theme) => ({
     },
     back: {
         cursor: 'pointer',
-        float: 'left'
+        float: 'left',
+        padding: '0.5rem',
     },
     logo: {
     },
