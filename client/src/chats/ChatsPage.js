@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
+import { history } from '../config/history'
 import Fab from '@material-ui/core/Fab'
 import ChatIcon from '@material-ui/icons/Chat'
 
@@ -14,7 +15,7 @@ export default function Chats() {
                 className={classes.fab}
                 color="secondary"
                 aria-label="add"
-            // onClick={() => dispatch(showAddFriendModalAction())}
+                onClick={() => history.push('/create-chat-group')}
             >
                 <ChatIcon />
             </Fab>

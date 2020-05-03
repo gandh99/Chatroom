@@ -19,6 +19,7 @@ export default function Friends() {
                 show={useSelector(state => state.modal.displayAddFriendModal)}
             />
             <Grid
+                className={classes.grid}
                 container
                 spacing={0}
                 direction="row"
@@ -45,6 +46,9 @@ export default function Friends() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
+    },
+    grid: {
+        paddingBottom: '3rem'
     },
     fab: {
         position: 'absolute',
