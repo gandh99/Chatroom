@@ -16,7 +16,7 @@ export default function HomePage() {
     const dispatch = useDispatch()
 
     // For tab bar
-    const [selectedTabIndex, setSelectedTabIndex] = useState(1)
+    const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
     // Tab content
     const tabContent = [

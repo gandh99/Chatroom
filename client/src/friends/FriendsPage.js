@@ -49,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
     fab: {
         position: 'absolute',
         bottom: '70px',
-        right: '20px'
+        right: '20px',
+        backgroundColor: theme.palette.primary.main,
+        '&:hover': {
+            backgroundColor: theme.palette.primary.dark
+        }
     }
 }))
