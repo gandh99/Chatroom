@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { stringLengthIsValid } from '../utils/utils'
 import TextareaAutosize from 'react-autosize-textarea'
@@ -24,7 +24,24 @@ export default function TypingBar() {
     // Only needed if we need to create a new chat group before sending the message
     const newChatGroupMembers = useSelector(state => state.chatGroup.newChatGroupMembers)
 
-    const onSubmit = (event) => {
+    // For sending a message to the chat group
+    const sendMessage = (message, currentChatGroup) => {
+        if (!inputIsValid(message)) return
+
+        dispatch(sendMessageAction(
+            message,
+            currentChatGroup,
+            err => dispatch(showSnackbarAction(err, 'error')),
+        ))
+        setMessage('')
+    }
+
+    // Triggered only when a new chat group is first created before sending the message
+    useEffect(() => {
+        sendMessage(message, currentChatGroup)        
+    }, [currentChatGroup])
+
+    const onSubmit = async event => {
         event.preventDefault()
 
         if (!inputIsValid(message)) {
@@ -38,14 +55,16 @@ export default function TypingBar() {
             dispatch(createChatGroupAction(
                 newChatGroupMembers,
                 () => {
-                    setMessage('')
                     dispatch(resetNewChatGroupMembersAction())
                 },
-                err => dispatch(showSnackbarAction(err)),
+                err => dispatch(showSnackbarAction(err, 'error')),
             ))
+
+            return
         }
 
-        // dispatch(sendMessageAction(message, currentChatgroup))
+        // Send the message
+        sendMessage(message, currentChatGroup)
     }
 
     return (

@@ -6,6 +6,7 @@ import Header from './Header'
 import { history } from '../config/history'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import TypingBar from './TypingBar'
+import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
@@ -37,6 +38,7 @@ export default function CreateChatGroup() {
             <div className={classes.typingBar}>
                 <TypingBar />
             </div>
+            <CustomSnackbar />
         </div>
     )
 }

@@ -38,6 +38,6 @@ export const createChatGroupAction = (members, success, error) => dispatch => {
                 type: chatGroup.CREATE_CHATGROUP_FAIL,
                 payload: err.data
             })
-            error('Unable to send message. Please try again later.')
+            error('Unable to create chat group. Please try again later.')
         })
 }
