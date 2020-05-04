@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { stringLengthIsValid } from '../utils/utils'
 import TextareaAutosize from 'react-autosize-textarea'
 import SendIcon from '@material-ui/icons/Send'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { sendMessageAction } from '../redux/actions/messageActions'
-import { createChatgroupAction } from '../redux/actions/chatgroupActions'
+import { createChatgroupAction, resetNewChatgroupMembersAction } from '../redux/actions/chatgroupActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
 const minMessageLength = 1
@@ -20,6 +20,9 @@ export default function TypingBar() {
     const dispatch = useDispatch()
     const [message, setMessage] = useState('')
 
+    // Only needed if we need to create a new chat group before sending the message
+    const newChatGroupMembers = useSelector(state => state.chatgroup.newChatGroupMembers)
+
     const onSubmit = (event) => {
         event.preventDefault()
 
@@ -28,10 +31,17 @@ export default function TypingBar() {
         }
 
         // TODO: If this is a new chat group, first create a new chat group
-        dispatch(createChatgroupAction(
-            () => setMessage(''),
-            err => dispatch(showSnackbarAction(err)),
-        ))
+        // DONE: First verify that newChatGroupParticipants is not empty!!
+        if (newChatGroupMembers.length > 0) {
+            dispatch(createChatgroupAction(
+                newChatGroupMembers,
+                () => {
+                    setMessage('')
+                    dispatch(resetNewChatgroupMembersAction())
+                },
+                err => dispatch(showSnackbarAction(err)),
+            ))
+        }
     }
 
     return (

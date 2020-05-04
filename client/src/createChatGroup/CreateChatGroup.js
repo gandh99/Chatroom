@@ -7,6 +7,7 @@ import Header from './Header'
 import { history } from '../config/history'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
+import { setNewChatgroupMembersAction } from '../redux/actions/chatgroupActions'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
@@ -37,6 +38,18 @@ export default function CreateChatGroup() {
         setSelectedFriends(selectedFriends.filter(selectedFriend => selectedFriend._id !== friend._id))
     }
 
+    const onSubmit = () => {
+        /* TODO: IMPORTANT: If only 1 person selected, determine if it's a new chat group. 
+            If it is, first create the chat group (but only after a message is sent on the MessagingPage).
+            Otherwise, redirect to the existing chat group. */
+
+        // If an existing chat group exists, perhaps resetNewChatgroupMembersAction() should be called
+
+        // Temporarily assume it is a new chat group
+        dispatch(setNewChatgroupMembersAction(selectedFriends))
+        history.push('/messaging')
+    }
+
     return (
         <div className='root'>
             <Header title={title} />
@@ -57,10 +70,10 @@ export default function CreateChatGroup() {
                 ))}
             </Grid>
             <Button
-                onClick={() => history.push('/messaging')}
-                disabled={selectedFriends.length <= 0} 
-                className={classes.button} 
-                variant="contained" 
+                onClick={onSubmit}
+                disabled={selectedFriends.length <= 0}
+                className={classes.button}
+                variant="contained"
                 color="primary">
                 Start Chat
             </Button>

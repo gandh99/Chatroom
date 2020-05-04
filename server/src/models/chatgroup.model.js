@@ -9,6 +9,8 @@ module.exports = function (app) {
   const schema = new Schema({
 
     admins: [{ type: Schema.Types.ObjectId, ref: 'users', required: true }],
+
+    // Refers to non-admins
     members: [{ type: Schema.Types.ObjectId, ref: 'users', required: true }],
 
   }, {

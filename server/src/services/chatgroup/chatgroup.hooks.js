@@ -7,6 +7,7 @@ module.exports = {
     get: [],
     create: [
       async context => {
+        // Set the admin
         const creator = context.params.user
         context.data.admins = [creator]
 
