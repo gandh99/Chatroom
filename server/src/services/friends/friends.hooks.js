@@ -29,8 +29,8 @@ module.exports = {
 
         // Get and return the 'users' model of every recipient in the friendsArray
         const users = await Promise.all(
-          friendsArray.map(friend => (
-            getUserFromFriend(context, friend.recipient)
+          friendsArray.map(friends => (
+            context.app.service('users').get(friends.recipient)
           ))
         )
         context.dispatch = users
@@ -51,7 +51,7 @@ module.exports = {
         )
 
         // We want to return the 'users' model of the recipient
-        const user = await getUserFromFriend(context, recipient)
+        const user = await context.app.service('users').get(recipient)
         context.dispatch = user
 
         return context
@@ -64,14 +64,15 @@ module.exports = {
         const removedFriend = context.result[0]
         const requester = context.params.user
 
-        // Generate the updated 'users' model for the requester
+        // Remove the friend from the friends array
+        // This is to create the updated 'users' model for the requester
         const updatedFriendsArray = requester.friends.filter(
           friend => friend.toString() !== removedFriend._id.toString()
         )
         let updatedRequester = requester
         updatedRequester.friends = updatedFriendsArray
 
-        // Remove the 'friends' model from the requester's friends array in their 'users' model
+        // Update the 'users' model of the requester
         await context.app.service('users').patch(
           requester,
           updatedRequester
@@ -92,14 +93,3 @@ module.exports = {
     remove: []
   }
 };
-
-async function getUserFromFriend(context, friend) {
-  const userDoc = await context.app.service('users').find({
-    query: {
-      _id: friend,
-      $limit: 1,
-      $select: ['_id', 'username', 'personalMessage']
-    }
-  })
-  return userDoc.data[0]
-}

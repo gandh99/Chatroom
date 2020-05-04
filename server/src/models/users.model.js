@@ -12,7 +12,8 @@ module.exports = function (app) {
     username: { type: String, maxlength: 15, unique: true },
     password: { type: String },
     personalMessage: { type: String, maxlength: 40, default: 'Hi, I\'m using ChatRoom!'},
-    friends: [{ type: Schema.Types.ObjectId, ref: 'friends', required: true }]
+    friends: [{ type: Schema.Types.ObjectId, ref: 'friends', required: true }],
+    chatgroups: [{ type: Schema.Types.ObjectId, ref: 'chatgroup', required: true }]
 
   }, {
     timestamps: true
