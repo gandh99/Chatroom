@@ -30,6 +30,27 @@ const getChatgroupsFromIds = async context => {
   return context
 }
 
+const addChatgroupToAllParticipants = async context => {
+  const chatgroup = context.result
+
+  // Get all the participants in the chatgroup
+  const participants = [...chatgroup.admins, ...chatgroup.members]  // contains only ids, not objects
+  let users = await Promise.all(
+    participants.map(participant =>
+      context.app.service('users').get(participant)
+    )
+  )
+
+  // Add the chatgroup to all the participants' 'users' model
+  await Promise.all(
+    users.map(user => {
+      addChatgroupToUser(context, chatgroup, user)
+    })
+  )
+
+  return context
+}
+
 module.exports = {
   before: {
     all: [authenticate('jwt')],
@@ -53,28 +74,7 @@ module.exports = {
     all: [],
     find: [getChatgroupsFromIds],
     get: [],
-    create: [
-      async context => {
-        const chatgroup = context.result
-
-        // Get all the participants in the chatgroup
-        const participants = [...chatgroup.admins, ...chatgroup.members]  // contains only ids, not objects
-        let users = await Promise.all(
-          participants.map(participant =>
-            context.app.service('users').get(participant)
-          )
-        )
-
-        // Add the chatgroup to all the participants' 'users' model
-        await Promise.all(
-          users.map(user => {
-            addChatgroupToUser(context, chatgroup, user)
-          })
-        )
-
-        return context
-      }
-    ],
+    create: [addChatgroupToAllParticipants],
     update: [],
     patch: [],
     remove: []
