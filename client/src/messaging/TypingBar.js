@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-autosize-textarea'
 import SendIcon from '@material-ui/icons/Send'
 import { useDispatch, useSelector } from 'react-redux'
 import { sendMessageAction } from '../redux/actions/messageActions'
-import { createChatgroupAction, resetNewChatgroupMembersAction } from '../redux/actions/chatgroupActions'
+import { createChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
 const minMessageLength = 1
@@ -19,9 +19,10 @@ export default function TypingBar() {
     const classes = useStyles()
     const dispatch = useDispatch()
     const [message, setMessage] = useState('')
+    const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
 
     // Only needed if we need to create a new chat group before sending the message
-    const newChatGroupMembers = useSelector(state => state.chatgroup.newChatGroupMembers)
+    const newChatGroupMembers = useSelector(state => state.chatGroup.newChatGroupMembers)
 
     const onSubmit = (event) => {
         event.preventDefault()
@@ -34,15 +35,17 @@ export default function TypingBar() {
         // DONE: Deal with the case where a user refreshes the page when creating a new chat group. The new chat group members would not persist.
         // DONE: First verify that newChatGroupParticipants is not empty!!
         if (newChatGroupMembers.length > 0) {
-            dispatch(createChatgroupAction(
+            dispatch(createChatGroupAction(
                 newChatGroupMembers,
                 () => {
                     setMessage('')
-                    dispatch(resetNewChatgroupMembersAction())
+                    dispatch(resetNewChatGroupMembersAction())
                 },
                 err => dispatch(showSnackbarAction(err)),
             ))
         }
+
+        // dispatch(sendMessageAction(message, currentChatgroup))
     }
 
     return (

@@ -1,47 +1,47 @@
-import { chatgroup } from '../actionTypes'
+import { chatGroup } from '../actionTypes'
 
 const initialState = {
-    newChatGroupMembers: JSON.parse(localStorage.getItem('newChatgroupMembers')),
+    newChatGroupMembers: JSON.parse(localStorage.getItem('newChatGroupMembers')) || [],
     allChatGroups: [],
-    newChatGroup: {}
+    currentChatGroup: {}
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case chatgroup.SET_NEW_CHATGROUP_MEMBERS:
+        case chatGroup.SET_NEW_CHATGROUP_MEMBERS:
             // Save in localStorage so that it persists even after refresh
             const newChatGroupMembers = action.payload
-            localStorage.setItem('newChatgroupMembers', JSON.stringify(newChatGroupMembers))
+            localStorage.setItem('newChatGroupMembers', JSON.stringify(newChatGroupMembers))
 
             return {
                 ...state,
                 newChatGroupMembers
             }
-        case chatgroup.RESET_NEW_CHATGROUP_MEMBERS:
+        case chatGroup.RESET_NEW_CHATGROUP_MEMBERS:
             localStorage.removeItem('newChatgroupMembers')
 
             return {
                 ...state,
                 newChatGroupMembers: []
             }
-        case chatgroup.CREATE_CHATGROUP_SUCCESS:
+        case chatGroup.CREATE_CHATGROUP_SUCCESS:
             return {
                 ...state,
-                newChatGroup: action.payload,
+                currentChatGroup: action.payload,
                 allChatGroups: [...state.allChatGroups, action.payload],
                 newChatGroupMembers: []
             }
-        case chatgroup.CREATE_CHATGROUP_FAIL:
+        case chatGroup.CREATE_CHATGROUP_FAIL:
             return {
                 ...state,
-                newChatGroup: {}
+                currentChatGroup: {}
             }
-        case chatgroup.GET_CHATGROUPS_SUCCESS:
+        case chatGroup.GET_CHATGROUPS_SUCCESS:
             return {
                 ...state,
                 allChatGroups: action.payload
             }
-        case chatgroup.GET_CHATGROUPS_FAIL:
+        case chatGroup.GET_CHATGROUPS_FAIL:
             return {
                 ...state,
                 allChatGroups: []

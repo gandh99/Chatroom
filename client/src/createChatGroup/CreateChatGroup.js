@@ -7,7 +7,7 @@ import Header from './Header'
 import { history } from '../config/history'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
-import { setNewChatgroupMembersAction } from '../redux/actions/chatgroupActions'
+import { setNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
@@ -46,7 +46,7 @@ export default function CreateChatGroup() {
         // TODO: If an existing chat group exists, perhaps resetNewChatgroupMembersAction() should be called
 
         // Temporarily assume it is a new chat group
-        dispatch(setNewChatgroupMembersAction(selectedFriends))
+        dispatch(setNewChatGroupMembersAction(selectedFriends))
         history.push('/messaging')
     }
 

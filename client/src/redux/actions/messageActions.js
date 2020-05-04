@@ -6,6 +6,7 @@ export const getMessagesAction = () => dispatch => {
 
 }
 
-export const sendMessageAction = (message) => dispatch => {
-    
+export const sendMessageAction = (message, chatgroup) => dispatch => {
+    client
+        .service('message')
 }

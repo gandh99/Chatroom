@@ -1,33 +1,33 @@
-import { chatgroup } from '../actionTypes'
+import { chatGroup } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
 
-export const setNewChatgroupMembersAction = (membersArray) => dispatch => {
+export const setNewChatGroupMembersAction = (membersArray) => dispatch => {
     // participantsArray does not include the creator because his data 
     // would be automatically sent along during the createGroupAction() phase.
     dispatch({
-        type: chatgroup.SET_NEW_CHATGROUP_MEMBERS,
+        type: chatGroup.SET_NEW_CHATGROUP_MEMBERS,
         payload: membersArray,
     })
 }
 
-export const resetNewChatgroupMembersAction = () => dispatch => {
+export const resetNewChatGroupMembersAction = () => dispatch => {
     dispatch({
-        type: chatgroup.RESET_NEW_CHATGROUP_MEMBERS
+        type: chatGroup.RESET_NEW_CHATGROUP_MEMBERS
     })
 }
 
-export const getChatgroupsAction = () => dispatch => {
+export const getChatGroupsAction = () => dispatch => {
 
 }
 
-export const createChatgroupAction = (members, success, error) => dispatch => {
+export const createChatGroupAction = (members, success, error) => dispatch => {
     client
         .service('chatgroup')
         .create({ members })
         .then(res => {
             dispatch({
-                type: chatgroup.CREATE_CHATGROUP_SUCCESS,
+                type: chatGroup.CREATE_CHATGROUP_SUCCESS,
                 payload: res
             })
             success()
@@ -35,7 +35,7 @@ export const createChatgroupAction = (members, success, error) => dispatch => {
         .catch(err => {
             dispatch(returnErrors(err))
             dispatch({
-                type: chatgroup.CREATE_CHATGROUP_FAIL,
+                type: chatGroup.CREATE_CHATGROUP_FAIL,
                 payload: err.data
             })
             error('Unable to send message. Please try again later.')
