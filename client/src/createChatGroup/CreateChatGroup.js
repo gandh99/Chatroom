@@ -43,7 +43,7 @@ export default function CreateChatGroup() {
             If it is, first create the chat group (but only after a message is sent on the MessagingPage).
             Otherwise, redirect to the existing chat group. */
 
-        // If an existing chat group exists, perhaps resetNewChatgroupMembersAction() should be called
+        // TODO: If an existing chat group exists, perhaps resetNewChatgroupMembersAction() should be called
 
         // Temporarily assume it is a new chat group
         dispatch(setNewChatgroupMembersAction(selectedFriends))

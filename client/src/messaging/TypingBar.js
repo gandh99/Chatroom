@@ -31,6 +31,7 @@ export default function TypingBar() {
         }
 
         // TODO: If this is a new chat group, first create a new chat group
+        // DONE: Deal with the case where a user refreshes the page when creating a new chat group. The new chat group members would not persist.
         // DONE: First verify that newChatGroupParticipants is not empty!!
         if (newChatGroupMembers.length > 0) {
             dispatch(createChatgroupAction(
