@@ -7,5 +7,5 @@ export const getMessagesAction = () => dispatch => {
 }
 
 export const sendMessageAction = (message) => dispatch => {
-
+    
 }

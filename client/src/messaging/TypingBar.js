@@ -4,6 +4,7 @@ import { stringLengthIsValid } from '../utils/utils'
 import TextareaAutosize from 'react-autosize-textarea'
 import SendIcon from '@material-ui/icons/Send'
 import { useDispatch } from 'react-redux'
+import { sendMessageAction } from '../redux/actions/messageActions'
 
 const minMessageLength = 1
 const maxMessageLength = 200
@@ -23,6 +24,7 @@ export default function TypingBar() {
         if (!inputIsValid(message)) {
             return
         }
+
     }
 
     return (

@@ -4,6 +4,7 @@ import error from './errorReducer'
 import globalNotification from './globalNotificationReducer'
 import modal from './modalReducer'
 import friend from './friendsReducer'
+import chatgroup from './chatgroupReducer'
 import message from './messageReducer'
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
     globalNotification,
     modal,
     friend,
+    chatgroup,
     message
 })
