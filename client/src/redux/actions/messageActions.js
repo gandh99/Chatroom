@@ -7,7 +7,6 @@ export const getMessagesAction = () => dispatch => {
 }
 
 export const sendMessageAction = (text, chatgroup, error) => dispatch => {
-    console.log(chatgroup)
     client
         .service('message')
         .create({ text, chatgroup })

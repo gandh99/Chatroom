@@ -13,6 +13,8 @@ module.exports = function (app) {
     // Refers to non-admins
     members: [{ type: Schema.Types.ObjectId, ref: 'users', required: true }],
 
+    messages: [{ type: Schema.Types.ObjectId, ref: 'message', required: true }],
+
   }, {
     timestamps: true
   });

@@ -2,7 +2,7 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [authenticate('jwt')],
     find: [],
     get: [],
     create: [],
@@ -15,7 +15,20 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [
+      async context => {
+        const { chatgroup } = context.data
+        const message = context.result
+
+        // Add the message to the chatgroup's messages array
+        await context.app.service('chatgroup').patch(
+          chatgroup._id,
+          { $push: { messages: message } }
+        )
+
+        return context
+      }
+    ],
     update: [],
     patch: [],
     remove: []
