@@ -1,7 +1,7 @@
 import { chatGroup } from '../actionTypes'
 
 const initialState = {
-    newChatGroupMembers: JSON.parse(localStorage.getItem('newChatGroupMembers')) || [],
+    newChatGroupMembers: [],
     allChatGroups: [],
     currentChatGroup: {}
 }
@@ -9,17 +9,11 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case chatGroup.SET_NEW_CHATGROUP_MEMBERS:
-            // Save in localStorage so that it persists even after refresh
-            const newChatGroupMembers = action.payload
-            localStorage.setItem('newChatGroupMembers', JSON.stringify(newChatGroupMembers))
-
             return {
                 ...state,
-                newChatGroupMembers
+                newChatGroupMembers: action.payload
             }
         case chatGroup.RESET_NEW_CHATGROUP_MEMBERS:
-            localStorage.removeItem('newChatgroupMembers')
-
             return {
                 ...state,
                 newChatGroupMembers: []

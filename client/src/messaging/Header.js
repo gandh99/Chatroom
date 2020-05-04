@@ -10,12 +10,16 @@ import AccountCircle from '../images/account_circle.png'
 export default function Header(props) {
     const classes = useStyles()
 
+    const returnHome = () => {
+        history.push('/')
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.left}>
-                        <div onClick={() => history.push('/')} className={classes.back}>
+                        <div onClick={returnHome} className={classes.back}>
                             <KeyboardBackspaceIcon />
                         </div>
                         <div className={classes.displayPictureArea}>
