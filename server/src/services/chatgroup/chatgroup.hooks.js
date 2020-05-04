@@ -1,9 +1,39 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
+const getChatgroupIdsOfUser = async context => {
+  const user = context.params.user
+  const chatgroupsDocument = await context.app.service('users').find({
+    query: {
+      _id: user,
+      $select: ['chatgroups']
+    }
+  })
+  const chatgroupIds = chatgroupsDocument.data[0].chatgroups
+
+  // Add the chatgroups array (comprising only the ids) to the query
+  context.params.query.chatgroupIds = chatgroupIds
+
+  return context
+}
+
+const getChatgroupsFromIds = async context => {
+  const chatgroupIds = context.params.query.chatgroupIds
+
+  if (chatgroupIds) {
+    const chatgroups = await Promise.all(
+      chatgroupIds.map(chatgroupId => context.app.service('chatgroup').get(chatgroupId))
+    )
+    // Send the array of chatgroups back
+    context.dispatch = chatgroups
+  }
+
+  return context
+}
+
 module.exports = {
   before: {
     all: [authenticate('jwt')],
-    find: [],
+    find: [getChatgroupIdsOfUser],
     get: [],
     create: [
       async context => {
@@ -21,7 +51,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [getChatgroupsFromIds],
     get: [],
     create: [
       async context => {

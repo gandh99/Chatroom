@@ -18,7 +18,22 @@ export const resetNewChatGroupMembersAction = () => dispatch => {
 }
 
 export const getChatGroupsAction = () => dispatch => {
-
+    client
+        .service('chatgroup')
+        .find({})
+        .then(res => {
+            dispatch({
+                type: chatGroup.GET_CHATGROUPS_SUCCESS,
+                payload: res
+            })
+        })
+        .catch(err => {
+            dispatch(returnErrors(err))
+            dispatch({
+                type: chatGroup.GET_CHATGROUPS_FAIL,
+                payload: err.data
+            })
+        })
 }
 
 export const createChatGroupAction = (members, success, error) => dispatch => {

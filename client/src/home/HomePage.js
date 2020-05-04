@@ -10,6 +10,7 @@ import AccountPage from '../account/AccountPage'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
+import { getChatGroupsAction } from '../redux/actions/chatGroupActions'
 
 export default function HomePage() {
     const classes = useStyles()
@@ -27,6 +28,7 @@ export default function HomePage() {
 
     useEffect(() => {
         dispatch(reauthenticateAction())
+        dispatch(getChatGroupsAction())
         dispatch(getFriendsAction())
     }, [])
 
