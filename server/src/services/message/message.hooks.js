@@ -22,7 +22,7 @@ module.exports = {
 
         // Add the message to the chatgroup's messages array
         await context.app.service('chatgroup').patch(
-          chatgroup._id,
+          chatgroup,
           { $push: { messages: message } }
         )
 

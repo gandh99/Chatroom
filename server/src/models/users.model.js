@@ -5,12 +5,15 @@
 module.exports = function (app) {
   const modelName = 'users';
   const mongooseClient = app.get('mongooseClient');
+  const { Schema } = mongooseClient;
+
   const schema = new mongooseClient.Schema({
   
     username: { type: String, maxlength: 15, unique: true },
     password: { type: String },
-    personalMessage: { type: String, maxlength: 40, default: 'Hi, I\'m using ChatRoom!'}
-  
+    personalMessage: { type: String, maxlength: 40, default: 'Hi, I\'m using ChatRoom!'},
+    friends: [{ type: Schema.Types.ObjectId, ref: 'friends', required: true }]
+
   }, {
     timestamps: true
   });
