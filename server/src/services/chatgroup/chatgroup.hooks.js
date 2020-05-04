@@ -5,7 +5,14 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
+    create: [
+      async context => {
+        const creator = context.params.user
+        context.data.admins = [creator]
+
+        return context
+      }
+    ],
     update: [],
     patch: [],
     remove: []

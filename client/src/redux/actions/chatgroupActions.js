@@ -6,11 +6,23 @@ export const getChatgroupsAction = () => dispatch => {
 
 }
 
-export const createChatgroupAction = () => dispatch => {
-    // If sent from a new chat group, create a new chat group
-    // client
-    //     .service('chatgroup')
-    //     .create()
-    //     .then(res => {
-    //     })
+export const createChatgroupAction = (success, error) => dispatch => {
+    client
+        .service('chatgroup')
+        .create({})
+        .then(res => {
+            dispatch({
+                type: chatgroup.CREATE_CHATGROUP_SUCCESS,
+                payload: res
+            })
+            success()
+        })
+        .catch(err => {
+            dispatch(returnErrors(err))
+            dispatch({
+                type: chatgroup.CREATE_CHATGROUP_FAIL,
+                payload: err.data
+            })
+            error('Unable to send message. Please try again later.')
+        })
 }

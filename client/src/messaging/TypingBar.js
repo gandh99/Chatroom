@@ -5,6 +5,8 @@ import TextareaAutosize from 'react-autosize-textarea'
 import SendIcon from '@material-ui/icons/Send'
 import { useDispatch } from 'react-redux'
 import { sendMessageAction } from '../redux/actions/messageActions'
+import { createChatgroupAction } from '../redux/actions/chatgroupActions'
+import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
 const minMessageLength = 1
 const maxMessageLength = 200
@@ -18,18 +20,24 @@ export default function TypingBar() {
     const dispatch = useDispatch()
     const [message, setMessage] = useState('')
 
-    const onSubmit = (event, message) => {
+    const onSubmit = (event) => {
         event.preventDefault()
 
         if (!inputIsValid(message)) {
             return
         }
 
+        // TODO: If this is a new chat group, first create a new chat group
+        dispatch(createChatgroupAction(
+            () => setMessage(''),
+            err => dispatch(showSnackbarAction(err)),
+        ))
     }
 
     return (
         <div className={classes.root}>
             <TextareaAutosize
+                value={message}
                 className={classes.messageArea}
                 placeholder='Type a Message'
                 rows={1}
@@ -37,6 +45,7 @@ export default function TypingBar() {
                 onChange={(e) => { setMessage(e.target.value) }}
             />
             <SendIcon
+                onClick={onSubmit}
                 className={classes.sendIcon}
             />
         </div>
