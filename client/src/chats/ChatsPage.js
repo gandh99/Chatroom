@@ -4,13 +4,30 @@ import { makeStyles } from '@material-ui/core/styles'
 import { history } from '../config/history'
 import Fab from '@material-ui/core/Fab'
 import ChatIcon from '@material-ui/icons/Chat'
+import { Grid } from '@material-ui/core'
+import ChatGroupCard from './ChatGroupCard'
 
 export default function Chats() {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const allChatGroups = useSelector(state => state.chatGroup.allChatGroups)
 
     return (
         <div>
+            <Grid
+                className={classes.grid}
+                container
+                spacing={0}
+                direction="row"
+                justify="flex-start"
+                alignItems="center" >
+                {allChatGroups.map(chatGroup => (
+                    <ChatGroupCard
+                        key={chatGroup._id}
+                        chatGroup={chatGroup}
+                    />
+                ))}
+            </Grid>
             <Fab
                 className={classes.fab}
                 color="secondary"
