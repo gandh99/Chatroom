@@ -7,7 +7,7 @@ import { Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 import AccountCircle from '../images/account_circle.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { getChatGroupTitle } from '../chats/ChatGroupCard'
+import { generateChatGroupTitle } from '../utils/chatGroupProcessor'
 
 export default function Header(props) {
     const classes = useStyles()
@@ -16,12 +16,16 @@ export default function Header(props) {
     const ownUser = useSelector(state => state.authentication.userData)
     const [title, setTitle] = useState('')
 
+    // Used only if we arrived here from CreateChatGroup
+    const newChatGroupMembers = useSelector(state => state.chatGroup.newChatGroupMembers)
+
     // Set the title of the header
     useEffect(() => {
-        const participants = [...chatGroup.admins, ...chatGroup.members]
-        setTitle(getChatGroupTitle(ownUser, participants))
-        
-    }, [chatGroup, ownUser])
+        const participants = (newChatGroupMembers.length > 0) 
+            ? newChatGroupMembers 
+            : [...chatGroup.admins, ...chatGroup.members]
+        setTitle(generateChatGroupTitle(ownUser, participants))
+    }, [chatGroup, ownUser, newChatGroupMembers])
 
     const returnHome = () => {
         history.push('/')

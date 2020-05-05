@@ -2,7 +2,7 @@ import {
     stringLengthIsValid, 
     stringCharactersAreValid, 
     stringHasNoTrailingWhitespaces
-} from './utils'
+} from './generalValidator'
 
 export const usernameConstants = {
     MIN_USERNAME_LENGTH: 1,

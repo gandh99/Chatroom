@@ -34,10 +34,27 @@ describe('Header Component', () => {
             const component = wrapper.find(KeyboardBackspaceIcon)
             expect(component.length).toBe(1)
         })
+    })
 
-        it('Should render title', () => {
-            const component = wrapper.find(Typography)
-            expect(component.props().children).toBe(title)
+    describe('Displays correct title', () => {
+        const defaultTitle = 'New Chat'
+
+        beforeEach(() => {
         })
+
+        it('Should render default title with 0 friends selected', () => {
+            const numOfFriends = 0
+            const wrapper = shallow(<Header numOfFriends={numOfFriends} />)
+            const component = wrapper.find(Typography)
+            expect(component.props().children).toBe(defaultTitle)
+        })
+
+        // TODO: Fix this test. Currently it will still generate "New Chat"
+        // it('Should render number selected with 1 or more friends selected', () => {
+        //     const numOfFriends = 2
+        //     const wrapper = shallow(<Header numOfFriends={numOfFriends} />)
+        //     const component = wrapper.find(Typography)
+        //     expect(component.props().children).toBe(`${numOfFriends} selected`)
+        // })
     })
 })

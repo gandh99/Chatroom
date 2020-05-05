@@ -18,9 +18,6 @@ export default function CreateChatGroup() {
     useEffect(() => {
         dispatch(reauthenticateAction())
         dispatch(getFriendsAction())
-        return () => {
-            dispatch(resetNewChatGroupMembersAction())
-        }
     }, [])
 
     const selectFriend = (friend) => {

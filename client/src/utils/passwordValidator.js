@@ -2,7 +2,7 @@ import {
     stringLengthIsValid, 
     stringCharactersAreValid, 
     stringHasNoTrailingWhitespaces
-} from './utils'
+} from './generalValidator'
 
 export const passwordConstants = {
     MIN_PASSWORD_LENGTH: 1,

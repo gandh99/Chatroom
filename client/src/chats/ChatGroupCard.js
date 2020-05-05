@@ -5,32 +5,7 @@ import AccountCircle from '../images/account_circle.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { history } from '../config/history'
 import { setChatGroupDataForMessagingAction } from '../redux/actions/chatGroupActions'
-
-export const getChatGroupTitle = (ownUser, participants) => {
-    let title = ''
-
-    participants.forEach((participant, index) => {
-        if (ownUser.username !== participant.username) {
-            title += participant.username
-
-            if (participants[index + 1]) {
-                title += ', '
-            }
-        }
-    })
-
-    return title
-}
-
-export const getLastMessage = (lastMessage) => {
-    const lastMessageMaxLength = 30
-    if (lastMessage.length >= lastMessageMaxLength) {
-        lastMessage = lastMessage.substring(0, lastMessageMaxLength)
-        lastMessage += '...'
-    }
-
-    return lastMessage
-}
+import { generateChatGroupTitle, getLastMessage } from '../utils/chatGroupProcessor'
 
 export default function ChatGroupCard(props) {
     const classes = useStyles()
@@ -41,7 +16,7 @@ export default function ChatGroupCard(props) {
     const [chatGroupTitle, setChatGroupTitle] = useState('')
 
     useEffect(() => {
-        const title = getChatGroupTitle(ownUser, participants)
+        const title = generateChatGroupTitle(ownUser, participants)
         setChatGroupTitle(title)
     }, [ownUser])
 
