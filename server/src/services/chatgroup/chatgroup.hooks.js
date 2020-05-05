@@ -2,16 +2,14 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 
 const getChatgroupIdsOfUser = async context => {
   const user = context.params.user
-  const chatgroupsDocument = await context.app.service('users').find({
+  const chatgroupsDocument = await context.app.service('users').get(user, {
     query: {
-      _id: user,
       $select: ['chatgroups']
     }
   })
-  const chatgroupIds = chatgroupsDocument.data[0].chatgroups
-
   // Add the chatgroups array (comprising only the ids) to the query
-  context.params.query.chatgroupIds = chatgroupIds
+  context.params.query.chatgroupIds = chatgroupsDocument.chatgroups
+
   return context
 }
 
@@ -20,11 +18,9 @@ const getChatgroupsFromIds = async context => {
 
   if (chatgroupIds) {
     // Retrieve the chatgroups based on their ids
-    const chatgroups = await Promise.all(
+    context.result = await Promise.all(
       chatgroupIds.map(chatgroupId => context.app.service('chatgroup').get(chatgroupId))
     )
-
-    context.result = chatgroups
   }
 
   return context
@@ -40,19 +36,14 @@ const getUsersInChatgroups = async context => {
     const memberIdArray = chatgroups[i].members
 
     // Get the 'users' model of the participants using their ids
-    const adminUserArray = await Promise.all(
+    chatgroups[i].admins = await Promise.all(
       adminIdArray.map(adminId => context.app.service('users').get(adminId, { query: { $select: ['username'] } }))
     )
-    const memberUserArray = await Promise.all(
+    chatgroups[i].members = await Promise.all(
       memberIdArray.map(memberId => context.app.service('users').get(memberId, { query: { $select: ['username'] } }))
     )
-
-    // Update the admins and members arrays of the chatgroups
-    chatgroups[i].admins = adminUserArray
-    chatgroups[i].members = memberUserArray
   }
 
-  context.result = chatgroups
   return context
 }
 
@@ -94,6 +85,14 @@ const addChatgroupToAllParticipants = async context => {
   return context
 }
 
+async function addChatgroupToUser(context, chatgroup, user) {
+  context.app.service('users').patch(
+    user,
+    { $push: { chatgroups: chatgroup } }
+  )
+    .catch(err => console.log(err))
+}
+
 module.exports = {
   before: {
     all: [authenticate('jwt')],
@@ -133,11 +132,3 @@ module.exports = {
     remove: []
   }
 };
-
-async function addChatgroupToUser(context, chatgroup, user) {
-  context.app.service('users').patch(
-    user,
-    { $push: { chatgroups: chatgroup } }
-  )
-    .catch(err => console.log(err))
-}
