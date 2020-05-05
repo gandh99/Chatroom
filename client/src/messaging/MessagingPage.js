@@ -9,12 +9,13 @@ import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 import { getMessagesAction } from '../redux/actions/messageActions'
 import { useChatGroupExists } from '../utils/chatGroupProcessor'
+import MessageDisplayArea from './MessageDisplayArea'
 
 export default function MessagingPage() {
     const classes = useStyles()
     const dispatch = useDispatch()
     const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
-    const messages = useSelector(state => state.message.allMessages)
+    const allMessages = useSelector(state => state.message.allMessages)
     const chatGroupExists = useChatGroupExists()
 
     useEffect(() => {
@@ -35,22 +36,7 @@ export default function MessagingPage() {
     return (
         <div className='root'>
             <Header />
-            {/* <Grid
-                className={classes.grid}
-                container
-                spacing={0}
-                direction="row"
-                justify="flex-start"
-                alignItems="center" >
-                {allFriends.map(friend => (
-                    <FriendCard
-                        key={friend._id}
-                        friend={friend}
-                        selectFriend={() => selectFriend(friend)}
-                        unselectFriend={() => unselectFriend(friend)}
-                    />
-                ))}
-            </Grid> */}
+            <MessageDisplayArea allMessages={allMessages} />
             <div className={classes.typingBar}>
                 <TypingBar />
             </div>
