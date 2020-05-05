@@ -66,7 +66,7 @@ export const setChatGroupDataForMessagingAction = (chatGroupData) => dispatch =>
     })
 }
 
-export const resetChatGroupDataForMessagingAction = () => dispatch => {
+export const resetCurrentChatGroupAction = () => dispatch => {
     dispatch({
         type: chatGroup.RESET_CHATGROUP_DATA_FOR_MESSAGING,
     })
