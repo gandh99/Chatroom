@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
-export default function MessageCardSelf(props) {
+export default function ChatBubbleSelf(props) {
     const classes = useStyles()
 
     return (

@@ -6,11 +6,10 @@ export const generateChatGroupTitle = (ownUser, participants) => {
 
     participants.forEach((participant, index) => {
         if (ownUser.username !== participant.username) {
-            title += participant.username
-
-            if (participants[index + 1]) {
+            if (title !== '') {
                 title += ', '
             }
+            title += participant.username
         }
     })
 
