@@ -20,12 +20,41 @@ const getChatgroupsFromIds = async context => {
   const chatgroupIds = context.params.query.chatgroupIds
 
   if (chatgroupIds) {
+    // Retrieve the chatgroups based on their ids
     const chatgroups = await Promise.all(
       chatgroupIds.map(chatgroupId => context.app.service('chatgroup').get(chatgroupId))
     )
-    // Send the array of chatgroups back
-    context.dispatch = chatgroups
+
+    context.result = chatgroups
   }
+
+  return context
+}
+
+const getUsersInChatgroups = async context => {
+  let chatgroups = context.result
+
+  // Note: Using forEach to modify the array would not work!
+  for (let i = 0; i < chatgroups.length; i++) {
+    // Get the ids of the admins and members
+    const adminIdArray = chatgroups[i].admins
+    const memberIdArray = chatgroups[i].members
+
+    // Get the 'users' model of the participants using their ids
+    const adminUserArray = await Promise.all(
+      adminIdArray.map(adminId => context.app.service('users').get(adminId, { query: { $select: ['username'] } }))
+    )
+    const memberUserArray = await Promise.all(
+      memberIdArray.map(memberId => context.app.service('users').get(memberId, { query: { $select: ['username'] } }))
+    )
+
+    // Update the admins and members arrays of the chatgroups
+    chatgroups[i].admins = adminUserArray
+    chatgroups[i].members = memberUserArray
+  }
+
+  // Send the array of chatgroups back
+  context.dispatch = chatgroups
 
   return context
 }
@@ -72,7 +101,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [getChatgroupsFromIds],
+    find: [getChatgroupsFromIds, getUsersInChatgroups],
     get: [],
     create: [addChatgroupToAllParticipants],
     update: [],

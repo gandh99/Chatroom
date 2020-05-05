@@ -1,14 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardContent, Typography } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+export const getChatGroupTitle = (ownUser, participants) => {
+    let title = ''
+
+    participants.forEach((participant, index) => {
+        if (ownUser.username !== participant.username) {
+            title += participant.username
+
+            if (participants[index + 1]) {
+                title += ', '
+            }
+        }
+    })
+
+    return title
+}
 
 export default function ChatGroupCard(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const admins = props.chatGroup.admins
-    const members = props.chatGroup.members
+    const participants = [...props.chatGroup.admins, ...props.chatGroup.members]
+    const ownUser = useSelector(state => state.authentication.userData)
+    const [chatGroupTitle, setChatGroupTitle] = useState('')
+
+    useEffect(() => {
+        const title = getChatGroupTitle(ownUser, participants)
+        setChatGroupTitle(title)
+    }, [ownUser])
 
     const onClick = () => {
     }
@@ -21,8 +43,8 @@ export default function ChatGroupCard(props) {
                         <img src={AccountCircle} className={classes.displayPicture} alt='Account Icon' />
                     </div>
                     <div className={classes.userDataArea}>
-                        <Typography className={classes.username} variant="h5" component="h2">
-                            {/* {props.chatGroup.username} */}
+                        <Typography className={classes.groupname} variant="h5" component="h2">
+                            {chatGroupTitle}
                         </Typography>
                         <Typography className={classes.personalMessage} variant="h6" component="h6">
                             {/* {props.friend.personalMessage} */}
@@ -58,10 +80,11 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
 
-    // User data
-    username: {
+    // ChatGroup data
+    groupname: {
         fontSize: 16,
-        margin: '0.2rem 0'
+        margin: '0.2rem 0',
+        fontWeight: 'bold'
     },
     personalMessage: {
         fontSize: 12,

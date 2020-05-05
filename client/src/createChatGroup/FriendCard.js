@@ -68,7 +68,8 @@ const useStyles = makeStyles((theme) => ({
     // User data
     username: {
         fontSize: 16,
-        margin: '0.2rem 0'
+        margin: '0.2rem 0',
+        fontWeight: 'bold'
     },
     personalMessage: {
         fontSize: 12,
