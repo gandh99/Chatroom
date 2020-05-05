@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { sendMessageAction } from '../redux/actions/messageActions'
 import { createChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
+import { useChatGroupExists } from '../utils/chatGroupProcessor'
 
 const minMessageLength = 1
 const maxMessageLength = 200
@@ -18,6 +19,7 @@ function inputIsValid(message) {
 export default function TypingBar() {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const chatGroupExists = useChatGroupExists()
     const [message, setMessage] = useState('')
     const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
 
@@ -50,7 +52,7 @@ export default function TypingBar() {
 
         // TODO: If this is a new chat group, first create a new chat group
         // DONE: First verify that newChatGroupParticipants is not empty!!
-        if (newChatGroupMembers.length > 0) {
+        if (!chatGroupExists) {
             dispatch(createChatGroupAction(
                 newChatGroupMembers,
                 () => dispatch(resetNewChatGroupMembersAction()),
@@ -69,7 +71,7 @@ export default function TypingBar() {
             <TextareaAutosize
                 value={message}
                 className={classes.messageArea}
-                placeholder='Type a Message'
+                placeholder='Type a Message ...'
                 rows={1}
                 maxLength={maxMessageLength}
                 onChange={(e) => { setMessage(e.target.value) }}
@@ -86,20 +88,19 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         padding: '1rem',
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: theme.palette.grey[200]
     },
     messageArea: {
         border: 'none',
         backgroundColor: 'transparent',
         width: '100%',
         resize: 'none',
-        color: theme.palette.primary.contrastText,
         overflowY: 'hidden'
     },
     sendIcon: {
         marginLeft: '1rem',
         marginRight: '0.5rem',
-        color: 'white',
+        color: theme.palette.primary.main,
         cursor: 'pointer'
     }
 }))

@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         backgroundColor: theme.palette.primary.main,
+        opacity: 0.8,
         color: theme.palette.primary.contrastText,
         borderRadius: '5px',
         fontSize: 12,
