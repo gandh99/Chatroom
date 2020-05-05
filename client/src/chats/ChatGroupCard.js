@@ -20,10 +20,20 @@ export const getChatGroupTitle = (ownUser, participants) => {
     return title
 }
 
+const lastMessageMaxLength = 30
+export const getLastMessage = (lastMessage) => {
+    if (lastMessage.length >= lastMessageMaxLength) {
+        lastMessage = lastMessage.substring(0, lastMessageMaxLength)
+        lastMessage += '...'
+    }
+
+    return lastMessage
+}
+
 export default function ChatGroupCard(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const lastMessage = props.chatGroup.lastMessage.text
+    const lastMessage = getLastMessage(props.chatGroup.lastMessage.text)
     const participants = [...props.chatGroup.admins, ...props.chatGroup.members]
     const ownUser = useSelector(state => state.authentication.userData)
     const [chatGroupTitle, setChatGroupTitle] = useState('')

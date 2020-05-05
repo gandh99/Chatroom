@@ -8,9 +8,8 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const schema = new Schema({
 
-    // Just for tracking purposes, though not functionally necessary
     chatgroup: { type: Schema.Types.ObjectId, ref: 'chatgroup', required: true },
-    
+    sender: { type: Schema.Types.ObjectId, ref:'users', required: true},
     text: { type: String, required: true }
 
   }, {
