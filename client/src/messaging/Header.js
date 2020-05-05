@@ -20,10 +20,14 @@ export default function Header() {
 
     // Set the title of the header
     useEffect(() => {
-        const participants = (newChatGroupMembers.length > 0) 
-            ? newChatGroupMembers 
-            : [...chatGroup.admins, ...chatGroup.members]
-        setTitle(generateChatGroupTitle(ownUser, participants))
+        try {
+            const participants = (newChatGroupMembers.length > 0)
+                ? newChatGroupMembers
+                : [...chatGroup.admins, ...chatGroup.members]
+            setTitle(generateChatGroupTitle(ownUser, participants))
+        } catch (error) {
+            history.push('/')
+        }
     }, [chatGroup, ownUser, newChatGroupMembers])
 
     const returnHome = () => {

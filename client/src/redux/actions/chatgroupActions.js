@@ -1,6 +1,7 @@
 import { chatGroup } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
+import { history } from '../../config/history'
 
 export const setNewChatGroupMembersAction = (membersArray) => dispatch => {
     // participantsArray does not include the creator because his data 
@@ -15,6 +16,7 @@ export const resetNewChatGroupMembersAction = () => dispatch => {
     dispatch({
         type: chatGroup.RESET_NEW_CHATGROUP_MEMBERS
     })
+    history.push('/')
 }
 
 export const getChatGroupsAction = () => dispatch => {
@@ -68,4 +70,5 @@ export const resetChatGroupDataForMessagingAction = () => dispatch => {
     dispatch({
         type: chatGroup.RESET_CHATGROUP_DATA_FOR_MESSAGING,
     })
+    history.push('/')
 }
