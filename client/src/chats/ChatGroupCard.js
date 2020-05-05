@@ -4,7 +4,7 @@ import { Grid, Card, CardContent, Typography } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { history } from '../config/history'
-import { setChatGroupDataForMessaging } from '../redux/actions/chatGroupActions'
+import { setChatGroupDataForMessagingAction } from '../redux/actions/chatGroupActions'
 
 export const getChatGroupTitle = (ownUser, participants) => {
     let title = ''
@@ -46,7 +46,7 @@ export default function ChatGroupCard(props) {
     }, [ownUser])
 
     const onClick = () => {
-        dispatch(setChatGroupDataForMessaging(props.chatGroup))
+        dispatch(setChatGroupDataForMessagingAction(props.chatGroup))
         history.push('/messaging')
     }
 

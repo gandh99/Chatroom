@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Button } from '@material-ui/core'
 import Header from './Header'
-import { history } from '../config/history'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import TypingBar from './TypingBar'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
+import { resetChatGroupDataForMessagingAction } from '../redux/actions/chatGroupActions'
 
 export default function MessagingPage() {
     const classes = useStyles()
@@ -14,6 +14,9 @@ export default function MessagingPage() {
 
     useEffect(() => {
         dispatch(reauthenticateAction())
+        return () => {
+            dispatch(resetChatGroupDataForMessagingAction())
+        }
     }, [])
 
     return (
