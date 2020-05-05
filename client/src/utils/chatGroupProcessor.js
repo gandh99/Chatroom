@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux"
+import { useEffect } from "react"
+
 export const generateChatGroupTitle = (ownUser, participants) => {
     let title = ''
 
@@ -22,4 +25,10 @@ export const getLastMessage = (lastMessage) => {
     }
 
     return lastMessage
+}
+
+export const useChatGroupExists = () => {
+    // Basically checks if currentChatGroup from the store === {}
+    const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
+    return Object.keys(currentChatGroup).length !== 0
 }

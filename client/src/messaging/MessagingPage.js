@@ -8,12 +8,14 @@ import TypingBar from './TypingBar'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 import { getMessagesAction } from '../redux/actions/messageActions'
+import { useChatGroupExists } from '../utils/chatGroupProcessor'
 
 export default function MessagingPage() {
     const classes = useStyles()
     const dispatch = useDispatch()
     const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
     const messages = useSelector(state => state.message.allMessages)
+    const chatGroupExists = useChatGroupExists()
 
     useEffect(() => {
         dispatch(reauthenticateAction())
@@ -26,9 +28,9 @@ export default function MessagingPage() {
 
     // Get the messages after the current chat group (if it exists) loads
     useEffect(() => {
-        if (Object.entries(currentChatGroup).length === 0) return
+        if (!chatGroupExists) return
         dispatch(getMessagesAction(currentChatGroup))
-    }, [currentChatGroup])
+    }, [chatGroupExists])
 
     return (
         <div className='root'>

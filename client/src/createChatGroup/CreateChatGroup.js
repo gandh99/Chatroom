@@ -7,7 +7,7 @@ import Header from './Header'
 import { history } from '../config/history'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
-import { setNewChatGroupMembersAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
+import { setNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
