@@ -37,6 +37,7 @@ export const loginUserAction = (username, password, error) => dispatch => {
                 payload: {
                     accessToken: res.accessToken,
                     userData: {
+                        _id: res.user._id,
                         username: res.user.username
                     }
                 }
