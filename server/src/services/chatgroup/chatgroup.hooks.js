@@ -12,7 +12,6 @@ const getChatgroupIdsOfUser = async context => {
 
   // Add the chatgroups array (comprising only the ids) to the query
   context.params.query.chatgroupIds = chatgroupIds
-
   return context
 }
 
@@ -53,16 +52,31 @@ const getUsersInChatgroups = async context => {
     chatgroups[i].members = memberUserArray
   }
 
+  context.result = chatgroups
+  return context
+}
+
+const getLastMessageInChatgroups = async context => {
+  let chatgroups = context.result
+
+  for (let i = 0; i < chatgroups.length; i++) {
+    const messages = chatgroups[i].messages
+    let lastMessage = messages[messages.length - 1]
+    lastMessage = await context.app.service('message').get(lastMessage)
+
+    // Update the chatgroup data
+    chatgroups[i].lastMessage = lastMessage
+  }
+
   // Send the array of chatgroups back
   context.dispatch = chatgroups
-
   return context
 }
 
 const addChatgroupToAllParticipants = async context => {
   const chatgroup = context.result
 
-  // Get all the participants in the chatgroup
+  // Get all the ids of the participants in the chatgroup
   const participants = [...chatgroup.admins, ...chatgroup.members]  // contains only ids, not objects
   let users = await Promise.all(
     participants.map(participant =>
@@ -101,7 +115,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [getChatgroupsFromIds, getUsersInChatgroups],
+    find: [getChatgroupsFromIds, getUsersInChatgroups, getLastMessageInChatgroups],
     get: [],
     create: [addChatgroupToAllParticipants],
     update: [],

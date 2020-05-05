@@ -23,6 +23,7 @@ export const getChatGroupTitle = (ownUser, participants) => {
 export default function ChatGroupCard(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const lastMessage = props.chatGroup.lastMessage.text
     const participants = [...props.chatGroup.admins, ...props.chatGroup.members]
     const ownUser = useSelector(state => state.authentication.userData)
     const [chatGroupTitle, setChatGroupTitle] = useState('')
@@ -47,7 +48,7 @@ export default function ChatGroupCard(props) {
                             {chatGroupTitle}
                         </Typography>
                         <Typography className={classes.personalMessage} variant="h6" component="h6">
-                            {/* {props.friend.personalMessage} */}
+                            {lastMessage}
                         </Typography>
                     </div>
                     <div className={classes.menuArea}></div>
