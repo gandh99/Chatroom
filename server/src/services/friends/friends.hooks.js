@@ -12,7 +12,11 @@ const getUserModelFromFriend = async context => {
   // Get and return the 'users' model of every recipient in the friendsArray
   const users = await Promise.all(
     friendsArray.map(friends => (
-      context.app.service('users').get(friends.recipient)
+      context.app.service('users').get(friends.recipient, {
+        query: {
+          $select: ['username', 'personalMessage']
+        }
+      })
     ))
   )
   context.dispatch = users
