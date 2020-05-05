@@ -17,6 +17,7 @@ export default function Header(props) {
     const ownUser = useSelector(state => state.authentication.userData)
     const [title, setTitle] = useState('')
 
+    // Set the title of the header
     useEffect(() => {
         const participants = [...chatGroup.admins, ...chatGroup.members]
         setTitle(getChatGroupTitle(ownUser, participants))

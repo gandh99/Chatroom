@@ -7,28 +7,21 @@ import Header from './Header'
 import { history } from '../config/history'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
-import { setNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
+import { setNewChatGroupMembersAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const defaultTitle = 'New Chat'
     const [selectedFriends, setSelectedFriends] = useState([])
-    const [title, setTitle] = useState(defaultTitle)
     const allFriends = useSelector(state => state.friend.allFriends)
 
     useEffect(() => {
         dispatch(reauthenticateAction())
         dispatch(getFriendsAction())
-    }, [])
-
-    useEffect(() => {
-        if (selectedFriends.length <= 0) {
-            setTitle(defaultTitle)
-        } else {
-            setTitle(`${selectedFriends.length} selected`)
+        return () => {
+            dispatch(resetNewChatGroupMembersAction())
         }
-    }, [selectedFriends])
+    }, [])
 
     const selectFriend = (friend) => {
         setSelectedFriends([...selectedFriends, friend])
@@ -52,7 +45,7 @@ export default function CreateChatGroup() {
 
     return (
         <div className='root'>
-            <Header title={title} />
+            <Header numOfFriends={selectedFriends.length} />
             <Grid
                 className={classes.grid}
                 container

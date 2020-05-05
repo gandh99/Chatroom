@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { history } from '../config/history'
 import AppBar from '@material-ui/core/AppBar'
@@ -8,6 +8,17 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 
 export default function Header(props) {
     const classes = useStyles()
+    const defaultTitle = 'New Chat'
+    const [title, setTitle] = useState(defaultTitle)
+
+    // Set the title
+    useEffect(() => {
+        if (props.numOfFriends <= 0) {
+            setTitle(defaultTitle)
+        } else {
+            setTitle(`${props.numOfFriends} selected`)
+        }
+    }, [props.numOfFriends])
 
     return (
         <div className={classes.root}>
@@ -20,7 +31,7 @@ export default function Header(props) {
                     </div>
                     <div className={classes.center}>
                         <Typography className={classes.logo} variant="h6" color="inherit">
-                            {props.title}
+                            {title}
                         </Typography>
                     </div>
                     <div className={classes.right} />
