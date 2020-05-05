@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { history } from '../config/history'
 import AppBar from '@material-ui/core/AppBar'
@@ -6,9 +6,24 @@ import Toolbar from '@material-ui/core/Toolbar'
 import { Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 import AccountCircle from '../images/account_circle.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { resetChatGroupDataForMessaging } from '../redux/actions/chatGroupActions'
+import { getChatGroupTitle } from '../chats/ChatGroupCard'
 
 export default function Header(props) {
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const chatGroup = useSelector(state => state.chatGroup.currentChatGroup)
+    const ownUser = useSelector(state => state.authentication.userData)
+    const [title, setTitle] = useState('')
+
+    useEffect(() => {
+        const participants = [...chatGroup.admins, ...chatGroup.members]
+        setTitle(getChatGroupTitle(ownUser, participants))
+        return () => {
+            dispatch(resetChatGroupDataForMessaging())
+        }
+    }, [chatGroup, ownUser])
 
     const returnHome = () => {
         history.push('/')
@@ -28,7 +43,7 @@ export default function Header(props) {
                         </div>
                         <div className={classes.groupInfoArea}>
                             <Typography className={classes.groupName} color="inherit">
-                                Group Name
+                                {title}
                             </Typography>
                         </div>
                     </div>

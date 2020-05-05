@@ -8,7 +8,7 @@ import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import TypingBar from './TypingBar'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 
-export default function CreateChatGroup() {
+export default function MessagingPage() {
     const classes = useStyles()
     const dispatch = useDispatch()
 

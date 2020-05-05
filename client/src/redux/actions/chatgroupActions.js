@@ -56,3 +56,16 @@ export const createChatGroupAction = (members, success, error) => dispatch => {
             error('Unable to create chat group. Please try again later.')
         })
 }
+
+export const setChatGroupDataForMessaging = (chatGroupData) => dispatch => {
+    dispatch({
+        type: chatGroup.SET_CHATGROUP_DATA_FOR_MESSAGING,
+        payload: chatGroupData
+    })
+}
+
+export const resetChatGroupDataForMessaging = () => dispatch => {
+    dispatch({
+        type: chatGroup.RESET_CHATGROUP_DATA_FOR_MESSAGING,
+    })
+}

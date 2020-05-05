@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Card, CardContent, Typography } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
 import { useDispatch, useSelector } from 'react-redux'
+import { history } from '../config/history'
+import { setChatGroupDataForMessaging } from '../redux/actions/chatGroupActions'
 
 export const getChatGroupTitle = (ownUser, participants) => {
     let title = ''
@@ -20,8 +22,8 @@ export const getChatGroupTitle = (ownUser, participants) => {
     return title
 }
 
-const lastMessageMaxLength = 30
 export const getLastMessage = (lastMessage) => {
+    const lastMessageMaxLength = 30
     if (lastMessage.length >= lastMessageMaxLength) {
         lastMessage = lastMessage.substring(0, lastMessageMaxLength)
         lastMessage += '...'
@@ -44,6 +46,8 @@ export default function ChatGroupCard(props) {
     }, [ownUser])
 
     const onClick = () => {
+        dispatch(setChatGroupDataForMessaging(props.chatGroup))
+        history.push('/messaging')
     }
 
     return (
