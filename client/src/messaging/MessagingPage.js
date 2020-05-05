@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Button } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import Header from './Header'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import TypingBar from './TypingBar'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { resetChatGroupDataForMessagingAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
+import { getMessagesAction } from '../redux/actions/messageActions'
 
 export default function MessagingPage() {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
+    const messages = useSelector(state => state.message.allMessages)
 
     useEffect(() => {
         dispatch(reauthenticateAction())
         return () => {
-            // For safety, clear the data of the current chat group/potential new chat group
+            // For safety, clear the data of the current chat group/potential new chat group when exiting
             dispatch(resetChatGroupDataForMessagingAction())
             dispatch(resetNewChatGroupMembersAction())
         }
     }, [])
+
+    // Get the messages after the current chat group (if it exists) loads
+    useEffect(() => {
+        dispatch(getMessagesAction(currentChatGroup))
+    }, [currentChatGroup])
 
     return (
         <div className='root'>

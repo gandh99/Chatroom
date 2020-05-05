@@ -6,12 +6,11 @@ import Toolbar from '@material-ui/core/Toolbar'
 import { Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 import AccountCircle from '../images/account_circle.png'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { generateChatGroupTitle } from '../utils/chatGroupProcessor'
 
-export default function Header(props) {
+export default function Header() {
     const classes = useStyles()
-    const dispatch = useDispatch()
     const chatGroup = useSelector(state => state.chatGroup.currentChatGroup)
     const ownUser = useSelector(state => state.authentication.userData)
     const [title, setTitle] = useState('')

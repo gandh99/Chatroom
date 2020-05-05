@@ -2,8 +2,22 @@ import { message } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
 
-export const getMessagesAction = () => dispatch => {
-
+export const getMessagesAction = (chatgroup) => dispatch => {
+    client
+    .service('message')
+    .find({ chatgroup })
+    .then(res => {
+        dispatch({
+            type: message.GET_MESSAGES_SUCCESS,
+            payload: res.data
+        })
+    })
+    .catch(err => {
+        dispatch(returnErrors(err))
+        dispatch({
+            type: message.GET_MESSAGES_FAIL,
+        })
+    })
 }
 
 export const sendMessageAction = (text, chatgroup, error) => dispatch => {

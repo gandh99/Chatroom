@@ -53,9 +53,7 @@ export default function TypingBar() {
         if (newChatGroupMembers.length > 0) {
             dispatch(createChatGroupAction(
                 newChatGroupMembers,
-                () => {
-                    dispatch(resetNewChatGroupMembersAction())
-                },
+                () => dispatch(resetNewChatGroupMembersAction()),
                 err => dispatch(showSnackbarAction(err, 'error')),
             ))
 
