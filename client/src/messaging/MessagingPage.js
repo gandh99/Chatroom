@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         right: 0,
         overflow: 'auto',
-        borderBottom: 'solid 10px transparent',
+        borderBottom: 'solid 5px transparent',
         overflowY: 'scroll',
         scrollbarWidth: 'none', /* Firefox */
     },
