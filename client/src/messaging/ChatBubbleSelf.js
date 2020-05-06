@@ -9,6 +9,7 @@ export default function ChatBubbleSelf(props) {
             <div className={classes.container}>
                 {props.message.text}
             </div>
+            <div className={classes.tail} />
         </div>
     )
 }
@@ -16,11 +17,11 @@ export default function ChatBubbleSelf(props) {
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        position: 'relative'
     },
     container: {
         backgroundColor: theme.palette.primary.main,
-        opacity: 0.8,
         color: theme.palette.primary.contrastText,
         borderRadius: '5px',
         fontSize: 12,
@@ -31,4 +32,13 @@ const useStyles = makeStyles((theme) => ({
         padding: '0.5rem',
         maxWidth: '70%',
     },
+    tail: {
+        backgroundColor: theme.palette.primary.main,
+        width: '0.5rem',
+        height: '0.5rem',
+        borderBottomRightRadius: '90%',
+        position: 'absolute',
+        right: '5px',
+        top: '5px'
+    }
 }))
