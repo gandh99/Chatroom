@@ -9,6 +9,18 @@ const sentBySelf = (self, message) => {
     return self._id === message.sender
 }
 
+const generateChatBubble = (self, message) => {
+    return sentBySelf(self, message)
+        ? <ChatBubbleSelf
+            key={message._id}
+            message={message}
+        />
+        : <ChatBubbleOther
+            key={message._id}
+            message={message}
+        />
+}
+
 export default function MessageDisplayArea(props) {
     const classes = useStyles()
     const user = useSelector(state => state.authentication.userData)
@@ -24,15 +36,7 @@ export default function MessageDisplayArea(props) {
     // For generating the chat bubbles
     useEffect(() => {
         props.allMessages.forEach(message => {
-            let nextChatBubble = sentBySelf(user, message)
-                ? <ChatBubbleSelf
-                    key={message._id}
-                    message={message}
-                />
-                : <ChatBubbleOther
-                    key={message._id}
-                    message={message}
-                />
+            let nextChatBubble = generateChatBubble(user, message)
 
             // We need to use this update function instead of directly setting the new state
             setChatBubbles(prevArray => [...prevArray, nextChatBubble])
