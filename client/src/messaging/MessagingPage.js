@@ -5,7 +5,7 @@ import Header from './Header'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import TypingBar from './TypingBar'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
-import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
+import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction, getChatGroupsAction } from '../redux/actions/chatGroupActions'
 import { getMessagesAction, clearMessagesAction } from '../redux/actions/messageActions'
 import { useChatGroupExists } from '../utils/chatGroupProcessor'
 import MessageDisplayArea from './MessageDisplayArea'
@@ -20,11 +20,9 @@ export default function MessagingPage() {
     useEffect(() => {
         dispatch(reauthenticateAction())
         return () => {
-            // For safety, clear the data of the current chat group/potential new chat group when exiting
+            // Clear chat group and messages data when exiting
             dispatch(resetCurrentChatGroupAction())
             dispatch(resetNewChatGroupMembersAction())
-
-            // Clear the messages when exiting
             dispatch(clearMessagesAction())
         }
     }, [])

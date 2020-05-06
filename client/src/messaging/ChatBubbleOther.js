@@ -9,7 +9,7 @@ export default function ChatBubbleOther(props) {
             <div className={classes.container}>
                 {props.message.text}
             </div>
-            <div className={classes.tail} />
+            {props.senderChanged && <div className={classes.tail} />}
         </div>
     )
 }
