@@ -50,15 +50,13 @@ export default function TypingBar() {
             return
         }
 
-        // TODO: If this is a new chat group, first create a new chat group
-        // DONE: First verify that newChatGroupParticipants is not empty!!
-        if (!chatGroupExists) {
+        // If this is a new chat group, first create a new chat group
+        if (!chatGroupExists && newChatGroupMembers.length > 0) {
             dispatch(createChatGroupAction(
                 newChatGroupMembers,
                 () => dispatch(resetNewChatGroupMembersAction()),
                 err => dispatch(showSnackbarAction(err, 'error')),
             ))
-
             return
         }
 
