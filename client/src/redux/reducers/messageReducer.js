@@ -28,6 +28,12 @@ export default function (state = initialState, action) {
                 ...state,
                 sentMessage: {}
             }
+        case message.CLEAR_MESSAGES:
+            return {
+                ...state,
+                allMessages: [],
+                sentMessage: {}
+            }
         default:
             return state
     }

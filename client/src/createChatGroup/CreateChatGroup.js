@@ -7,13 +7,18 @@ import Header from './Header'
 import { history } from '../config/history'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
-import { setNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
+import { setNewChatGroupMembersAction, setChatGroupDataForMessagingAction } from '../redux/actions/chatGroupActions'
+import { getPrivateChatGroup } from '../utils/chatGroupProcessor'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
     const dispatch = useDispatch()
     const [selectedFriends, setSelectedFriends] = useState([])
     const allFriends = useSelector(state => state.friend.allFriends)
+
+    // Only used to check if a private chatGroup exists
+    const self = useSelector(state => state.authentication.userData)
+    const allChatGroups = useSelector(state => state.chatGroup.allChatGroups)
 
     useEffect(() => {
         dispatch(reauthenticateAction())
@@ -29,14 +34,17 @@ export default function CreateChatGroup() {
     }
 
     const onSubmit = () => {
-        /* TODO: IMPORTANT: If only 1 person selected, determine if it's a new chat group. 
-            If it is, first create the chat group (but only after a message is sent on the MessagingPage).
-            Otherwise, redirect to the existing chat group. */
+        const privateChatGroup = getPrivateChatGroup(self, selectedFriends, allChatGroups)
 
-        // TODO: If an existing chat group exists, perhaps resetNewChatgroupMembersAction() should be called
+        if (privateChatGroup) {
+            // If a private chat group exists, set the current chat group
+            dispatch(setChatGroupDataForMessagingAction(privateChatGroup))
+        } else {
+            // Otherwise, set the new chat group members
+            dispatch(setNewChatGroupMembersAction(selectedFriends))
+        }
 
-        // Temporarily assume it is a new chat group
-        dispatch(setNewChatGroupMembersAction(selectedFriends))
+        // Proceed to the messaging page
         history.push('/messaging')
     }
 

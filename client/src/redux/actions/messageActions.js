@@ -38,3 +38,9 @@ export const sendMessageAction = (text, chatgroup, error) => dispatch => {
             error('Unable to send message. Please try again later.')
         })
 }
+
+export const clearMessagesAction = () => dispatch => {
+    dispatch({
+        type: message.CLEAR_MESSAGES
+    })
+}

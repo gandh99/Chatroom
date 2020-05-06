@@ -5,12 +5,12 @@ import AccountCircle from '../images/account_circle.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { history } from '../config/history'
 import { setChatGroupDataForMessagingAction } from '../redux/actions/chatGroupActions'
-import { generateChatGroupTitle, getLastMessage } from '../utils/chatGroupProcessor'
+import { generateChatGroupTitle, shortenMessage } from '../utils/chatGroupProcessor'
 
 export default function ChatGroupCard(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const lastMessage = getLastMessage(props.chatGroup.lastMessage.text)
+    const lastMessage = shortenMessage(props.chatGroup.lastMessage.text)
     const participants = [...props.chatGroup.admins, ...props.chatGroup.members]
     const ownUser = useSelector(state => state.authentication.userData)
     const [chatGroupTitle, setChatGroupTitle] = useState('')
