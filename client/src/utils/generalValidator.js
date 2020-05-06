@@ -4,7 +4,10 @@ export function stringLengthIsValid(string, minLength, maxLength) {
 }
 
 export function stringCharactersAreValid(string, validPattern) {
-    return string.match(validPattern)
+    for (let i = 0; i < string.length; i++ ) {
+        if (!string[i].match(validPattern)) return false
+    }
+    return true
 }
 
 export function stringHasNoTrailingWhitespaces(string) {
