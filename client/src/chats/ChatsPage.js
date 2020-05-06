@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
     },
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: '70px',
         right: '20px',
         backgroundColor: theme.palette.primary.main,

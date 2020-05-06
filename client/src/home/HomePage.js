@@ -34,13 +34,15 @@ export default function HomePage() {
 
     return (
         <div className={classes.root}>
-            <Header />
-            <div className={classes.pageArea}>
+            <header className={classes.header}>
+                <Header />
+            </header>
+            <section className={classes.content}>
                 {tabContent[selectedTabIndex]}
-            </div>
-            <div className={classes.footer}>
+            </section>
+            <footer className={classes.footer}>
                 <TabBar selectedTabIndex={selectedTabIndex} setSelectedTabIndex={setSelectedTabIndex} />
-            </div>
+            </footer>
             <CustomSnackbar />
         </div>
     )
@@ -48,15 +50,33 @@ export default function HomePage() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        position: 'relative',
-        height: '100vh'
+        height: '100%',
+        width: '100%',
     },
-    pageArea: {
+    header: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '4rem',
+        overflow: 'hidden',
+    },
+    content: {
+        position: 'absolute',
+        top: '4rem',
+        bottom: '3rem',
+        left: 0,
+        right: 0,
+        overflow: 'auto',
+        overflowY: 'scroll',
+        scrollbarWidth: 'none', /* Firefox */
     },
     footer: {
         position: 'absolute',
         bottom: 0,
         left: 0,
-        right: 0
+        right: 0,
+        height: '3rem',
+        overflow: 'hidden',
     }
 }))

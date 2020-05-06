@@ -10,7 +10,7 @@ export default function Header() {
     return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar} elevation={0}>
-                <Toolbar>
+                <Toolbar className={classes.toolbar}>
                     <Typography className={classes.logo} variant="h6" color="inherit">
                         ChatRoom
                     </Typography>
@@ -28,9 +28,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         backgroundColor: theme.palette.primary.main
     },
-    logo: {
-    },
-    button: {
-        color: theme.palette.primary.contrastText
+    toolbar: {
+        height: '4rem'
     }
 }))

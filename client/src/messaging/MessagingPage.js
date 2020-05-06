@@ -38,16 +38,16 @@ export default function MessagingPage() {
 
     return (
         <div className={classes.root}>
-            <div className={classes.header}>
+            <header className={classes.header}>
                 <Header />
-            </div>
-            <div className={classes.content}>
+            </header>
+            <section className={classes.content}>
                 <MessageDisplayArea allMessages={allMessages} />
                 <CustomSnackbar />
-            </div>
-            <div className={classes.footer}>
+            </section>
+            <footer className={classes.footer}>
                 <TypingBar />
-            </div>
+            </footer>
         </div>
     )
 }
