@@ -65,13 +65,13 @@ export default function Header() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
     },
     appBar: {
         backgroundColor: theme.palette.primary.main,
     },
     toolbar: {
-        display: 'flex'
+        display: 'flex',
+        height: '4rem'
     },
 
     // Helper is needed to vertically align the img in the div

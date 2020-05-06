@@ -34,27 +34,51 @@ export default function MessagingPage() {
     }, [chatGroupExists])
 
     return (
-        <div className='root'>
-            <Header />
-            <MessageDisplayArea allMessages={allMessages} />
-            <div className={classes.typingBar}>
+        <div className={classes.root}>
+            <div className={classes.header}>
+                <Header />
+            </div>
+            <div className={classes.content}>
+                <MessageDisplayArea allMessages={allMessages} />
+                <CustomSnackbar />
+            </div>
+            <div className={classes.footer}>
                 <TypingBar />
             </div>
-            <CustomSnackbar />
         </div>
     )
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        height: '100%',
+        width: '100%',
     },
-    grid: {
-        paddingBottom: '3rem'
+    header: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '4rem',
+        overflow: 'hidden',
     },
-    typingBar: {
-        position: 'fixed',
+    content: {
+        position: 'absolute',
+        top: '4rem',
+        bottom: '3.5rem',
+        left: 0,
+        right: 0,
+        overflow: 'auto',
+        borderBottom: 'solid 10px transparent',
+        overflowY: 'scroll',
+        scrollbarWidth: 'none', /* Firefox */
+    },
+    footer: {
+        position: 'absolute',
         bottom: 0,
         left: 0,
-        width: '100vw'
+        right: 0,
+        height: '3.5rem',
+        overflow: 'hidden',
     }
 }))
