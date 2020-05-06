@@ -49,41 +49,71 @@ export default function CreateChatGroup() {
     }
 
     return (
-        <div className='root'>
-            <Header numOfFriends={selectedFriends.length} />
-            <Grid
-                className={classes.grid}
-                container
-                spacing={0}
-                direction="row"
-                justify="flex-start"
-                alignItems="center" >
-                {allFriends.map(friend => (
-                    <FriendCard
-                        key={friend._id}
-                        friend={friend}
-                        selectFriend={() => selectFriend(friend)}
-                        unselectFriend={() => unselectFriend(friend)}
-                    />
-                ))}
-            </Grid>
-            <Button
-                onClick={onSubmit}
-                disabled={selectedFriends.length <= 0}
-                className={classes.button}
-                variant="contained"
-                color="primary">
-                Start Chat
-            </Button>
+        <div className={classes.root}>
+            <header className={classes.header}>
+                <Header numOfFriends={selectedFriends.length} />
+            </header>
+            <section className={classes.content}>
+                <Grid
+                    container
+                    spacing={0}
+                    direction="row"
+                    justify="flex-start"
+                    alignItems="center" >
+                    {allFriends.map(friend => (
+                        <FriendCard
+                            key={friend._id}
+                            friend={friend}
+                            selectFriend={() => selectFriend(friend)}
+                            unselectFriend={() => unselectFriend(friend)}
+                        />
+                    ))}
+                </Grid>
+            </section>
+            <footer className={classes.footer}>
+                <Button
+                    onClick={onSubmit}
+                    disabled={selectedFriends.length <= 0}
+                    className={classes.button}
+                    variant="contained"
+                    color="primary">
+                    Start Chat
+                </Button>
+            </footer>
         </div>
     )
 }
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        height: '100%',
+        width: '100%',
     },
-    grid: {
-        paddingBottom: '3rem'
+    header: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '4rem',
+        overflow: 'hidden',
+    },
+    content: {
+        position: 'absolute',
+        top: '4rem',
+        bottom: '3rem',
+        left: 0,
+        right: 0,
+        overflow: 'auto',
+        overflowY: 'scroll',
+        scrollbarWidth: 'none', /* Firefox */
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '3rem',
+        overflow: 'hidden',
     },
     button: {
         position: 'fixed',
