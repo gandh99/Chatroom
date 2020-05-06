@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import ChatBubbleSelf from './ChatBubbleSelf'
 import { useSelector } from 'react-redux'
@@ -13,6 +13,13 @@ export default function MessageDisplayArea(props) {
     const classes = useStyles()
     const user = useSelector(state => state.authentication.userData)
     const [chatBubbles, setChatBubbles] = useState([])
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView()
+    }
+
+    useEffect(scrollToBottom, [chatBubbles])
 
     // For generating the chat bubbles
     useEffect(() => {
@@ -37,6 +44,7 @@ export default function MessageDisplayArea(props) {
     return (
         <div className={classes.root}>
             {chatBubbles}
+            <div ref={messagesEndRef} />
         </div>
     )
 }
