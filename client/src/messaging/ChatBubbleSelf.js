@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '0.5rem',
         padding: '0.5rem',
         maxWidth: '70%',
+        wordWrap: 'break-word'
     },
     tail: {
         backgroundColor: theme.palette.primary.main,
