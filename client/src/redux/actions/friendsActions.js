@@ -5,7 +5,7 @@ import { returnErrors } from './errorActions'
 export const getFriendsAction = () => dispatch => {
     client
         .service('friends')
-        .find()
+        .find({})
         .then(res => {
             dispatch({
                 type: friends.GET_FRIENDS_SUCCESS,

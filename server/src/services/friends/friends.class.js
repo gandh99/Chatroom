@@ -18,7 +18,7 @@ exports.Friends = class Friends extends Service {
 
         // Control reaches here iff method was called directly by client
         const requester = params.user
-        return super.find({ requester })
+        return super.find({ query: { requester } })
     }
 
     async remove(id, params) {

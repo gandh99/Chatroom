@@ -36,7 +36,7 @@ export const getPrivateChatGroup = (self, selectedFriends, allChatGroups) => {
     let friend = selectedFriends[0]
 
     for (let i = 0; i < allChatGroups.length; i++) {
-        let chatGroup = allChatGroups[0]
+        let chatGroup = allChatGroups[i]
 
         if (!isPrivate(chatGroup)) return null
         

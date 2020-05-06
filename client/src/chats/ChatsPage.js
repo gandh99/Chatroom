@@ -9,7 +9,6 @@ import ChatGroupCard from './ChatGroupCard'
 
 export default function Chats() {
     const classes = useStyles()
-    const dispatch = useDispatch()
     const allChatGroups = useSelector(state => state.chatGroup.allChatGroups)
 
     return (

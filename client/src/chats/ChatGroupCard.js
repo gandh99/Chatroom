@@ -10,15 +10,30 @@ import { generateChatGroupTitle, shortenMessage } from '../utils/chatGroupProces
 export default function ChatGroupCard(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const lastMessage = shortenMessage(props.chatGroup.lastMessage.text)
-    const participants = [...props.chatGroup.admins, ...props.chatGroup.members]
+    const [lastMessage, setLastMessage] = useState('')
+    const [participants, setParticipants] = useState([])
     const ownUser = useSelector(state => state.authentication.userData)
     const [chatGroupTitle, setChatGroupTitle] = useState('')
 
+    // Update the title of the card
     useEffect(() => {
         const title = generateChatGroupTitle(ownUser, participants)
         setChatGroupTitle(title)
-    }, [ownUser])
+    }, [ownUser, participants])
+
+    // Update the participants, which is used to generate the title of the card
+    useEffect(() => {
+        setParticipants([...props.chatGroup.admins, ...props.chatGroup.members])
+    }, [props.chatGroup.admins, props.chatGroup.members])
+
+    // Update the last message received in the chat group
+    useEffect(() => {
+        try {
+            setLastMessage(props.chatGroup.lastMessage.text)
+        } catch (error) {
+            console.log(error)
+        }
+    }, [props.chatGroup.lastMessage])
 
     const onClick = () => {
         dispatch(setChatGroupDataForMessagingAction(props.chatGroup))

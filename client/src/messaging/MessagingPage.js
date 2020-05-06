@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
 import Header from './Header'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import TypingBar from './TypingBar'
@@ -31,10 +30,11 @@ export default function MessagingPage() {
     }, [])
 
     // Get the messages after the current chat group (if it exists) loads
+    // No dependency, otherwise when sending a new message in a new chatgroup, the message will appear twice
     useEffect(() => {
         if (!chatGroupExists) return
         dispatch(getMessagesAction(currentChatGroup))
-    }, [chatGroupExists])
+    }, [])  
 
     return (
         <div className={classes.root}>
