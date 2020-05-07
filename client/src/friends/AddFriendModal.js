@@ -11,13 +11,12 @@ export default function AddFriendModal(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
     const [username, setUsername] = useState('')
-    const usernameIsValid = isValidUsername(username)
 
     const onSubmit = (event) => {
         event.preventDefault()
 
         // Validate input
-        if (!usernameIsValid) {
+        if (!isValidUsername(username)) {
             dispatch(showSnackbarAction('Invalid input.', 'error'))
             return
         }
@@ -30,9 +29,7 @@ export default function AddFriendModal(props) {
         onHide()
     }
 
-    const onHide = () => {
-        dispatch(hideAddFriendModalAction())
-    }
+    const onHide = () => dispatch(hideAddFriendModalAction())
 
     return (
         <Modal

@@ -7,22 +7,18 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { deleteFriendAction } from '../redux/actions/friendsActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 
-export default function FriendCard(props) {
+export default function FriendCard({ friend }) {
     const classes = useStyles()
     const dispatch = useDispatch()
 
     // Menu
     const [anchorEl, setAnchorEl] = useState(null)
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget)
-    };
-    const handleClose = () => {
-        setAnchorEl(null)
-    };
+    const handleClick = event => setAnchorEl(event.currentTarget)
+    const handleClose = () => setAnchorEl(null)
 
     const deleteFriend = () => {
         dispatch(deleteFriendAction(
-            props.friend._id,
+            friend._id,
             () => dispatch(showSnackbarAction('Deleted friend.', 'success')),
             () => dispatch(showSnackbarAction('Unable to delete friend.', 'error')),
         ))
@@ -38,10 +34,10 @@ export default function FriendCard(props) {
                     </div>
                     <div className={classes.userDataArea}>
                         <Typography className={classes.username} variant="h5" component="h2">
-                            {props.friend.username}
+                            {friend.username}
                         </Typography>
                         <Typography className={classes.personalMessage} variant="h6" component="h6">
-                            {props.friend.personalMessage}
+                            {friend.personalMessage}
                         </Typography>
                     </div>
                     <div className={classes.menuArea}>
