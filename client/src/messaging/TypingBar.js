@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { sendMessageAction } from '../redux/actions/messageActions'
 import { createChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
-import { useChatGroupExists } from '../utils/chatGroupProcessor'
+import { useChatGroupExists } from '../utils/chatGroup'
 
 const minMessageLength = 1
 const maxMessageLength = 200

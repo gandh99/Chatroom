@@ -7,8 +7,8 @@ import Header from './Header'
 import { history } from '../config/history'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
-import { setNewChatGroupMembersAction, setChatGroupDataForMessagingAction } from '../redux/actions/chatGroupActions'
-import { getPrivateChatGroup } from '../utils/chatGroupProcessor'
+import { setNewChatGroupMembersAction, setCurrentChatGroupAction } from '../redux/actions/chatGroupActions'
+import { getPrivateChatGroup } from '../utils/chatGroup'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
@@ -38,7 +38,7 @@ export default function CreateChatGroup() {
 
         if (privateChatGroup) {
             // If a private chat group exists, set the current chat group
-            dispatch(setChatGroupDataForMessagingAction(privateChatGroup))
+            dispatch(setCurrentChatGroupAction(privateChatGroup))
         } else {
             // Otherwise, set the new chat group members
             dispatch(setNewChatGroupMembersAction(selectedFriends))

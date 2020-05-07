@@ -12,7 +12,7 @@ export default function Chats() {
     const allChatGroups = useSelector(state => state.chatGroup.allChatGroups)
 
     return (
-        <div>
+        <>
             <Grid
                 className={classes.grid}
                 container
@@ -35,7 +35,7 @@ export default function Chats() {
             >
                 <ChatIcon />
             </Fab>
-        </div>
+        </>
     )
 }
 

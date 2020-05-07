@@ -40,12 +40,12 @@ export default function (state = initialState, action) {
                 ...state,
                 allChatGroups: []
             }
-        case chatGroup.SET_CHATGROUP_DATA_FOR_MESSAGING:
+        case chatGroup.SET_CURRENT_CHATGROUP:
             return {
                 ...state,
                 currentChatGroup: action.payload
             }
-        case chatGroup.RESET_CHATGROUP_DATA_FOR_MESSAGING:
+        case chatGroup.RESET_CURRENT_CHATGROUP:
             return {
                 ...state,
                 currentChatGroup: {}

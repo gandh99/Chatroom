@@ -7,8 +7,7 @@ import { Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 import AccountCircle from '../images/account_circle.png'
 import { useSelector } from 'react-redux'
-import { generateChatGroupTitle } from '../utils/chatGroupProcessor'
-import { useChatGroupExists } from '../utils/chatGroupProcessor'
+import { generateChatGroupTitle, useChatGroupExists } from '../utils/chatGroup'
 
 export default function Header() {
     const classes = useStyles()

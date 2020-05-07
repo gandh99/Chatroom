@@ -7,7 +7,7 @@ import TypingBar from './TypingBar'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction, getChatGroupsAction } from '../redux/actions/chatGroupActions'
 import { getMessagesAction, clearMessagesAction } from '../redux/actions/messageActions'
-import { useChatGroupExists } from '../utils/chatGroupProcessor'
+import { useChatGroupExists } from '../utils/chatGroup'
 import MessageDisplayArea from './MessageDisplayArea'
 
 export default function MessagingPage() {

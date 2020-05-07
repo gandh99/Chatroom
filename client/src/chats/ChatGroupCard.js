@@ -4,16 +4,21 @@ import { Grid, Card, CardContent, Typography } from '@material-ui/core'
 import AccountCircle from '../images/account_circle.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { history } from '../config/history'
-import { setChatGroupDataForMessagingAction } from '../redux/actions/chatGroupActions'
-import { generateChatGroupTitle, shortenMessage } from '../utils/chatGroupProcessor'
+import { setCurrentChatGroupAction } from '../redux/actions/chatGroupActions'
+import { generateChatGroupTitle, shortenMessage } from '../utils/chatGroup'
 
-export default function ChatGroupCard(props) {
+export default function ChatGroupCard({ chatGroup }) {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const ownUser = useSelector(state => state.authentication.userData)
     const [lastMessage, setLastMessage] = useState('')
     const [participants, setParticipants] = useState([])
-    const ownUser = useSelector(state => state.authentication.userData)
     const [chatGroupTitle, setChatGroupTitle] = useState('')
+    
+    // Update the participants, which is used to generate the title of the card
+    useEffect(() => {
+        setParticipants([...chatGroup.admins, ...chatGroup.members])
+    }, [chatGroup])
 
     // Update the title of the card
     useEffect(() => {
@@ -21,22 +26,18 @@ export default function ChatGroupCard(props) {
         setChatGroupTitle(title)
     }, [ownUser, participants])
 
-    // Update the participants, which is used to generate the title of the card
-    useEffect(() => {
-        setParticipants([...props.chatGroup.admins, ...props.chatGroup.members])
-    }, [props.chatGroup.admins, props.chatGroup.members])
-
     // Update the last message received in the chat group
     useEffect(() => {
         try {
-            setLastMessage(props.chatGroup.lastMessage.text)
+            const lastMessageDisplay = shortenMessage(chatGroup.lastMessage.text)
+            setLastMessage(lastMessageDisplay)
         } catch (error) {
             console.log(error)
         }
-    }, [props.chatGroup.lastMessage])
+    }, [chatGroup])
 
     const onClick = () => {
-        dispatch(setChatGroupDataForMessagingAction(props.chatGroup))
+        dispatch(setCurrentChatGroupAction(chatGroup))
         history.push('/messaging')
     }
 
@@ -55,7 +56,7 @@ export default function ChatGroupCard(props) {
                             {lastMessage}
                         </Typography>
                     </div>
-                    <div className={classes.menuArea}></div>
+                    <div className={classes.menuArea} />
                 </CardContent>
                 <div className={classes.borderBottom} />
             </Card>
