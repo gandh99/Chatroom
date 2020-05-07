@@ -8,7 +8,7 @@ import { history } from '../config/history'
 import { getFriendsAction } from '../redux/actions/friendsActions'
 import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import { setNewChatGroupMembersAction, setCurrentChatGroupAction } from '../redux/actions/chatGroupActions'
-import { getPrivateChatGroup } from '../utils/chatGroup'
+import { findPrivateChatGroup } from '../utils/chatGroup'
 
 export default function CreateChatGroup() {
     const classes = useStyles()
@@ -33,9 +33,16 @@ export default function CreateChatGroup() {
         setSelectedFriends(selectedFriends.filter(selectedFriend => selectedFriend._id !== friend._id))
     }
 
-    const onSubmit = () => {
-        const privateChatGroup = getPrivateChatGroup(self, selectedFriends, allChatGroups)
+    // If there is a private ChatGroup between self and the selected friend, get that ChatGroup and set it
+    // Otherwise, set the users data of the members for the new ChatGroup
+    const setChatGroupDataForMessaging = (self, selectedFriends, allChatGroups) => {
+        // A private ChatGroup can never have more than 2 members in the first place
+        if (selectedFriends.length > 1) {
+            dispatch(setNewChatGroupMembersAction(selectedFriends))
+            return
+        }
 
+        const privateChatGroup = findPrivateChatGroup(self, selectedFriends[0], allChatGroups)
         if (privateChatGroup) {
             // If a private chat group exists, set the current chat group
             dispatch(setCurrentChatGroupAction(privateChatGroup))
@@ -43,8 +50,10 @@ export default function CreateChatGroup() {
             // Otherwise, set the new chat group members
             dispatch(setNewChatGroupMembersAction(selectedFriends))
         }
+    }
 
-        // Proceed to the messaging page
+    const onSubmit = () => {
+        setChatGroupDataForMessaging(self, selectedFriends, allChatGroups)
         history.push('/messaging')
     }
 

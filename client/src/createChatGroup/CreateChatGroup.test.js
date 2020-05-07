@@ -25,6 +25,21 @@ describe('CreateChatGroup Component', () => {
         })
 
         it('Should render header', () => {
+            const component = wrapper.find('header')
+            expect(component.length).toBe(1)
+        })
+
+        it('Should render section', () => {
+            const component = wrapper.find('section')
+            expect(component.length).toBe(1)
+        })
+        
+        it('Should render footer', () => {
+            const component = wrapper.find('footer')
+            expect(component.length).toBe(1)
+        })
+
+        it('Should render header component', () => {
             const component = wrapper.find(Header)
             expect(component.length).toBe(1)
         })

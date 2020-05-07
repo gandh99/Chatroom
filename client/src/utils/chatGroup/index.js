@@ -30,31 +30,29 @@ export const useChatGroupExists = () => {
     return Object.keys(currentChatGroup).length !== 0
 }
 
-export const getPrivateChatGroup = (self, selectedFriends, allChatGroups) => {
-    if (selectedFriends.length > 1) return null
-    let friend = selectedFriends[0]
-
+// Attempts to find a private ChatGroup between self and the friend
+export const findPrivateChatGroup = (self, friend, allChatGroups) => {
     for (let i = 0; i < allChatGroups.length; i++) {
         let chatGroup = allChatGroups[i]
 
-        if (!isPrivate(chatGroup)) return null
+        if (!isChatGroupPrivate(chatGroup)) return null
         
-        if ((belongsToGroup(chatGroup.admins, self) && belongsToGroup(chatGroup.members, friend)) ||
-            (belongsToGroup(chatGroup.admins, friend) && belongsToGroup(chatGroup.members, self)))
+        if ((hasRank(self, chatGroup.admins) && hasRank(friend, chatGroup.members)) ||
+            (hasRank(friend, chatGroup.admins) && hasRank(self, chatGroup.members)))
             return chatGroup
     }
     return null
 }
 
 // A ChatGroup is private iff there is exactly 1 admin and 1 member
-export const isPrivate = (chatGroup) => {
+export const isChatGroupPrivate = (chatGroup) => {
     return (chatGroup.admins.length == 1 && chatGroup.members.length == 1)
 }
 
-// A user group refers to admins, members, etc.
-export const belongsToGroup = (usersInGroup, user) => {
-    for (let i = 0; i < usersInGroup.length; i++) {
-        if (usersInGroup[i]._id === user._id) return true
+// A rank refers to admin or member
+export const hasRank = (user, usersWithRank) => {
+    for (let i = 0; i < usersWithRank.length; i++) {
+        if (usersWithRank[i]._id === user._id) return true
     }
     return false
 }

@@ -6,26 +6,28 @@ import Toolbar from '@material-ui/core/Toolbar'
 import { Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 
-export default function Header(props) {
+export default function Header({ numOfFriends }) {
     const classes = useStyles()
     const defaultTitle = 'New Chat'
     const [title, setTitle] = useState(defaultTitle)
 
     // Set the title
     useEffect(() => {
-        if (props.numOfFriends <= 0) {
+        if (numOfFriends <= 0) {
             setTitle(defaultTitle)
         } else {
-            setTitle(`${props.numOfFriends} selected`)
+            setTitle(`${numOfFriends} selected`)
         }
-    }, [props.numOfFriends])
+    }, [numOfFriends])
+
+    const returnHome = () => history.push('/')
 
     return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar} elevation={0}>
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.left}>
-                        <div onClick={() => history.push('/')} className={classes.back}>
+                        <div onClick={returnHome} className={classes.back}>
                             <KeyboardBackspaceIcon />
                         </div>
                     </div>
