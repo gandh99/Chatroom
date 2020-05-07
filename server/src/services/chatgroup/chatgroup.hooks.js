@@ -47,6 +47,24 @@ const getUsersInChatgroups = async context => {
   return context
 }
 
+const getUsersInChatgroup = async context => {
+  let chatgroup = context.result
+
+  // Get the ids of the admins and members
+  const adminIdArray = chatgroup.admins
+  const memberIdArray = chatgroup.members
+
+  // Get the 'users' model of the participants using their ids
+  chatgroup.admins = await Promise.all(
+    adminIdArray.map(adminId => context.app.service('users').get(adminId, { query: { $select: ['username'] } }))
+  )
+  chatgroup.members = await Promise.all(
+    memberIdArray.map(memberId => context.app.service('users').get(memberId, { query: { $select: ['username'] } }))
+  )
+
+  return context
+}
+
 const getLastMessageInChatgroups = async context => {
   let chatgroups = context.result
 
@@ -116,7 +134,7 @@ module.exports = {
     all: [],
     find: [getChatgroupsFromIds, getUsersInChatgroups, getLastMessageInChatgroups],
     get: [],
-    create: [addChatgroupToAllParticipants],
+    create: [addChatgroupToAllParticipants, getUsersInChatgroup],
     update: [],
     patch: [],
     remove: []

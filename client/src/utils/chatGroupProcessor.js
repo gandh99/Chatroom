@@ -11,7 +11,6 @@ export const generateChatGroupTitle = (ownUser, participants) => {
             title += participant.username
         }
     })
-
     return title
 }
 
