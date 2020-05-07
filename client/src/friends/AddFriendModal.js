@@ -5,22 +5,19 @@ import { Modal, Button, Form } from 'react-bootstrap'
 import { hideAddFriendModalAction } from '../redux/actions/modalActions'
 import { addFriendAction } from '../redux/actions/friendsActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
-import { usernameIsValid } from '../utils/usernameValidator'
-
-export const inputIsValid = (username) => {
-    return usernameIsValid(username)
-}
+import { isValidUsername } from '../utils/authentication/index'
 
 export default function AddFriendModal(props) {
     const classes = useStyles()
     const dispatch = useDispatch()
     const [username, setUsername] = useState('')
+    const usernameIsValid = isValidUsername(username)
 
     const onSubmit = (event) => {
         event.preventDefault()
 
         // Validate input
-        if (!inputIsValid(username)) {
+        if (!usernameIsValid) {
             dispatch(showSnackbarAction('Invalid input.', 'error'))
             return
         }

@@ -1,7 +1,6 @@
 import { authentication } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
-import { history } from '../../config/history'
 
 export const registerUserAction = (username, password, success, error) => dispatch => {
     client
@@ -24,7 +23,7 @@ export const registerUserAction = (username, password, success, error) => dispat
         })
 }
 
-export const loginUserAction = (username, password, error) => dispatch => {
+export const loginUserAction = (username, password, success, error) => dispatch => {
     client
         .authenticate({
             strategy: 'local',
@@ -42,7 +41,7 @@ export const loginUserAction = (username, password, error) => dispatch => {
                     }
                 }
             })
-            history.push('/')
+            success()
         })
         .catch(err => {
             dispatch(returnErrors(err))

@@ -5,8 +5,8 @@ import './app.css'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 import { Switch, Route, Redirect, Router } from 'react-router-dom'
-import Login from './authentication/Login'
-import Register from './authentication/Register'
+import LoginPage from './authentication/LoginPage'
+import RegisterPage from './authentication/RegisterPage'
 import HomePage from './home/HomePage'
 import { PrivateRoute } from './reusableComponents/PrivateRoute'
 import { history } from './config/history'
@@ -20,8 +20,8 @@ function App() {
         <Router history={history}>
           <div className="App">
             <Switch>
-              <Route path='/login' component={Login} />
-              <Route path='/register' component={Register} />
+              <Route path='/login' component={LoginPage} />
+              <Route path='/register' component={RegisterPage} />
               <PrivateRoute exact path='/create-chat-group' component={CreateChatGroup} />
               <PrivateRoute exact path='/messaging' component={MessagingPage} />
               <PrivateRoute exact path='/' component={HomePage} />

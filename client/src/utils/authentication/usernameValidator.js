@@ -2,18 +2,12 @@ import {
     stringLengthIsValid, 
     stringCharactersAreValid, 
     stringHasNoTrailingWhitespaces
-} from './generalValidator'
+} from '../generalValidator'
 
 export const usernameConstants = {
     MIN_USERNAME_LENGTH: 1,
     MAX_USERNAME_LENGTH: 15,
     ALLOWED_CHARACTERS: /^[\w\-_ ]$/
-}
-
-export function usernameIsValid(username) {
-    return usernameLengthIsValid(username) &&
-        usernameCharactersAreValid(username) &&
-        usernameHasNoTrailingWhitespaces(username)
 }
 
 export function usernameLengthIsValid(username) {

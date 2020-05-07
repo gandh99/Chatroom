@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { history } from '../config/history'
 import Fab from '@material-ui/core/Fab'
