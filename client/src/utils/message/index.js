@@ -1,6 +1,7 @@
 import React from 'react'
 import ChatBubbleSelf from "../../messaging/ChatBubbleSelf"
 import ChatBubbleOther from "../../messaging/ChatBubbleOther"
+import { stringLengthIsValid } from '../generalValidator'
 
 export const messageSentBySelf = (self, message) => {
     return self._id === message.sender
@@ -34,4 +35,10 @@ export const generateSingleChatBubble = (self, message, senderChanged) => {
             message={message}
             senderChanged={senderChanged}
         />
+}
+
+export const minMessageLength = 1
+export const maxMessageLength = 300
+export const messageIsValid = (message) => {
+    return stringLengthIsValid(message, minMessageLength, maxMessageLength)
 }

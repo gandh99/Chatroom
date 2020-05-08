@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import {
-    messageSentBySelf, senderHasChanged, generateAllChatBubbles, generateSingleChatBubble
+    messageSentBySelf, senderHasChanged, generateAllChatBubbles, generateSingleChatBubble, messageIsValid
 } from './index'
 import ChatBubbleSelf from '../../messaging/ChatBubbleSelf'
 
@@ -58,5 +58,22 @@ describe('Message utils', () => {
     })
 
     describe('generateSingleChatBubble()', () => {
+    })
+
+    describe('messageIsValid()', () => {
+        it('Should return false for empty message', () => {
+            const message = ''
+            expect(messageIsValid(message)).toBeFalsy()
+        })
+
+        it('Should return false for message with length >300 characters', () => {
+            const message = 'ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet'
+            expect(messageIsValid(message)).toBeFalsy()
+        })
+
+        it('Should return true for message with 1 <= characters <= 300', () => {
+            const message = 'Hello world!'
+            expect(messageIsValid(message)).toBeTruthy()
+        })
     })
 })

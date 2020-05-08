@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { stringLengthIsValid } from '../utils/generalValidator'
 import TextareaAutosize from 'react-autosize-textarea'
 import SendIcon from '@material-ui/icons/Send'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,13 +7,7 @@ import { sendMessageAction } from '../redux/actions/messageActions'
 import { createChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 import { showSnackbarAction } from '../redux/actions/globalNotificationActions'
 import { useChatGroupExists } from '../utils/chatGroup'
-
-const minMessageLength = 1
-const maxMessageLength = 200
-
-function inputIsValid(message) {
-    return stringLengthIsValid(message, minMessageLength, maxMessageLength)
-}
+import { messageIsValid, maxMessageLength } from '../utils/message'
 
 export default function TypingBar() {
     const classes = useStyles()
@@ -23,12 +16,12 @@ export default function TypingBar() {
     const [message, setMessage] = useState('')
     const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
 
-    // Only needed if we need to create a new chat group before sending the message
+    // Only used if we need to create a new chat group before sending the message
     const newChatGroupMembers = useSelector(state => state.chatGroup.newChatGroupMembers)
 
     // For sending a message to the chat group
     const sendMessage = (message, currentChatGroup) => {
-        if (!inputIsValid(message)) return
+        if (!messageIsValid(message)) return
 
         dispatch(sendMessageAction(
             message,
@@ -40,13 +33,13 @@ export default function TypingBar() {
 
     // Triggered only when a new chat group is first created before sending the message
     useEffect(() => {
-        sendMessage(message, currentChatGroup)        
+        sendMessage(message, currentChatGroup)
     }, [currentChatGroup])
 
     const onSubmit = async event => {
         event.preventDefault()
 
-        if (!inputIsValid(message)) {
+        if (!messageIsValid(message)) {
             return
         }
 
@@ -54,9 +47,7 @@ export default function TypingBar() {
         if (!chatGroupExists && newChatGroupMembers.length > 0) {
             dispatch(createChatGroupAction(
                 newChatGroupMembers,
-                () => {
-                    dispatch(resetNewChatGroupMembersAction())
-                },
+                () => dispatch(resetNewChatGroupMembersAction()),
                 err => dispatch(showSnackbarAction(err, 'error')),
             ))
             return
