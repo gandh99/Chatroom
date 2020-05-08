@@ -22,13 +22,20 @@ export const getFriendsAction = () => dispatch => {
 }
 
 export const addFriendAction = (username, success, error) => dispatch => {
+    let recipient
+
     client
-        .service('friends')
-        .create({ username }, null)
+        .service('users')
+        .find({ query: { username } })
+        .then(res => {
+            if (res.total <= 0) throw new Error('User not found.')
+            recipient = res.data[0]
+            return client.service('friends').create({ recipient })
+        })
         .then(res => {
             dispatch({
                 type: friends.ADD_FRIEND_SUCCESS,
-                payload: res
+                payload: recipient
             })
             success()
         })

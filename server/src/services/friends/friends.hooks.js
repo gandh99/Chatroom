@@ -6,6 +6,26 @@ const {
 
 const validateFriends = require('../../hooks/validate-friends');
 
+const getRequester = async context => {
+  const requester = context.params.user
+  context.data.requester = requester
+  return context
+}
+
+
+const addFriendToRequester = async context => {
+  const { requester } = context.data
+  const friend = context.result
+
+  // Save this entire 'friends' model into the 'users' friends array
+  context.app.service('users').patch(
+    requester,
+    { $push: { friends: friend } }
+  )
+
+  return context
+}
+
 const getUserModelFromFriend = async context => {
   const friendsArray = context.result.data
 
@@ -20,23 +40,6 @@ const getUserModelFromFriend = async context => {
     ))
   )
   context.dispatch = users
-
-  return context
-}
-
-const addFriendIntoUserModel = async context => {
-  const { recipient } = context.result
-
-  // Save this entire 'friends' model into the 'users' friends array
-  const requester = context.params.user
-  context.app.service('users').patch(
-    requester,
-    { $push: { friends: context.result } }
-  )
-
-  // We want to return the 'users' model of the recipient
-  const user = await context.app.service('users').get(recipient)
-  context.dispatch = user
 
   return context
 }
@@ -67,7 +70,7 @@ module.exports = {
     all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [validateFriends()],
+    create: [getRequester, validateFriends()],
     update: [],
     patch: [],
     remove: []
@@ -81,7 +84,7 @@ module.exports = {
     ],
     find: [getUserModelFromFriend],
     get: [],
-    create: [addFriendIntoUserModel],
+    create: [addFriendToRequester],
     update: [],
     patch: [],
     remove: [removeFriendFromUserModel]

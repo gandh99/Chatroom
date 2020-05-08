@@ -1,16 +1,6 @@
 const { Service } = require('feathers-mongoose');
 
 exports.Friends = class Friends extends Service {
-    async create(data, params) {
-        // Set the requester. Refers to the user who issued this request.
-        const requester = params.user
-
-        // Set the recipient. Refers to the friend.
-        const { recipient } = data
-
-        return super.create({ requester, recipient })
-    }
-
     async find(params) {
         if (!params.user) {
             return super.find({ query: { ...params } })
