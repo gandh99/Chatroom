@@ -11,25 +11,27 @@ import { generateChatGroupTitle, useChatGroupExists } from '../utils/chatGroup'
 
 export default function Header() {
     const classes = useStyles()
-    const chatGroup = useSelector(state => state.chatGroup.currentChatGroup)
+    const chatGroupExists = useChatGroupExists()
     const ownUser = useSelector(state => state.authentication.userData)
     const [title, setTitle] = useState('')
-    const chatGroupExists = useChatGroupExists()
-
-    // Used only if we arrived here from CreateChatGroup
+    
+    /* Only one of them will be used: 
+    - newChatGroupMembers: Used only if CreateChatGroup -> MessagingPage 
+    - currentChatGroup: Used only if ChatGroupCard -> MessagingPage */
     const newChatGroupMembers = useSelector(state => state.chatGroup.newChatGroupMembers)
+    const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
 
     // Set the title of the header
     useEffect(() => {
         try {
             const participants = (chatGroupExists)
-                ? [...chatGroup.admins, ...chatGroup.members]
+                ? [...currentChatGroup.admins, ...currentChatGroup.members]
                 : newChatGroupMembers
             setTitle(generateChatGroupTitle(ownUser, participants))
         } catch (error) {
             history.push('/')
         }
-    }, [chatGroup, ownUser, newChatGroupMembers])
+    }, [ownUser, currentChatGroup, newChatGroupMembers])
 
     const returnHome = () => {
         history.push('/')

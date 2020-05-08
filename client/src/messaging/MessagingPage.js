@@ -8,10 +8,12 @@ import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
 import { getMessagesAction, clearMessagesAction } from '../redux/actions/messageActions'
 import MessageDisplayArea from './MessageDisplayArea'
+import { useChatGroupExists } from '../utils/chatGroup'
 
 export default function MessagingPage() {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const chatGroupExists = useChatGroupExists()
     const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
     const allMessages = useSelector(state => state.message.allMessages)
 
@@ -28,7 +30,7 @@ export default function MessagingPage() {
     // Get the messages after the current chat group (if it exists) loads
     // No dependency, otherwise when sending a new message in a new chatgroup, the message will appear twice
     useEffect(() => {
-        if (!currentChatGroup) return
+        if (!chatGroupExists) return
         dispatch(getMessagesAction(currentChatGroup))
     }, [])  
 
