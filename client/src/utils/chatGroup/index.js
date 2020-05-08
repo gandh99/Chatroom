@@ -4,7 +4,7 @@ export const generateChatGroupTitle = (ownUser, participants) => {
     let title = ''
 
     participants.forEach((participant, index) => {
-        if (ownUser.username !== participant.username) {
+        if (ownUser._id !== participant._id) {
             if (title !== '') {
                 title += ', '
             }
