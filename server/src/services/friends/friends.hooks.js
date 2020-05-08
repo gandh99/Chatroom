@@ -12,16 +12,10 @@ const getRequester = async context => {
   return context
 }
 
-
 const addFriendToRequester = async context => {
   const { requester } = context.data
   const friend = context.result
-
-  // Save this entire 'friends' model into the 'users' friends array
-  context.app.service('users').patch(
-    requester,
-    { $push: { friends: friend } }
-  )
+  context.app.service('users').addToFriendsArray(requester._id, friend)
 
   return context
 }
@@ -44,23 +38,10 @@ const getUserModelFromFriend = async context => {
   return context
 }
 
-const removeFriendFromUserModel = async context => {
+const removeFriendFromRequester = async context => {
+  const requesterId = context.params.user._id
   const removedFriend = context.result[0]
-  const requester = context.params.user
-
-  // Remove the friend from the friends array
-  // This is to create the updated 'users' model for the requester
-  const updatedFriendsArray = requester.friends.filter(
-    friend => friend.toString() !== removedFriend._id.toString()
-  )
-  let updatedRequester = requester
-  updatedRequester.friends = updatedFriendsArray
-
-  // Update the 'users' model of the requester
-  await context.app.service('users').patch(
-    requester,
-    updatedRequester
-  )
+  context.app.service('users').removeFromFriendsArray(requesterId, removedFriend)
 
   return context
 }
@@ -87,7 +68,7 @@ module.exports = {
     create: [addFriendToRequester],
     update: [],
     patch: [],
-    remove: [removeFriendFromUserModel]
+    remove: [removeFriendFromRequester]
   },
 
   error: {
