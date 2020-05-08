@@ -23,7 +23,6 @@ export default function (state = initialState, action) {
                 ...state,
                 currentChatGroup: action.payload,
                 allChatGroups: [...state.allChatGroups, action.payload],
-                newChatGroupMembers: []
             }
         case chatGroup.CREATE_CHATGROUP_FAIL:
             return {
