@@ -23,7 +23,7 @@ const generateChatBubble = (self, message, senderChanged) => {
         />
 }
 
-export default function MessageDisplayArea(props) {
+export default function MessageDisplayArea({ allMessages }) {
     const classes = useStyles()
     const user = useSelector(state => state.authentication.userData)
     const [chatBubbles, setChatBubbles] = useState([])
@@ -35,16 +35,16 @@ export default function MessageDisplayArea(props) {
 
     useEffect(scrollToBottom, [chatBubbles])
 
-    // For generating the chat bubbles
+    // Generate the chat bubbles
     useEffect(() => {
-        let sender
-        props.allMessages.forEach(message => {
-            // Determine if this message is by the same sender as the previous message
+        let prevSender
+        allMessages.forEach(message => {
+            // Determine if this current message has the same sender as that of the previous message
             let senderChanged = true
-            if (sender && sender === message.sender) {
+            if (prevSender && prevSender === message.sender) {
                 senderChanged = false
             }
-            sender = message.sender
+            prevSender = message.sender
 
             // Generate the chat bubble
             let chatBubble = generateChatBubble(user, message, senderChanged)
@@ -54,7 +54,7 @@ export default function MessageDisplayArea(props) {
         })
 
         return () => setChatBubbles([])
-    }, [user, props.allMessages])
+    }, [user, allMessages])
 
     return (
         <div className={classes.root}>
