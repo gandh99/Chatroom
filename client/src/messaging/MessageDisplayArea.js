@@ -4,13 +4,28 @@ import ChatBubbleSelf from './ChatBubbleSelf'
 import { useSelector } from 'react-redux'
 import ChatBubbleOther from './ChatBubbleOther'
 
-// Checks if the message was sent by myself
-const sentBySelf = (self, message) => {
+const messageSentBySelf = (self, message) => {
     return self._id === message.sender
 }
 
+const senderHasChanged = (prevMessage, currMessage) => {
+    return !prevMessage || prevMessage.sender !== currMessage.sender
+}
+
+const generateAllChatBubbles = (ownUser, allMessages) => {
+    let prevMessage
+    return allMessages.map(message => {
+        // Determine if this current message has the same sender as that of the previous message
+        let senderChanged = senderHasChanged(prevMessage, message)
+        prevMessage = message
+
+        // Generate the chat bubble
+        return generateChatBubble(ownUser, message, senderChanged)
+    })
+}
+
 const generateChatBubble = (self, message, senderChanged) => {
-    return sentBySelf(self, message)
+    return messageSentBySelf(self, message)
         ? <ChatBubbleSelf
             key={message._id}
             message={message}
@@ -25,7 +40,7 @@ const generateChatBubble = (self, message, senderChanged) => {
 
 export default function MessageDisplayArea({ allMessages }) {
     const classes = useStyles()
-    const user = useSelector(state => state.authentication.userData)
+    const ownUser = useSelector(state => state.authentication.userData)
     const [chatBubbles, setChatBubbles] = useState([])
     const messagesEndRef = useRef(null)
 
@@ -37,24 +52,11 @@ export default function MessageDisplayArea({ allMessages }) {
 
     // Generate the chat bubbles
     useEffect(() => {
-        let prevSender
-        allMessages.forEach(message => {
-            // Determine if this current message has the same sender as that of the previous message
-            let senderChanged = true
-            if (prevSender && prevSender === message.sender) {
-                senderChanged = false
-            }
-            prevSender = message.sender
-
-            // Generate the chat bubble
-            let chatBubble = generateChatBubble(user, message, senderChanged)
-
-            // We need to use this update function instead of directly setting the new state
-            setChatBubbles(prevArray => [...prevArray, chatBubble])
-        })
+        let allChatBubbles = generateAllChatBubbles(ownUser, allMessages)
+        setChatBubbles(allChatBubbles)
 
         return () => setChatBubbles([])
-    }, [user, allMessages])
+    }, [ownUser, allMessages])
 
     return (
         <div className={classes.root}>
