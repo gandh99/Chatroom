@@ -28,7 +28,7 @@ function requesterAndRecipientAreEqual(requester, recipient) {
 
 async function friendAlreadyExists(app, requester, recipient) {
   const friendResult = await app.service('friends').find({
-    requester, recipient
+    query: { requester, recipient }
   })
   return friendResult.total > 0
 }

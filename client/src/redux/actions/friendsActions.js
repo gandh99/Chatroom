@@ -48,14 +48,14 @@ export const addFriendAction = (username, success, error) => dispatch => {
         })
 }
 
-export const deleteFriendAction = (friendId, success, error) => dispatch => {
+export const deleteFriendAction = (recipientId, success, error) => dispatch => {
     client
         .service('friends')
-        .remove(friendId, null)
+        .remove(recipientId, null)
         .then(res => {
             dispatch({
                 type: friends.DELETE_FRIEND_SUCCESS,
-                payload: friendId
+                payload: recipientId
             })
             success()
         })

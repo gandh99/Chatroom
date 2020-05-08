@@ -12,10 +12,10 @@ const getRequester = async context => {
   return context
 }
 
-const addFriendToRequester = async context => {
+const addToRequesterFriendsArray = async context => {
   const { requester } = context.data
   const friend = context.result
-  context.app.service('users').addToFriendsArray(requester._id, friend)
+  await context.app.service('users').addToFriendsArray(requester, friend)
 
   return context
 }
@@ -38,10 +38,18 @@ const getUserModelFromFriend = async context => {
   return context
 }
 
-const removeFriendFromRequester = async context => {
-  const requesterId = context.params.user._id
-  const removedFriend = context.result[0]
-  context.app.service('users').removeFromFriendsArray(requesterId, removedFriend)
+const returnFriendIdFromRecipientId = async context => {
+  const recipient = context.id
+  const friendsResult = await context.app.service('friends').find({ query: { recipient } })
+
+  context.id = friendsResult.data[0]._id
+  return context
+}
+
+const removeFromRequesterFriendsArray = async context => {
+  const requester = context.params.user
+  const removedFriend = context.result
+  await context.app.service('users').removeFromFriendsArray(requester, removedFriend)
 
   return context
 }
@@ -54,7 +62,7 @@ module.exports = {
     create: [getRequester, validateFriends()],
     update: [],
     patch: [],
-    remove: []
+    remove: [returnFriendIdFromRecipientId]
   },
 
   after: {
@@ -65,10 +73,10 @@ module.exports = {
     ],
     find: [getUserModelFromFriend],
     get: [],
-    create: [addFriendToRequester],
+    create: [addToRequesterFriendsArray],
     update: [],
     patch: [],
-    remove: [removeFriendFromRequester]
+    remove: [removeFromRequesterFriendsArray]
   },
 
   error: {
