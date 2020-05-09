@@ -11,7 +11,7 @@ const getRequester = async context => {
 const getRecipient = async context => {
   const { username } = context.data.query
   const recipientResult = await context.app.service('users').find({ query: { username } })
-  if (recipientResult.total <= 0) throw BadRequest('User does not exist.')
+  if (recipientResult.total <= 0) throw new BadRequest('User does not exist.')
 
   context.data.recipient = recipientResult.data[0]
   return context

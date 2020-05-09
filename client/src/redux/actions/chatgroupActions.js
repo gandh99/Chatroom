@@ -1,10 +1,9 @@
 import { chatGroup } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
-import { history } from '../../config/history'
 
 export const setNewChatGroupMembersAction = (membersArray) => dispatch => {
-    // participantsArray does not include the creator because his data 
+    // The array does not include the creator because his data 
     // would be automatically sent along during the createGroupAction() phase.
     dispatch({
         type: chatGroup.SET_NEW_CHATGROUP_MEMBERS,
@@ -15,6 +14,19 @@ export const setNewChatGroupMembersAction = (membersArray) => dispatch => {
 export const resetNewChatGroupMembersAction = () => dispatch => {
     dispatch({
         type: chatGroup.RESET_NEW_CHATGROUP_MEMBERS
+    })
+}
+
+export const setCurrentChatGroupAction = (currentChatGroup) => dispatch => {
+    dispatch({
+        type: chatGroup.SET_CURRENT_CHATGROUP,
+        payload: currentChatGroup
+    })
+}
+
+export const resetCurrentChatGroupAction = () => dispatch => {
+    dispatch({
+        type: chatGroup.RESET_CURRENT_CHATGROUP,
     })
 }
 
@@ -56,17 +68,4 @@ export const createChatGroupAction = (members, success, error) => dispatch => {
             })
             error('Unable to create chat group. Please try again later.')
         })
-}
-
-export const setCurrentChatGroupAction = (currentChatGroup) => dispatch => {
-    dispatch({
-        type: chatGroup.SET_CURRENT_CHATGROUP,
-        payload: currentChatGroup
-    })
-}
-
-export const resetCurrentChatGroupAction = () => dispatch => {
-    dispatch({
-        type: chatGroup.RESET_CURRENT_CHATGROUP,
-    })
 }
