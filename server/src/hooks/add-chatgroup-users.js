@@ -19,7 +19,7 @@ module.exports = (options = {}) => {
   };
 };
 
-module.exports.getUsersWithRank = async (usersService, usersWithRank) => {
+const getUsersWithRank = async (usersService, usersWithRank) => {
   return await Promise.all(
     usersWithRank.map(user => usersService.get(user, { query: { $select: ['username'] } }))
   )
