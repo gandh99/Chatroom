@@ -30,10 +30,11 @@ export default function (state = initialState, action) {
                 addedFriend: {}
             }
         case friends.DELETE_FRIEND_SUCCESS:
+            const deletedUser = action.payload
             return {
                 ...state,
-                allFriends: state.allFriends.filter(friend => friend._id !== action.payload),
-                deletedFriend: action.payload
+                allFriends: state.allFriends.filter(friend => friend._id !== deletedUser._id),
+                deletedFriend: deletedUser
             }
         case friends.DELETE_FRIEND_FAIL:
             return {

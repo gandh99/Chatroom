@@ -18,7 +18,7 @@ export default function FriendCard({ friend }) {
 
     const deleteFriend = () => {
         dispatch(deleteFriendAction(
-            friend._id,
+            friend,
             () => dispatch(showSnackbarAction('Deleted friend.', 'success')),
             () => dispatch(showSnackbarAction('Unable to delete friend.', 'error')),
         ))
