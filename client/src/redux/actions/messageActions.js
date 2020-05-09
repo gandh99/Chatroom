@@ -2,6 +2,8 @@ import { message } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
 
+client.service('message').on('created', message => console.log(message))
+
 export const getMessagesAction = (chatgroup) => dispatch => {
     client
         .service('message')

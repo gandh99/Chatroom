@@ -33,14 +33,25 @@ module.exports = function(app) {
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
       // app.channel(`userIds/$(user.id}`).join(channel);
+
+      // Join all the chatgroups belonging to the user in the connection
+      const user = connection.user
+      const chatgroups = user.chatgroups
+      chatgroups.forEach(chatgroup => app.channel(`chatgroups/${chatgroup._id}`).join(connection))
     }
   });
+
+  // When a message is sent, publish it to all its chatgroups and channels
+  app.service('message').publish('created', message => {
+    return app.channel(`chatgroups/${message.chatgroup}`).send({
+      message,
+    })
+  })
 
   // eslint-disable-next-line no-unused-vars
   app.publish((data, hook) => {
     // Here you can add event publishers to channels set up in `channels.js`
     // To publish only for a specific event use `app.publish(eventname, () => {})`
-
     console.log('Publishing all events to all authenticated users. See `channels.js` and https://docs.feathersjs.com/api/channels.html for more information.'); // eslint-disable-line
 
     // e.g. to publish all service events to all authenticated users use
