@@ -21,7 +21,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 sentMessage: action.payload,
-                allMessages: [...state.allMessages, action.payload]
             }
         case message.SEND_MESSAGE_FAIL:
             return {
@@ -33,6 +32,11 @@ export default function (state = initialState, action) {
                 ...state,
                 allMessages: [],
                 sentMessage: {}
+            }
+        case message.LIVE_MESSAGE_UPDATE:
+            return {
+                ...state,
+                allMessages: [...state.allMessages, action.payload]
             }
         default:
             return state

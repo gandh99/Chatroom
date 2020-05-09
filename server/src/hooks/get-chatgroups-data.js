@@ -2,8 +2,6 @@
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
 // eslint-disable-next-line no-unused-vars
-const { getUsersWithRank } = require('./add-chatgroup-users')
-
 module.exports = (options = {}) => {
   return async context => {
     const chatgroupService = context.app.service('chatgroup')
@@ -46,4 +44,10 @@ const getLastMessageInChatgroup = async (messageService, chatgroup) => {
     const messages = chatgroup.messages
     const lastMessage = messages[messages.length - 1]
     return await messageService.get(lastMessage)
+}
+
+const getUsersWithRank = async (usersService, usersWithRank) => {
+  return await Promise.all(
+    usersWithRank.map(user => usersService.get(user, { query: { $select: ['username'] } }))
+  )
 }

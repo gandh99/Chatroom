@@ -8,8 +8,8 @@ if (process.env.NODE_ENV === 'production') {
   socket = io('https://feathers-chatroom.herokuapp.com')
 }
 
+// Initial config of the client
 const client = feathers();
-
 client.configure(feathers.socketio(socket));
 client.configure(feathers.authentication({
   storage: window.localStorage

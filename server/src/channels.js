@@ -41,11 +41,9 @@ module.exports = function(app) {
     }
   });
 
-  // When a message is sent, publish it to all its chatgroups and channels
+  // When a message is sent, publish to its channel, which sends the data to all subscribed connections
   app.service('message').publish('created', message => {
-    return app.channel(`chatgroups/${message.chatgroup}`).send({
-      message,
-    })
+    return app.channel(`chatgroups/${message.chatgroup}`).send(message)
   })
 
   // eslint-disable-next-line no-unused-vars

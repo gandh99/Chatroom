@@ -2,8 +2,6 @@ import { message } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
 
-client.service('message').on('created', message => console.log(message))
-
 export const getMessagesAction = (chatgroup) => dispatch => {
     client
         .service('message')
@@ -44,5 +42,12 @@ export const sendMessageAction = (text, chatgroup, error) => dispatch => {
 export const clearMessagesAction = () => dispatch => {
     dispatch({
         type: message.CLEAR_MESSAGES
+    })
+}
+
+export const liveMessageUpdateAction = (liveMessage) => dispatch => {
+    dispatch({
+        type: message.LIVE_MESSAGE_UPDATE,
+        payload: liveMessage
     })
 }
