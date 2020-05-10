@@ -69,3 +69,10 @@ export const createChatGroupAction = (members, success, error) => dispatch => {
             error('Unable to create chat group. Please try again later.')
         })
 }
+
+export const liveChatGroupCreatedAction = newChatGroup => dispatch => {
+    dispatch({
+        type: chatGroup.LIVE_CHATGROUP_CREATED,
+        payload: newChatGroup
+    })
+}

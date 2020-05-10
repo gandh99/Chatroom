@@ -33,7 +33,7 @@ export default function (state = initialState, action) {
                 allMessages: [],
                 sentMessage: {}
             }
-        case message.LIVE_MESSAGE_UPDATE:
+        case message.LIVE_MESSAGE_RECEIVED:
             return {
                 ...state,
                 allMessages: [...state.allMessages, action.payload]

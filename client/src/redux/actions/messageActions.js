@@ -45,9 +45,9 @@ export const clearMessagesAction = () => dispatch => {
     })
 }
 
-export const liveMessageUpdateAction = (liveMessage) => dispatch => {
+export const liveMessageReceivedAction = (liveMessage) => dispatch => {
     dispatch({
-        type: message.LIVE_MESSAGE_UPDATE,
+        type: message.LIVE_MESSAGE_RECEIVED,
         payload: liveMessage
     })
 }

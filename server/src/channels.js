@@ -20,6 +20,7 @@ module.exports = function (app) {
 
   app.on('disconnect', connection => {
     // Remove the connection
+    if (!connection.user) return
     const userId = connection.user._id.toString()
     connections.delete(userId)
   })

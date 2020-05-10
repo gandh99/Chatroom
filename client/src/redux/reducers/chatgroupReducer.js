@@ -22,7 +22,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentChatGroup: action.payload,
-                allChatGroups: [...state.allChatGroups, action.payload],
             }
         case chatGroup.CREATE_CHATGROUP_FAIL:
             return {
@@ -48,6 +47,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentChatGroup: {}
+            }
+        case chatGroup.LIVE_CHATGROUP_CREATED:
+            return {
+                ...state,
+                allChatGroups: [...state.allChatGroups, action.payload]
             }
         default:
             return state
