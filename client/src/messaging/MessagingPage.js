@@ -9,7 +9,6 @@ import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction } from '../
 import { getMessagesAction, clearMessagesAction, liveMessageUpdateAction } from '../redux/actions/messageActions'
 import MessageDisplayArea from './MessageDisplayArea'
 import { useChatGroupExists } from '../utils/chatGroup'
-import client from '../config/feathers'
 
 export default function MessagingPage() {
     const classes = useStyles()
@@ -33,16 +32,6 @@ export default function MessagingPage() {
     useEffect(() => {
         if (!chatGroupExists) return
         dispatch(getMessagesAction(currentChatGroup))
-    }, [])
-
-    // Listen to live message updates in this chat group
-    useEffect(() => {
-        if (!chatGroupExists) return
-        client.service('message').on('created', message => {
-            if (message.chatgroup === currentChatGroup._id) {
-                dispatch(liveMessageUpdateAction(message))
-            }
-        })
     }, [])
 
     return (

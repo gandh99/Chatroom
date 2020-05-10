@@ -1,5 +1,11 @@
 import { useSelector } from "react-redux"
 
+// Basically checks if currentChatGroup from the store === {}
+export const useChatGroupExists = () => {
+    const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
+    return Object.keys(currentChatGroup).length !== 0
+}
+
 export const generateChatGroupTitle = (ownUser, participants) => {
     let title = ''
 
@@ -22,12 +28,6 @@ export const shortenMessage = (lastMessage) => {
     }
 
     return lastMessage
-}
-
-// Basically checks if currentChatGroup from the store === {}
-export const useChatGroupExists = () => {
-    const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
-    return Object.keys(currentChatGroup).length !== 0
 }
 
 // Attempts to find a private ChatGroup between self and the friend
