@@ -76,3 +76,10 @@ export const liveChatGroupCreatedAction = newChatGroup => dispatch => {
         payload: newChatGroup
     })
 }
+
+export const liveUpdateChatGroupLastMessageAction = message => dispatch => {
+    dispatch({
+        type: chatGroup.LIVE_UPDATE_CHATGROUP_LAST_MESSAGE,
+        payload: message
+    })
+}
