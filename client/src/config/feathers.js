@@ -27,4 +27,9 @@ client.service('message').on('created', message => {
   }
 })
 
+// Listen to live chatgroup creation
+client.service('chatgroup').on('created', chatgroup => {
+  console.log(chatgroup)
+})
+
 export default client;
