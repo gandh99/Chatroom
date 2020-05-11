@@ -22,8 +22,12 @@ export default function ChatGroupCard({ chatGroup }) {
 
     // Update the title of the card
     useEffect(() => {
-        const title = generateChatGroupTitle(ownUser, participants)
-        setChatGroupTitle(title)
+        try {
+            const title = generateChatGroupTitle(ownUser, participants)
+            setChatGroupTitle(title)
+        } catch (error) {
+            console.error(error)            
+        }
     }, [ownUser, participants])
 
     // Update the last message received in the chat group
@@ -32,7 +36,7 @@ export default function ChatGroupCard({ chatGroup }) {
             const lastMessageDisplay = shortenMessage(chatGroup.lastMessage.text)
             setLastMessage(lastMessageDisplay)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }, [chatGroup])
 

@@ -26,6 +26,7 @@ export default function (state = initialState, action) {
             }
         case authentication.LOGIN_FAIL:
         case authentication.LOGOUT_SUCCESS:
+        case authentication.LOGOUT_FAIL:
         case authentication.REGISTER_FAIL:
         case authentication.REAUTHENTICATE_FAIL:
             localStorage.removeItem('accessToken')

@@ -1,12 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Typography } from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { logoutUserAction } from '../redux/actions/authenticationActions'
 
 export default function Header() {
     const classes = useStyles()
+    const dispatch = useDispatch()
+
+    const logout = () => {
+        dispatch(logoutUserAction())
+    }
 
     return (
         <div className={classes.root}>
@@ -19,7 +26,7 @@ export default function Header() {
                         </Typography>
                     </div>
                     <div className={classes.right}>
-                        <div className={classes.logout}>
+                        <div className={classes.logout} onClick={logout}>
                             <ExitToAppIcon />
                         </div>
                     </div>
