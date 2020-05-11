@@ -14,6 +14,7 @@ module.exports = function (app) {
     members: [{ type: Schema.Types.ObjectId, ref: 'users', required: true }],
 
     messages: [{ type: Schema.Types.ObjectId, ref: 'message', required: true }],
+    isPrivate: { type: Boolean }
 
   }, {
     timestamps: true
@@ -25,5 +26,5 @@ module.exports = function (app) {
     mongooseClient.deleteModel(modelName);
   }
   return mongooseClient.model(modelName, schema);
-  
+
 };

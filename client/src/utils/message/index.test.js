@@ -10,28 +10,32 @@ describe('Message utils', () => {
         it('Returns false if message was not sent by self', () => {
             const ownUser = { _id: 100, username: 'myself' }
             const friend = { _id: 200, username: 'friend' }
-            const message = { _id: 1, sender: 200 }
+            const message = { _id: 1, sender: friend }
             expect(messageSentBySelf(ownUser, message)).toBeFalsy()
         })
 
         it('Returns true if message was sent by self', () => {
             const ownUser = { _id: 100, username: 'myself' }
             const friend = { _id: 200, username: 'friend' }
-            const message = { _id: 1, sender: 100 }
+            const message = { _id: 1, sender: ownUser }
             expect(messageSentBySelf(ownUser, message)).toBeTruthy()
         })
     })
 
     describe('senderHasChanged()', () => {
-        it('Returns true if sender of previous message is same as sender of current message', () => {
-            const prevMessage = { _id: 1, sender: 200 }
-            const currMessage = { _id: 2, sender: 300 }
+        it('Returns true if sender of previous message is different from sender of current message', () => {
+            const john = { _id: 1000, username: 'john' }
+            const mary = { _id: 2000, username: 'mary' }
+            const prevMessage = { _id: 1, sender: john }
+            const currMessage = { _id: 2, sender: mary }
             expect(senderHasChanged(prevMessage, currMessage)).toBeTruthy()
         })
 
-        it('Returns false if sender of previous message is different from sender of current message', () => {
-            const prevMessage = { _id: 1, sender: 200 }
-            const currMessage = { _id: 2, sender: 200 }
+        it('Returns false if sender of previous message is same as sender of current message', () => {
+            const john = { _id: 1000, username: 'john' }
+            const mary = { _id: 2000, username: 'mary' }
+            const prevMessage = { _id: 1, sender: john }
+            const currMessage = { _id: 2, sender: john }
             expect(senderHasChanged(prevMessage, currMessage)).toBeFalsy()
         })
     })
@@ -45,14 +49,17 @@ describe('Message utils', () => {
         })
 
         it('Returns array with length equal to the number of messages supplied', () => {
-            const ownUser = { _id: 100, username: 'myself' }
+            const self = { _id: 100, username: 'myself' }
+            const john = { _id: 200, username: 'john' }
+            const mary = { _id: 200, username: 'mary' }
+            const joe = { _id: 200, username: 'joe' }
             const allMessages = [
-                { _id: 1, sender: 100 },
-                { _id: 2, sender: 200 },
-                { _id: 3, sender: 300 },
-                { _id: 4, sender: 400 },
+                { _id: 1, sender: self },
+                { _id: 2, sender: john },
+                { _id: 3, sender: mary },
+                { _id: 4, sender: joe },
             ]
-            const allChatBubbles = generateAllChatBubbles(ownUser, allMessages)
+            const allChatBubbles = generateAllChatBubbles(self, allMessages)
             expect(allChatBubbles.length).toBe(allMessages.length)
         })
     })
