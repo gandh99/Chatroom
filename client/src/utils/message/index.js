@@ -4,7 +4,6 @@ import ChatBubbleOther from "../../messaging/ChatBubbleOther"
 import { stringLengthIsValid } from '../generalValidator'
 
 export const messageSentBySelf = (self, message) => {
-    console.log(self._id, message.sender._id)
     return self._id === message.sender._id
 }
 

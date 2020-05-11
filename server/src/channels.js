@@ -40,7 +40,13 @@ module.exports = function (app) {
   })
 
   // When a message is sent, publish to its channel, which sends the data to all subscribed connections
-  app.service('message').publish('created', message => {
+  app.service('message').publish('created', async message => {
+    // Update message.sender with the users data of the sender
+    message.sender = await app.service('users').get(
+      message.sender,
+      { query: { $select: ['username'] } }
+    )
+
     return app.channel(`chatgroups/${message.chatgroup}`).send(message)
   })
 
