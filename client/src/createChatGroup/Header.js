@@ -61,8 +61,6 @@ const useStyles = makeStyles((theme) => ({
         float: 'left',
         padding: '0.5rem',
     },
-    logo: {
-    },
     right: {
         flex: 1
     },
