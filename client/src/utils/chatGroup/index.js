@@ -86,3 +86,12 @@ export const hasRank = (user, usersWithRank) => {
     }
     return false
 }
+
+export const sortChatGroupsByLastMessageDate = (chatGroups) => {
+    chatGroups.sort((chatGroupA, chatGroupB) => {
+        const dateA = new Date(chatGroupA.lastMessage.updatedAt)
+        const dateB = new Date(chatGroupB.lastMessage.updatedAt)
+        return dateB - dateA
+    })
+    return chatGroups
+}

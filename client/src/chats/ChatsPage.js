@@ -42,6 +42,9 @@ export default function Chats() {
 const useStyles = makeStyles((theme) => ({
     root: {
     },
+    grid: {
+        paddingBottom: '3rem'
+    },
     fab: {
         position: 'fixed',
         bottom: '70px',
