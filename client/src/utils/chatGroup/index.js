@@ -30,13 +30,43 @@ export const shortenMessage = (lastMessage) => {
     return lastMessage
 }
 
+export const getLastMessageTimeDisplay = (timeISOString) => {
+    const timeInLocalDate = new Date(timeISOString)
+    const yesterday = getYesterdaysDate()
+
+    if (datesAreOnSameDay(timeInLocalDate, new Date())) {
+        // If message date is today, display: HH:MM <AM | PM>
+        return timeInLocalDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    } else if (yesterday.toLocaleDateString() === timeInLocalDate.toLocaleDateString()) {
+        // Else if message was yesterday, display: Yesterday
+        return 'Yesterday'
+    } else {
+        // Else display the full date: DD/MM/YYYY
+        return timeInLocalDate.getDate()
+            + '/' + (timeInLocalDate.getMonth() + 1)    // month is 0-index based
+            + '/' + timeInLocalDate.getFullYear()
+    }
+}
+
+export const getYesterdaysDate = () => {
+    let yesterday = new Date()
+    yesterday.setDate(new Date().getDate() - 1)
+    return yesterday
+}
+
+export const datesAreOnSameDay = (date1, date2) => {
+    return date1.getFullYear() === date2.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getDate() === date2.getDate()
+}
+
 // Attempts to find a private ChatGroup between self and the friend
 export const findPrivateChatGroup = (self, friend, allChatGroups) => {
     for (let i = 0; i < allChatGroups.length; i++) {
         let chatGroup = allChatGroups[i]
 
         if (!isChatGroupPrivate(chatGroup)) return null
-        
+
         if ((hasRank(self, chatGroup.admins) && hasRank(friend, chatGroup.members)) ||
             (hasRank(friend, chatGroup.admins) && hasRank(self, chatGroup.members)))
             return chatGroup

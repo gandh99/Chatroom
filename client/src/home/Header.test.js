@@ -1,14 +1,20 @@
 import { shallow } from 'enzyme'
 import React from 'react'
+import * as redux from 'react-redux'
 import Header from './Header'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+
+jest.mock(`react-redux`, () => ({
+    useDispatch: jest.fn(),
+}))
 
 describe('Header Component', () => {
     describe('Renders', () => {
         let wrapper
 
         beforeEach(() => {
+            redux.useDispatch.mockClear()
             wrapper = shallow(<Header />)
         })
 
