@@ -7,7 +7,10 @@ export default function ChatBubbleOther(props) {
     return (
         <div className={classes.root}>
             <div className={classes.container}>
-                {props.message.text}
+                <div className={classes.sender}>
+                    {props.senderChanged && props.message.sender.username}
+                </div>
+                <div className={classes.messageText}>{props.message.text}</div>
             </div>
             {props.senderChanged && <div className={classes.tail} />}
         </div>
@@ -40,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
         padding: '0.5rem',
         maxWidth: '70%',
         wordWrap: 'break-word'
+    },
+    sender: {
+        fontWeight: 'bold',
+        color: theme.palette.primary.dark
     },
     tail: {
         backgroundColor: theme.palette.grey[200],
