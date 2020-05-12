@@ -51,9 +51,3 @@ const getLastMessageInChatgroup = async (messageService, chatgroup) => {
     const lastMessage = messages[messages.length - 1]
     return await messageService.get(lastMessage)
 }
-
-const getUsersWithRank = async (usersService, usersWithRank) => {
-  return await Promise.all(
-    usersWithRank.map(user => usersService.get(user, { query: { $select: ['username'] } }))
-  )
-}
