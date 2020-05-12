@@ -6,18 +6,20 @@ export const useChatGroupExists = () => {
     return Object.keys(currentChatGroup).length !== 0
 }
 
-export const generateChatGroupTitle = (ownUser, participants) => {
+export const generateChatGroupTitle = (self, participants) => {
     let title = ''
 
     participants.forEach((participant, index) => {
-        if (ownUser._id !== participant._id) {
+        if (self._id !== participant._id) {
             if (title !== '') {
                 title += ', '
             }
             title += participant.username
         }
     })
-    return title
+
+    // Return a default title if there are 0 participants in the chatGroup besides self
+    return title !== '' ? title : 'You'
 }
 
 export const shortenMessage = (lastMessage) => {

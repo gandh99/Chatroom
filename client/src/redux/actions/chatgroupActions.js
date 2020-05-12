@@ -74,6 +74,27 @@ export const createChatGroupAction = (members, success, error) => dispatch => {
         })
 }
 
+export const leaveChatGroupAction = (chatgroup, success, error) => dispatch => {
+    client
+        .service('chatgroup')
+        .update(chatgroup, { chatgroup })
+        .then(res => {
+            dispatch({
+                type: chatGroup.LEAVE_CHATGROUP_SUCCESS,
+                payload: res
+            })
+            success()
+        })
+        .catch(err => {
+            dispatch(returnErrors(err))
+            dispatch({
+                type: chatGroup.LEAVE_CHATGROUP_FAIL,
+                payload: err.data
+            })
+            error()
+        })
+}
+
 export const liveChatGroupCreatedAction = newChatGroup => dispatch => {
     dispatch({
         type: chatGroup.LIVE_CHATGROUP_CREATED,

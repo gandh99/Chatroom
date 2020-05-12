@@ -48,6 +48,11 @@ export default function (state = initialState, action) {
                 ...state,
                 currentChatGroup: {}
             }
+        case chatGroup.LEAVE_CHATGROUP_SUCCESS:
+            return {
+                ...state,
+                currentChatGroup: {}
+            }
         case chatGroup.LIVE_CHATGROUP_CREATED:
             return {
                 ...state,
