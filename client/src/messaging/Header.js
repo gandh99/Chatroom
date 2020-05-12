@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { history } from '../config/history'
+import { useSelector } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { Typography } from '@material-ui/core'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 import AccountCircle from '../images/account_circle.png'
-import { useSelector } from 'react-redux'
 import { generateChatGroupTitle, useChatGroupExists } from '../utils/chatGroup'
+import MessagingMenu from './MessagingMenu'
 
 export default function Header() {
     const classes = useStyles()
     const chatGroupExists = useChatGroupExists()
     const ownUser = useSelector(state => state.authentication.userData)
     const [title, setTitle] = useState('')
-    
+
     /* Only one of them will be used: 
     - newChatGroupMembers: Used only if CreateChatGroup -> MessagingPage 
     - currentChatGroup: Used only if ChatGroupCard -> MessagingPage */
@@ -55,9 +56,12 @@ export default function Header() {
                             </Typography>
                         </div>
                     </div>
-                    {/* <div className={classes.center}>
-                        </div> */
-                    /* <div className={classes.right} /> */}
+                    <div className={classes.center} />
+                    <div className={classes.right}>
+                        <div className={classes.menuArea}>
+                            <MessagingMenu />
+                        </div>
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>
@@ -118,8 +122,8 @@ const useStyles = makeStyles((theme) => ({
     right: {
         flex: 1,
     },
-
-    button: {
-        color: theme.palette.primary.contrastText
-    }
+    menuArea: {
+        marginLeft: 'auto',
+        float: 'right'
+    },
 }))

@@ -44,3 +44,10 @@ export const clearMessagesAction = () => dispatch => {
         type: message.CLEAR_MESSAGES
     })
 }
+
+export const liveMessageReceivedAction = (liveMessage) => dispatch => {
+    dispatch({
+        type: message.LIVE_MESSAGE_RECEIVED,
+        payload: liveMessage
+    })
+}

@@ -4,11 +4,11 @@ import ChatBubbleOther from "../../messaging/ChatBubbleOther"
 import { stringLengthIsValid } from '../generalValidator'
 
 export const messageSentBySelf = (self, message) => {
-    return self._id === message.sender
+    return self._id === message.sender._id
 }
 
 export const senderHasChanged = (prevMessage, currMessage) => {
-    return !prevMessage || prevMessage.sender !== currMessage.sender
+    return !prevMessage || prevMessage.sender._id !== currMessage.sender._id
 }
 
 export const generateAllChatBubbles = (ownUser, allMessages) => {

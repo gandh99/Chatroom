@@ -6,3 +6,7 @@ export const testStore = (initialState) => {
     const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore)
     return createStoreWithMiddleware(rootReducer, initialState)
 }
+
+export const isEmptyObject = (object) => {
+    return Object.keys(object).length !== 0
+}

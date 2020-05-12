@@ -39,7 +39,7 @@ describe('chatGroupReducer', () => {
         })
     })
 
-    it('Should return current chatGroup and updated allChatGroups for create chatgroup success', () => {
+    it('Should return current chatGroup for create chatgroup success', () => {
         const newChatGroup = { _id: 1 }
         const newState = chatGroupReducer(undefined, {
             type: chatGroup.CREATE_CHATGROUP_SUCCESS,
@@ -48,7 +48,6 @@ describe('chatGroupReducer', () => {
         expect(newState).toEqual({
             ...initialState,
             currentChatGroup: newChatGroup,
-            allChatGroups: [...initialState.allChatGroups, newChatGroup]
         })
     })
 

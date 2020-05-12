@@ -47,8 +47,7 @@ export default function FriendCard({ friend }) {
                             anchorEl={anchorEl}
                             keepMounted
                             open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
+                            onClose={handleClose}>
                             <MenuItem dense className={classes.menuItem} onClick={deleteFriend}>
                                 Delete Friend
                             </MenuItem>

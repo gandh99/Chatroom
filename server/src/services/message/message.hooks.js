@@ -1,4 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const addUserDataOfSenderToMessages = require('../../hooks/add-userdata-of-sender-to-messages')
 
 const addMessageToChatgroup = async context => {
   const { chatgroup } = context.data
@@ -26,7 +27,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [addUserDataOfSenderToMessages()],
     get: [],
     create: [addMessageToChatgroup],
     update: [],

@@ -1,6 +1,7 @@
 import { authentication } from '../actionTypes'
 import client from '../../config/feathers'
 import { returnErrors } from './errorActions'
+import { history } from '../../config/history'
 
 export const registerUserAction = (username, password, success, error) => dispatch => {
     client
@@ -67,5 +68,24 @@ export const reauthenticateAction = () => dispatch => {
                 type: authentication.REAUTHENTICATE_FAIL,
                 payload: err.data
             })
+        })
+}
+
+export const logoutUserAction = () => dispatch => {
+    client
+        .logout()
+        .then(res => {
+            dispatch({
+                type: authentication.LOGOUT_SUCCESS
+            })
+            history.push('/login')
+        })
+        .catch(err => {
+            dispatch(returnErrors(err))
+            dispatch({
+                type: authentication.LOGOUT_FAIL,
+                payload: err.data
+            })
+            history.push('/login')
         })
 }

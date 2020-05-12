@@ -1,6 +1,9 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const addChatgroupUsers = require('../../hooks/add-chatgroup-users')
-const getChatGroupsData = require('../../hooks/get-chatgroups-data')
+const getChatgroupsData = require('../../hooks/get-chatgroups-data')
+const removeUserFromChatgroup = require('../../hooks/remove-user-from-chatgroup')
+const removeChatgroupFromUser = require('../../hooks/remove-chatgroup-from-user')
+const removeChatgroupIfEmpty = require('../../hooks/remove-chatgroup-if-empty')
 
 const setAdmin = async context => {
   const creator = context.params.user
@@ -27,17 +30,17 @@ module.exports = {
     find: [getChatgroupIdsOfUser],
     get: [],
     create: [setAdmin],
-    update: [],
+    update: [removeUserFromChatgroup()],
     patch: [],
     remove: []
   },
 
   after: {
     all: [],
-    find: [getChatGroupsData()],
+    find: [getChatgroupsData()],
     get: [],
     create: [addChatgroupUsers()],
-    update: [],
+    update: [removeChatgroupFromUser(), removeChatgroupIfEmpty()],
     patch: [],
     remove: []
   },

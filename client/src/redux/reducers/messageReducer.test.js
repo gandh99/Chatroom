@@ -38,7 +38,7 @@ describe('messageReducer', () => {
         })
     })
 
-    it('Should return sent message and updated array for allMessages for send message success', () => {
+    it('Should return sent message for send message success', () => {
         const sentMessage = { _id: 1, text: 'message1' }
         const newState = messageReducer(undefined, {
             type: message.SEND_MESSAGE_SUCCESS,
@@ -47,7 +47,6 @@ describe('messageReducer', () => {
         expect(newState).toEqual({
             ...initialState,
             sentMessage,
-            allMessages: [...initialState.allMessages, sentMessage]
         })
     })
 

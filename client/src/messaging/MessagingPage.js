@@ -6,7 +6,7 @@ import { reauthenticateAction } from '../redux/actions/authenticationActions'
 import TypingBar from './TypingBar'
 import CustomSnackbar from '../reusableComponents/CustomSnackbar'
 import { resetCurrentChatGroupAction, resetNewChatGroupMembersAction } from '../redux/actions/chatGroupActions'
-import { getMessagesAction, clearMessagesAction } from '../redux/actions/messageActions'
+import { getMessagesAction, clearMessagesAction, liveMessageUpdateAction } from '../redux/actions/messageActions'
 import MessageDisplayArea from './MessageDisplayArea'
 import { useChatGroupExists } from '../utils/chatGroup'
 
@@ -32,7 +32,7 @@ export default function MessagingPage() {
     useEffect(() => {
         if (!chatGroupExists) return
         dispatch(getMessagesAction(currentChatGroup))
-    }, [])  
+    }, [])
 
     return (
         <div className={classes.root}>

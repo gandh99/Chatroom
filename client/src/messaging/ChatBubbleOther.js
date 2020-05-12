@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { useSelector } from 'react-redux'
 
 export default function ChatBubbleOther(props) {
     const classes = useStyles()
+    const currentChatGroup = useSelector(state => state.chatGroup.currentChatGroup)
+    const [shouldDisplayUsername, setShouldDisplayUsername] = useState(false)
+
+    useEffect(() => {
+        if (!currentChatGroup.isPrivate && props.senderChanged) setShouldDisplayUsername(true)
+    }, [currentChatGroup])
 
     return (
         <div className={classes.root}>
             <div className={classes.container}>
-                {props.message.text}
+                <div className={classes.sender}>
+                    {shouldDisplayUsername && props.message.sender.username}
+                </div>
+                <div className={classes.messageText}>{props.message.text}</div>
             </div>
             {props.senderChanged && <div className={classes.tail} />}
         </div>
@@ -40,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
         padding: '0.5rem',
         maxWidth: '70%',
         wordWrap: 'break-word'
+    },
+    sender: {
+        fontWeight: 'bold',
+        color: theme.palette.primary.dark
     },
     tail: {
         backgroundColor: theme.palette.grey[200],

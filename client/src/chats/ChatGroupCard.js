@@ -5,13 +5,14 @@ import AccountCircle from '../images/account_circle.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { history } from '../config/history'
 import { setCurrentChatGroupAction } from '../redux/actions/chatGroupActions'
-import { generateChatGroupTitle, shortenMessage } from '../utils/chatGroup'
+import { generateChatGroupTitle, shortenMessage, getLastMessageTimeDisplay } from '../utils/chatGroup'
 
 export default function ChatGroupCard({ chatGroup }) {
     const classes = useStyles()
     const dispatch = useDispatch()
     const ownUser = useSelector(state => state.authentication.userData)
     const [lastMessage, setLastMessage] = useState('')
+    const [lastMessageTime, setLastMessageTime] = useState('')
     const [participants, setParticipants] = useState([])
     const [chatGroupTitle, setChatGroupTitle] = useState('')
     
@@ -22,17 +23,24 @@ export default function ChatGroupCard({ chatGroup }) {
 
     // Update the title of the card
     useEffect(() => {
-        const title = generateChatGroupTitle(ownUser, participants)
-        setChatGroupTitle(title)
+        try {
+            const title = generateChatGroupTitle(ownUser, participants)
+            setChatGroupTitle(title)
+        } catch (error) {
+            console.error(error)            
+        }
     }, [ownUser, participants])
 
-    // Update the last message received in the chat group
+    // Update the last message received and its time in the chat group
     useEffect(() => {
         try {
             const lastMessageDisplay = shortenMessage(chatGroup.lastMessage.text)
             setLastMessage(lastMessageDisplay)
+
+            const lastMessageTimeDisplay = getLastMessageTimeDisplay(chatGroup.lastMessage.createdAt)
+            setLastMessageTime(lastMessageTimeDisplay)
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }, [chatGroup])
 
@@ -56,7 +64,9 @@ export default function ChatGroupCard({ chatGroup }) {
                             {lastMessage}
                         </Typography>
                     </div>
-                    <div className={classes.menuArea} />
+                    <div className={classes.menuArea}>
+                        {lastMessageTime}
+                    </div>
                 </CardContent>
                 <div className={classes.borderBottom} />
             </Card>
@@ -100,15 +110,11 @@ const useStyles = makeStyles((theme) => ({
 
     // Menu
     menuArea: {
-        marginLeft: 'auto',
-        marginRight: '2rem',
+        marginLeft: 'auto',     // helps push the div all the way to the right
+        marginRight: '1rem',
         marginTop: '0.5rem',
-    },
-    checkboxOutline: {
-        color: theme.palette.text.hint
-    },
-    checkbox: {
-        color: theme.palette.secondary.main
+        fontSize: 12,
+        color: theme.palette.text.hint,
     },
 
     // Misc.

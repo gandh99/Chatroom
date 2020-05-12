@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { history } from '../config/history'
@@ -41,6 +41,9 @@ export default function Chats() {
 
 const useStyles = makeStyles((theme) => ({
     root: {
+    },
+    grid: {
+        paddingBottom: '3rem'
     },
     fab: {
         position: 'fixed',
