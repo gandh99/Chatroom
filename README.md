@@ -2,8 +2,25 @@
 
 A messenger app that allows you to add friends and chat with them. Built with the MERN stack using FeathersJS.
 
-## Deployment
+## Technologies and Frameworks
+- Front-end:
+  - ReactJS
+  - MaterialUI (and some Bootstrap)
+  - Redux
+  - FeathersJS client
+  - Jest and Enzyme for testing
+- Back-end:
+  - NodeJS run-time for the server
+  - FeathersJS configured with ExpressJS
+  - MongoDB and Mongoose for the database
+  
+## Screenshots
+**1. The login page.**
 
+<img src="https://github.com/gandh99/Word-Diary/blob/master/screenshots/login.png" alt="alt text" width="100%" height="50%">
+
+
+## Notes on Deployment
 There are a few characteristics of this project that are different from typical full-stack JS projects. This affects how it must be configured in order for it to be deployed onto Heroku. These characteristics are:
 
 1. This project is built using the MERN (MongoDB, ExpressJS, React, NodeJS) stack.
@@ -45,42 +62,4 @@ References:
 
 ## About
 
-This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
-
-## Getting Started
-
-Getting up and running is as easy as 1, 2, 3.
-
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
-
-    ```
-    cd path/to/chatroom
-    npm install
-    ```
-
-3. Start your app
-
-    ```
-    npm start
-    ```
-
-## Testing
-
-Simply run `npm test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-Feathers has a powerful command line interface. Here are a few things it can do:
-
-```
-$ npm install -g @feathersjs/cli          # Install Feathers CLI
-
-$ feathers generate service               # Generate a new Service
-$ feathers generate hook                  # Generate a new Hook
-$ feathers help                           # Show all commands
-```
-
-## Help
-
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
+This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications. For more information on Feathers you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
