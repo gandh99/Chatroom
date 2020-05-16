@@ -2,6 +2,8 @@
 
 A messenger app that allows you to add friends and chat with them. Built with the MERN stack using FeathersJS.
 
+[Sounds cool? Try it out for yourself here!](https://feathers-chatroom.herokuapp.com/)
+
 ## Technologies and Frameworks
 - Front-end:
   - ReactJS
