@@ -17,7 +17,28 @@ A messenger app that allows you to add friends and chat with them. Built with th
 ## Screenshots
 **1. The login page.**
 
-<img src="https://github.com/gandh99/Word-Diary/blob/master/screenshots/login.png" alt="alt text" width="100%" height="50%">
+<img src="https://github.com/gandh99/Chatroom/blob/master/screenshots/login.png" alt="alt text" width="100%" height="50%">
+
+**2. Start by adding a friend.**
+
+<img src="https://github.com/gandh99/Chatroom/blob/master/screenshots/add_friend.png" alt="alt text" width="100%" height="50%">
+
+**3. The friend will then show up on your friends page.**
+
+<img src="https://github.com/gandh99/Chatroom/blob/master/screenshots/friends_page.png" alt="alt text" width="100%" height="50%">
+
+**4. Start a new chatgroup with 1 or more friends.**
+
+<img src="https://github.com/gandh99/Chatroom/blob/master/screenshots/new_chatgroup.png" alt="alt text" width="100%" height="50%">
+
+**5. Start by typing something to your friend and chatting with that in real-time.**
+
+<img src="https://github.com/gandh99/Chatroom/blob/master/screenshots/new_chat.png" alt="alt text" width="100%" height="50%">
+<img src="https://github.com/gandh99/Chatroom/blob/master/screenshots/chat.png" alt="alt text" width="100%" height="50%">
+
+**6. View a list of your chatgroups, sorted in real-time by the latest messages received.**
+
+<img src="https://github.com/gandh99/Chatroom/blob/master/screenshots/all_chatgroups.png" alt="alt text" width="100%" height="50%">
 
 
 ## Notes on Deployment
